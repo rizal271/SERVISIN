@@ -1,21 +1,22 @@
-import {createAppContainer,createStackNavigator,createSwitchNavigator} from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import HomeUser from '../../screens/users/Home';
+import Category from '../../screens/users/CategorySub';
 
 const stackNavigator = createStackNavigator({
-
+    HomeUser,
+    Category
 })
 
-const authNavigator = createStackNavigator({
-
-})
 
 const appNavigator = createSwitchNavigator({
-    Loading,
-    Auth:{
-        screen:authNavigator
+    App: {
+        screen: stackNavigator
     },
-    App:{
-        screen:stackNavigator
-    }
-})
+}
+    ,
+    {
+        initialRouteName: 'App'
+        // initialRouteName: 'login'
+    })
 
 export default createAppContainer(appNavigator)
