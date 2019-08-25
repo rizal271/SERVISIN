@@ -28,7 +28,7 @@ export default class login extends Component {
                     </Text>
                     <View style={style.wrapForm}>
                         <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} />
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} secureTextEntry={true}/>
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true}/>
                         <View style={style.wrapButton}>
                             <TouchableOpacity style={style.button}>
                                 <Text style={style.buttonText}>
