@@ -1,5 +1,6 @@
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createAppContainer, createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Welcome from '../../screens/Welcome'
+import ChooseRole from '../../screens/ChooseRole'
 import HomeMitra from '../../screens/mitra/Home'
 const stackNavigator = createStackNavigator({
     Welcome: {
@@ -13,10 +14,17 @@ const stackNavigator = createStackNavigator({
         navigationOptions: {
             header: null
         }
+    },
+    HomeMitra: {
+        screen: HomeMitra,
+        navigationOptions: {
+            header: null
+        }
     }
 }, {
-        initialRouteName: 'ChooseRole'
+        initialRouteName: 'HomeMitra'
     })
+    
 
 // const authNavigator = createStackNavigator({
 
@@ -32,4 +40,4 @@ const stackNavigator = createStackNavigator({
 //     }
 // })
 
-export default createAppContainer(stackNavigator)
+export default createAppContainer( stackNavigator)
