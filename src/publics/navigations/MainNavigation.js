@@ -1,4 +1,5 @@
 import {createAppContainer,createStackNavigator,createSwitchNavigator} from 'react-navigation'
+import HomeMitra from '../../screens/mitra/Home'
 
 const stackNavigator = createStackNavigator({
 
