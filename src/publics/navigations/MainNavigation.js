@@ -1,21 +1,35 @@
-import {createAppContainer,createStackNavigator,createSwitchNavigator} from 'react-navigation'
-
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import Welcome from '../../screens/Welcome'
+import ChooseRole from '../../screens/ChooseRole';
 const stackNavigator = createStackNavigator({
-
-})
-
-const authNavigator = createStackNavigator({
-
-})
-
-const appNavigator = createSwitchNavigator({
-    Loading,
-    Auth:{
-        screen:authNavigator
+    Welcome: {
+        screen: Welcome,
+        navigationOptions: {
+            header: null
+        }
     },
-    App:{
-        screen:stackNavigator
+    ChooseRole: {
+        screen: ChooseRole,
+        navigationOptions: {
+            header: null
+        }
     }
-})
+}, {
+        initialRouteName: 'ChooseRole'
+    })
 
-export default createAppContainer(appNavigator)
+// const authNavigator = createStackNavigator({
+
+// })
+
+// const appNavigator = createSwitchNavigator({
+//     Loading,
+//     Auth: {
+//         screen: authNavigator
+//     },
+//     App: {
+//         screen: stackNavigator
+//     }
+// })
+
+export default createAppContainer(stackNavigator)
