@@ -45,7 +45,7 @@ export default class SlideshowTest extends Component {
           overlay={true}
           height={160}
           arrowSize={12}
-          titleStyle={{color:'white'}}
+          titleStyle={{color:'white', fontWeight: '500',}}
           dataSource={this.state.dataSource}
           position={this.state.position}
           onPositionChanged={position => this.setState({ position })} />
