@@ -1,43 +1,79 @@
+import React from 'react';
 import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
 import Category from '../../screens/users/CategorySub';
-const stackNavigator = createStackNavigator(
+import Icon from 'react-native-vector-icons/FontAwesome';
+// const stackNavigator = createStackNavigator({
+
+//     ChooseRole: {
+//         screen: ChooseRole,
+//         navigationOptions: {
+//             header: null
+//         }
+//     },
+//     HomeMitra: {
+//         screen: HomeMitra,
+//         navigationOptions: {
+//             header: null
+//         }
+//     },
+//   HomeUser: {
+//         screen: HomeUser,
+//         navigationOptions: {
+//             header: null
+//         }
+//     },
+//   Category: {
+//         screen: Category,
+//         navigationOptions: {
+//             header: null
+//         }
+//     }
+// }, {
+//         initialRouteName: 'HomeMitra'
+//     })
+
+const stackNavigator = createMaterialBottomTabNavigator(
   {
-    ChooseRole: {
-      screen: ChooseRole,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    HomeMitra: {
+    Home: {
       screen: HomeMitra,
       navigationOptions: {
-        header: null,
+        tabBarIcon: ({focused}) => (
+          <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        ),
       },
     },
-    HomeUser: {
-      screen: HomeUser,
+    Maps: {
+      screen: HomeMitra,
       navigationOptions: {
-        header: null,
+        tabBarIcon: ({focused}) => (
+          <Icon name="map" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        ),
       },
     },
-    Category: {
-      screen: Category,
+    Profil: {
+      screen: HomeMitra,
       navigationOptions: {
-        header: null,
+        tabBarIcon: ({focused}) => (
+          <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        ),
       },
     },
   },
   {
-    initialRouteName: 'HomeUser',
+    initialRouteName: 'Home',
+    activeColor: '#f0edf6',
+    inactiveColor: '#b3cde0',
+    barStyle: {backgroundColor: '#005b96'},
   },
 );
 
