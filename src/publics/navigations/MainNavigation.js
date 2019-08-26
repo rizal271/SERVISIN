@@ -10,6 +10,7 @@ import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
+import ProfilUser from '../../screens/users/Profil';
 import Category from '../../screens/users/CategorySub';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // const stackNavigator = createStackNavigator({
@@ -61,7 +62,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
       },
     },
     Profil: {
-      screen: HomeMitra,
+      screen: ProfilUser,
       navigationOptions: {
         tabBarIcon: ({focused}) => (
           <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
@@ -70,7 +71,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Profil',
     activeColor: '#f0edf6',
     inactiveColor: '#b3cde0',
     barStyle: {backgroundColor: '#005b96'},
