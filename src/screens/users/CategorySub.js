@@ -30,11 +30,14 @@ class SubCategory extends Component {
                     numColumns={2}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser') }}>
                                     <Text style={styles.text}>CEK</Text>
                             </TouchableOpacity>
                         )
                     }} />
+                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
+                    <Text style={styles.buttonText}>History Services</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -86,5 +89,18 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         width: '80%',
         height: 70,
+    },
+    order:{
+        alignSelf: 'center',
+        backgroundColor:'#005b96',
+        paddingVertical:15,
+        marginHorizontal:15,
+        marginBottom:30,
+        width:Dimensions.get('screen').width*0.9
+    },
+    buttonText:{
+        textAlign:'center',
+        color:'#FFFFFF',
+        fontWeight:'700'
     },
 });

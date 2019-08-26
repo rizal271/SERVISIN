@@ -10,7 +10,9 @@ import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
+import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
+import HistoryOrder from '../../screens/users/HistoryOrder';
 import Register from '../../screens/auth/register'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
@@ -86,10 +88,11 @@ const authNavigator = createStackNavigator({
 });
 
 const appNavigator = createSwitchNavigator({
-  Welcome: {
-    screen: Welcome,
-    navigationOptions: {
-      header: null,
+    Welcome: {
+        screen: Welcome,
+        navigationOptions: {
+            header: null
+        }
     },
   },
   Auth: {

@@ -38,6 +38,10 @@ class HomeUser extends Component {
                                 </TouchableOpacity>
                         )
                     }} />
+
+                <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
+                    <Text style={styles.buttonText}>History Services</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
     },
     FlatList: {
         width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height,
         marginTop: 10,
         paddingHorizontal:20,
         alignSelf: 'center',
@@ -94,5 +99,18 @@ const styles = StyleSheet.create({
         elevation: 6,
         width: '42%',
         height: 120,
+    },
+    order:{
+        alignSelf: 'center',
+        backgroundColor:'#005b96',
+        paddingVertical:15,
+        marginHorizontal:15,
+        marginBottom:30,
+        width:Dimensions.get('screen').width*0.9
+    },
+    buttonText:{
+        textAlign:'center',
+        color:'#FFFFFF',
+        fontWeight:'700'
     },
 });
