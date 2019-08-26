@@ -11,6 +11,7 @@ import ChooseRole from '../../screens/ChooseRole';
 import ListPenghasilan from '../../screens/mitra/ListPenghasilan';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
+import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // const stackNavigator = createStackNavigator({
