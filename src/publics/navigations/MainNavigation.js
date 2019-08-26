@@ -2,10 +2,19 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator } from 
 import Login from '../../screens/auth/login'
 import Welcome from '../../screens/Welcome'
 import ChooseRole from '../../screens/ChooseRole';
-// const stackNavigator = createStackNavigator({
+import ListPenghasilan from '../../screens/mitra/ListPenghasilan';
 
+const stackNavigator = createStackNavigator({
+    ListPenghasilan: {
+        screen: ListPenghasilan,
+        navigationOptions: {
+            header: null
+        }
+    }
 
-// })
+}, {
+        initialRouteName: 'ListPenghasilan'
+    })
 
 const authNavigator = createStackNavigator({
     ChooseRole: {
@@ -17,19 +26,19 @@ const authNavigator = createStackNavigator({
     Login
 })
 
-const appNavigator = createSwitchNavigator({
-    Welcome: {
-        screen: Welcome,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Auth: {
-        screen: authNavigator,
-    },
-    // App: {
-    //     screen: stackNavigator
-    // }
-})
+// const appNavigator = createSwitchNavigator({
+//     Welcome: {
+//         screen: Welcome,
+//         navigationOptions: {
+//             header: null
+//         }
+//     },
+//     Auth: {
+//         screen: authNavigator,
+//     },
+//     App: {
+//         screen: stackNavigator
+//     }
+// })
 
-export default createAppContainer(appNavigator)
+export default createAppContainer(stackNavigator)
