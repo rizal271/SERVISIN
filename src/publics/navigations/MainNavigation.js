@@ -1,21 +1,21 @@
 import {createAppContainer,createStackNavigator,createSwitchNavigator} from 'react-navigation'
 
-const stackNavigator = createStackNavigator({
+import Register from '../../screens/auth/register'
 
-})
+// const stackNavigator = createStackNavigator({
+
+// })
 
 const authNavigator = createStackNavigator({
-
+    register: Register
 })
 
 const appNavigator = createSwitchNavigator({
-    Loading,
-    Auth:{
-        screen:authNavigator
-    },
-    App:{
-        screen:stackNavigator
-    }
+    Auth:authNavigator,
+    // App:stackNavigator
+    
+}, {
+    initialRouteName: 'Auth'
 })
 
 export default createAppContainer(appNavigator)
