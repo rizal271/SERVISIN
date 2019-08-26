@@ -1,4 +1,5 @@
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import Login from '../../screens/auth/login'
 import Welcome from '../../screens/Welcome'
 import ChooseRole from '../../screens/ChooseRole';
 const stackNavigator = createStackNavigator({
@@ -11,9 +12,9 @@ const stackNavigator = createStackNavigator({
     }
 })
 
-// const authNavigator = createStackNavigator({
-
-// })
+const authNavigator = createStackNavigator({
+    Login
+})
 
 const appNavigator = createSwitchNavigator({
     Welcome: {
@@ -22,10 +23,9 @@ const appNavigator = createSwitchNavigator({
             header: null
         }
     },
-    // Loading,
-    // Auth: {
-    //     screen: authNavigator
-    // },
+    Auth:{
+        screen:authNavigator,
+    },
     App: {
         screen: stackNavigator
     }
