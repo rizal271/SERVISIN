@@ -3,9 +3,12 @@ import Login from '../../screens/auth/login'
 import Welcome from '../../screens/Welcome'
 import ChooseRole from '../../screens/ChooseRole'
 import HomeMitra from '../../screens/mitra/Home'
-import HomeUser from '../../screens/users/Home';
-import Category from '../../screens/users/CategorySub';
+import HomeUser from '../../screens/users/Home'
+import Category from '../../screens/users/CategorySub'
 import Register from '../../screens/auth/register'
+import ChatRoom from '../../screens/ChatRoom'
+import ProfileMitra from '../../screens/mitra/Profile'
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 const stackNavigator = createStackNavigator({
 
     ChooseRole: {
@@ -20,20 +23,38 @@ const stackNavigator = createStackNavigator({
             header: null
         }
     },
-  HomeUser: {
+    HomeUser: {
         screen: HomeUser,
         navigationOptions: {
             header: null
         }
     },
-  Category: {
+    Category: {
         screen: Category,
+        navigationOptions: {
+            header: null
+        }
+    },
+    ChatRoom: {
+        screen: ChatRoom,
+        // navigationOptions: {
+        //     header: null
+        // }
+    },
+    ProfileMitra: {
+        screen: ProfileMitra,
+        navigationOptions: {
+            title: 'Profile'
+        }
+    },
+    DetailProfileMitra: {
+        screen: DetailProfileMitra,
         navigationOptions: {
             header: null
         }
     }
 }, {
-        initialRouteName: 'HomeMitra'
+        initialRouteName: 'DetailProfileMitra'
     })
 
 
