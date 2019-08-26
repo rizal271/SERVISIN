@@ -5,6 +5,7 @@ import ChooseRole from '../../screens/ChooseRole'
 import HomeMitra from '../../screens/mitra/Home'
 import HomeUser from '../../screens/users/Home';
 import Category from '../../screens/users/CategorySub';
+import Register from '../../screens/auth/register'
 const stackNavigator = createStackNavigator({
 
     ChooseRole: {
@@ -37,7 +38,8 @@ const stackNavigator = createStackNavigator({
 
 
 const authNavigator = createStackNavigator({
-    Login
+    Login,
+    Register
 })
 
 const appNavigator = createSwitchNavigator({
