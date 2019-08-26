@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Platform, StyleSheet, StatusBar, Image } from 'react-native'
+import { Platform, StyleSheet, StatusBar} from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 export class Welcome extends Component {
@@ -21,7 +21,7 @@ export class Welcome extends Component {
 
   render() {
     if (this.state.show_Main_App) {
-      this.props.navigation.navigate('App')
+      this.props.navigation.navigate('Auth')
     }
     return (
       <>

@@ -8,6 +8,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
+import ListPenghasilan from '../../screens/mitra/ListPenghasilan';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
 import Category from '../../screens/users/CategorySub';
@@ -78,7 +79,14 @@ const stackNavigator = createMaterialBottomTabNavigator(
 );
 
 const authNavigator = createStackNavigator({
+  ChooseRole: {
+        screen: ChooseRole,
+        navigationOptions: {
+            header: null
+        }
+    },
   Login,
+  
 });
 
 const appNavigator = createSwitchNavigator({
