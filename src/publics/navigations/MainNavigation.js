@@ -33,7 +33,7 @@ const stackNavigator = createStackNavigator({
         }
     }
 }, {
-        initialRouteName: 'HomeMitra'
+        initialRouteName: 'HomeUser'
     })
 
 
