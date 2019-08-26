@@ -30,7 +30,7 @@ class SubCategory extends Component {
                     numColumns={2}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser') }}>
                                     <Text style={styles.text}>CEK</Text>
                             </TouchableOpacity>
                         )

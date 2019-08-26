@@ -4,6 +4,7 @@ import Welcome from '../../screens/Welcome'
 import ChooseRole from '../../screens/ChooseRole'
 import HomeMitra from '../../screens/mitra/Home'
 import HomeUser from '../../screens/users/Home';
+import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import Register from '../../screens/auth/register'
 const stackNavigator = createStackNavigator({
@@ -20,14 +21,21 @@ const stackNavigator = createStackNavigator({
             header: null
         }
     },
-  HomeUser: {
+    HomeUser: {
         screen: HomeUser,
         navigationOptions: {
             header: null
         }
     },
-  Category: {
-        screen: Category,
+    Category: {
+        screen: Category, 
+        navigationOptions: {
+            header: null
+        }
+    }
+    ,
+    MapsUser: {
+        screen: MapsUser,
         navigationOptions: {
             header: null
         }
@@ -49,8 +57,8 @@ const appNavigator = createSwitchNavigator({
             header: null
         }
     },
-    Auth:{
-        screen:authNavigator,
+    Auth: {
+        screen: authNavigator,
     },
     App: {
         screen: stackNavigator
