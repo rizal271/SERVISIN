@@ -1,57 +1,62 @@
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import Login from '../../screens/auth/login'
-import Welcome from '../../screens/Welcome'
-import ChooseRole from '../../screens/ChooseRole'
-import HomeMitra from '../../screens/mitra/Home'
+import {
+  createAppContainer,
+  createStackNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
+import Login from '../../screens/auth/login';
+import Welcome from '../../screens/Welcome';
+import ChooseRole from '../../screens/ChooseRole';
+import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
 import Category from '../../screens/users/CategorySub';
-const stackNavigator = createStackNavigator({
-
+const stackNavigator = createStackNavigator(
+  {
     ChooseRole: {
-        screen: ChooseRole,
-        navigationOptions: {
-            header: null
-        }
+      screen: ChooseRole,
+      navigationOptions: {
+        header: null,
+      },
     },
     HomeMitra: {
-        screen: HomeMitra,
-        navigationOptions: {
-            header: null
-        }
+      screen: HomeMitra,
+      navigationOptions: {
+        header: null,
+      },
     },
-  HomeUser: {
-        screen: HomeUser,
-        navigationOptions: {
-            header: null
-        }
+    HomeUser: {
+      screen: HomeUser,
+      navigationOptions: {
+        header: null,
+      },
     },
-  Category: {
-        screen: Category,
-        navigationOptions: {
-            header: null
-        }
-    }
-}, {
-        initialRouteName: 'HomeMitra'
-    })
-
+    Category: {
+      screen: Category,
+      navigationOptions: {
+        header: null,
+      },
+    },
+  },
+  {
+    initialRouteName: 'HomeUser',
+  },
+);
 
 const authNavigator = createStackNavigator({
-    Login
-})
+  Login,
+});
 
 const appNavigator = createSwitchNavigator({
-    Welcome: {
-        screen: Welcome,
-        navigationOptions: {
-            header: null
-        }
+  Welcome: {
+    screen: Welcome,
+    navigationOptions: {
+      header: null,
     },
-    Auth:{
-        screen:authNavigator,
-    },
-    App: {
-        screen: stackNavigator
-    }
-})
-export default createAppContainer(appNavigator)
+  },
+  Auth: {
+    screen: authNavigator,
+  },
+  App: {
+    screen: stackNavigator,
+  },
+});
+export default createAppContainer(appNavigator);
