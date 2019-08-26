@@ -3,6 +3,8 @@ import Login from '../../screens/auth/login'
 import Welcome from '../../screens/Welcome'
 import ChooseRole from '../../screens/ChooseRole'
 import HomeMitra from '../../screens/mitra/Home'
+import HomeUser from '../../screens/users/Home';
+import Category from '../../screens/users/CategorySub';
 const stackNavigator = createStackNavigator({
 
     ChooseRole: {
@@ -13,6 +15,18 @@ const stackNavigator = createStackNavigator({
     },
     HomeMitra: {
         screen: HomeMitra,
+        navigationOptions: {
+            header: null
+        }
+    },
+  HomeUser: {
+        screen: HomeUser,
+        navigationOptions: {
+            header: null
+        }
+    },
+  Category: {
+        screen: Category,
         navigationOptions: {
             header: null
         }
@@ -40,5 +54,4 @@ const appNavigator = createSwitchNavigator({
         screen: stackNavigator
     }
 })
-
 export default createAppContainer(appNavigator)
