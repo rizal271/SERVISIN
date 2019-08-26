@@ -11,6 +11,10 @@ import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
 import Category from '../../screens/users/CategorySub';
+import Register from '../../screens/auth/register'
+import ChatRoom from '../../screens/ChatRoom'
+import ProfileMitra from '../../screens/mitra/Profile'
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
 import Icon from 'react-native-vector-icons/FontAwesome';
 // const stackNavigator = createStackNavigator({
 
