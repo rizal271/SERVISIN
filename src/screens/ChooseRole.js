@@ -14,6 +14,7 @@ export class ChooseRole extends Component {
                 <Text style={styles.titleScreen}>Choose your role</Text>
                 <View style={styles.chooseRoleRow}>
                     <View style={styles.chooseRoleCol}>
+
                         <TouchableOpacity activeOpacity={0.7}>
                             <View style={styles.shadowImg}>
                                     <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
