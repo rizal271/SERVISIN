@@ -14,14 +14,18 @@ export class ChooseRole extends Component {
                 <Text style={styles.titleScreen}>Choose your role</Text>
                 <View style={styles.chooseRoleRow}>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity>
-                            <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
+                            <View style={styles.shadowImg}>
+                                <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
+                            </View>
                             <Text style={styles.txtRole}>User</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity>
-                            <Image source={require('../assets/images/Engineer_icon.png')} style={styles.imgRole} />
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
+                            <View style={styles.shadowImg}>
+                                <Image source={require('../assets/images/Engineer_icon.png')} style={styles.imgRole} />
+                            </View>
                             <Text style={styles.txtRole}>Mitra</Text>
                         </TouchableOpacity>
                     </View>
@@ -35,6 +39,10 @@ export class ChooseRole extends Component {
 }
 export default ChooseRole
 const styles = StyleSheet.create({
+    shadowImg: {
+        borderRadius: 100 / 2,
+        elevation: 10
+    },
     txtFooter: {
         color: '#ffffff',
     },
@@ -50,6 +58,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     imgRole: {
+        borderRadius: 100 / 2,
         width: 65,
         height: 65,
     },

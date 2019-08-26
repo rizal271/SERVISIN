@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
-import { Text, View, Platform, StyleSheet, StatusBar, Image } from 'react-native'
+import { Platform, StyleSheet, StatusBar} from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider';
-import MainNavigation from '../publics/navigations/MainNavigation';
 
 export class Welcome extends Component {
   constructor(props) {
     super(props);
     this.state = {
 
-      show_Main_App: <MainNavigation />
+      show_Main_App: false
 
     };
   }
   on_Done_all_slides = () => {
-    this.setState({ show_Main_App });
+    this.setState({ show_Main_App: true });
   };
 
   on_Skip_slides = () => {
-    this.setState({ show_Main_App });
+    this.setState({ show_Main_App: true });
   }
 
   render() {
-
+    if (this.state.show_Main_App) {
+      this.props.navigation.navigate('Auth')
+    }
     return (
       <>
         <StatusBar translucent backgroundColor="transparent" />
