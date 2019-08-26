@@ -6,7 +6,8 @@ import HomeMitra from '../../screens/mitra/Home'
 import HomeUser from '../../screens/users/Home';
 import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
-import Register from '../../screens/auth/register'
+import HistoryOrder from '../../screens/users/HistoryOrder';
+import Register from '../../screens/auth/register';
 const stackNavigator = createStackNavigator({
 
     ChooseRole: {
@@ -32,12 +33,17 @@ const stackNavigator = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }
-    ,
+    },
     MapsUser: {
         screen: MapsUser,
         navigationOptions: {
             header: null
+        }
+    },
+    HistoryOrder: {
+        screen: HistoryOrder,
+        navigationOptions:{
+            header:null
         }
     }
 }, {
