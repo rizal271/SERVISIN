@@ -14,6 +14,7 @@ import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import HistoryOrder from '../../screens/users/HistoryOrder';
 import Register from '../../screens/auth/register'
+import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
@@ -94,7 +95,6 @@ const appNavigator = createSwitchNavigator({
             header: null
         }
     },
-  },
   Auth: {
     screen: authNavigator,
   },
