@@ -14,17 +14,17 @@ export class ChooseRole extends Component {
                 <Text style={styles.titleScreen}>Choose your role</Text>
                 <View style={styles.chooseRoleRow}>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity activeOpacity={0.7}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
                             <View style={styles.shadowImg}>
-                                    <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
+                                <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
                             </View>
                             <Text style={styles.txtRole}>User</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity activeOpacity={0.7}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
                             <View style={styles.shadowImg}>
-                                    <Image source={require('../assets/images/Engineer_icon.png')} style={styles.imgRole} />
+                                <Image source={require('../assets/images/Engineer_icon.png')} style={styles.imgRole} />
                             </View>
                             <Text style={styles.txtRole}>Mitra</Text>
                         </TouchableOpacity>
