@@ -28,7 +28,7 @@ const register = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                userList: [state.userList, action.payload[0]]
+                userList: action.payload.data
             };
         case 'LOGIN_PENDING':
             return {
