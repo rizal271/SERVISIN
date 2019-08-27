@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   createAppContainer,
   createStackNavigator,
@@ -102,14 +102,14 @@ const appNavigator = createSwitchNavigator({
   Welcome: {
     screen: Welcome,
     navigationOptions: {
-      header: null,
-    },
+      header: null
+    }
   },
   Auth: {
-    screen: authNavigator,
+    screen: authNavigator
   },
   App: {
-    screen: stackNavigator,
-  },
+    screen: stackNavigator
+  }
 });
 export default createAppContainer(appNavigator);
