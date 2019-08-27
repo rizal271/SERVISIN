@@ -13,6 +13,7 @@
     "firebase": "^6.4.2",
     "jetifier": "^1.6.4",
     "jwt-decode": "^2.2.0",
+    "native-base": "^2.13.5",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-app-intro-slider": "^3.0.0",
