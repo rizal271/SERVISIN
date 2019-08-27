@@ -7,13 +7,42 @@ import {
     Image,
     Dimensions,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert
 } from 'react-native'
+import {login} from '../../publics/redux/actions/user'
+import {connect} from 'react-redux'
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
-export default class login extends Component {
+class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            password: '',
+            isLoading: false
+        }
+    }
     static navigationOptions = {
         header: null
+    }
+    login = async() => {
+        await this.setState({ isLoading: true })
+        if (this.state.email !== '' && this.state.password !== '') {
+            await this.props.dispatch(login({email:this.state.email,password:this.state.password}))
+            console.warn(this.props.user);
+            this.setState({isLoading:false})
+            if(typeof this.props.user.userList === 'object' ){
+                console.warn(this.props.user.userList);
+                Alert.alert('Info','Success Login As '+this.props.user.userList.fullname)
+            }else{
+                Alert.alert('Warning',this.props.user.userList)
+            }
+        } else {
+            Alert.alert('Warning','Semua Field Harus Di isi')
+            this.setState({ isLoading: false })
+        }
     }
     render() {
         return (
@@ -27,13 +56,17 @@ export default class login extends Component {
                         User
                     </Text>
                     <View style={style.wrapForm}>
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} />
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} />
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} onChangeText={(email) => this.setState({ email })} />
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} onChangeText={(password) => this.setState({ password })} />
                         <View style={style.wrapButton}>
-                            <TouchableOpacity style={style.button}>
-                                <Text style={style.buttonText}>
-                                    Sign In
-                            </Text>
+                            <TouchableOpacity style={style.button} onPress={!this.state.isLoading ? this.login :null} disabled={this.state.isLoading && true}>
+                                {!this.state.isLoading ?
+                                    <Text style={style.buttonText}>
+                                        Sign In
+                                    </Text>
+                                    :
+                                    <ActivityIndicator size='small' color='#fff' style={style.buttonActivity} />
+                                }
                             </TouchableOpacity>
                             <TouchableOpacity style={style.forgot}>
                                 <Text style={style.forgotText}>
@@ -55,6 +88,12 @@ export default class login extends Component {
         )
     }
 }
+const mapState= (state)=>{
+    return{
+        user:state.user
+    }
+}
+export default connect(mapState)(Login)
 const style = StyleSheet.create({
     body: {
         backgroundColor: '#6497B1',
@@ -98,8 +137,9 @@ const style = StyleSheet.create({
         marginBottom: 25
     },
     wrapButton: {
-        flex: 2,
+        flex: 1,
         flexDirection: "row",
+        justifyContent:'space-between'
     },
     button: {
         backgroundColor: '#005B96',
@@ -115,8 +155,10 @@ const style = StyleSheet.create({
         color: '#fff',
         fontSize: 18
     },
+    buttonActivity: {
+        marginTop: 12
+    },
     forgot: {
-        width: width * 0.45
     },
     forgotText: {
         height: '100%',
@@ -137,6 +179,7 @@ const style = StyleSheet.create({
     registerText: {
         textAlign: "center",
         fontSize: 15,
-        color: '#fff'
+        color: '#fff',
+        fontWeight:'700'
     }
 })
