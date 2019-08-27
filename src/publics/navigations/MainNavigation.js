@@ -19,6 +19,7 @@ import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RegisterMitra from '../../screens/auth/RegisterMitra'
 
 
 // const stackNavigator = createStackNavigator({

@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { register } from '../../publics/redux/actions/user';
+import RegisterMitra from './RegisterMitra';
 
 class RegisterScreen extends Component {
     static navigationOptions = {
@@ -27,78 +28,83 @@ class RegisterScreen extends Component {
     }
 
     render() {
-        const userRegister = () => {
-            this.state.user.push({
-                fullname: this.state.fullname,
-                email: this.state.email,
-                noHp: this.state.noHp,
-                password: this.state.password,
-                lat: 0,
-                long: 0
-            });
-            console.log(this.state.user);
-            add()
-            this.setState((prevState) => ({
-                modal: !prevState.modal
-            }));
-            console.log(this.state.user);
-        };
-        let add = async () => {
-            await this.props.dispatch(register(this.state.user[0]))
-        };
-        return (
-            <ScrollView>
-                <StatusBar translucent backgroundColor="transparent" />
-                <View style={styles.container}>
-                    <Text style={styles.textSignUp}> SIGN UP </Text>
-                    <Image
-                        style={styles.image}
-                        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx' }}
-                    />
-                    <Text style={styles.textUser}> User </Text>
-                    <TextInput
-                        placeholderTextColor='white'
-                        placeholder='Fullname...'
-                        style={styles.textInput}
+        console.warn(this.props.navigation.state.params.role);
+        if ((this.props.navigation.state.params.role) !== 'Mitra') {
+            const userRegister = () => {
+                this.state.user.push({
+                    fullname: this.state.fullname,
+                    email: this.state.email,
+                    noHp: this.state.noHp,
+                    password: this.state.password,
+                    lat: 0,
+                    long: 0
+                });
+                console.log(this.state.user);
+                add()
+                this.setState((prevState) => ({
+                    modal: !prevState.modal
+                }));
+                console.log(this.state.user);
+            };
+            let add = async () => {
+                await this.props.dispatch(register(this.state.user[0]))
+            };
+            return (
+                <ScrollView>
+                    <StatusBar translucent backgroundColor="transparent" />
+                    <View style={styles.container}>
+                        <Text style={styles.textSignUp}> SIGN UP </Text>
+                        <Image
+                            style={styles.image}
+                            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx' }}
+                        />
+                        <Text style={styles.textUser}> User </Text>
+                        <TextInput
+                            placeholderTextColor='white'
+                            placeholder='Fullname...'
+                            style={styles.textInput}
 
-                        value={this.state.fullName}
-                        onChangeText={val => this.setState({ 'fullname': val })}
-                    />
-                    <TextInput
-                        placeholderTextColor='white'
-                        placeholder='Phone Number...'
-                        style={styles.textInput}
+                            value={this.state.fullName}
+                            onChangeText={val => this.setState({ 'fullname': val })}
+                        />
+                        <TextInput
+                            placeholderTextColor='white'
+                            placeholder='Phone Number...'
+                            style={styles.textInput}
 
-                        value={this.state.phoneNumber}
-                        onChangeText={val => this.setState({ 'noHp': val })}
-                    />
-                    <TextInput
-                        placeholderTextColor='white'
-                        placeholder='Email...'
-                        style={styles.textInput}
+                            value={this.state.phoneNumber}
+                            onChangeText={val => this.setState({ 'noHp': val })}
+                        />
+                        <TextInput
+                            placeholderTextColor='white'
+                            placeholder='Email...'
+                            style={styles.textInput}
 
-                        value={this.state.email}
-                        onChangeText={val => this.setState({ 'email': val })}
-                    />
-                    <TextInput
-                        placeholderTextColor='white'
-                        placeholder='Password...'
-                        style={styles.textInput}
+                            value={this.state.email}
+                            onChangeText={val => this.setState({ 'email': val })}
+                        />
+                        <TextInput
+                            placeholderTextColor='white'
+                            placeholder='Password...'
+                            style={styles.textInput}
 
-                        value={this.state.password}
-                        onChangeText={val => this.setState({ 'password': val })}
+                            value={this.state.password}
+                            onChangeText={val => this.setState({ 'password': val })}
 
-                    />
-                    <TouchableOpacity style={styles.buttonSignUp} onPress={userRegister}>
-                        <Text style={styles.textButton}> Sign Up </Text>
-                    </TouchableOpacity>
-                    <Text style={styles.alreade}> Already have account? </Text>
-                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                        />
+                        <TouchableOpacity style={styles.buttonSignUp} onPress={userRegister}>
+                            <Text style={styles.textButton}> Sign Up </Text>
+                        </TouchableOpacity>
+                        <Text style={styles.alreade}> Already have account? </Text>
+                        {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                         <Text style={styles.textLogin}> Login here </Text>
                     </TouchableOpacity> */}
-                </View>
-            </ScrollView>
-        )
+                    </View>
+                </ScrollView>
+            )
+        }else {
+            return <RegisterMitra />
+        }
     }
 }
 const mapStateToProps = state => {
@@ -156,6 +162,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
 
         backgroundColor: '#B3CDE0',
+        color: 'white',
     },
     buttonSignUp: {
         width: 115,

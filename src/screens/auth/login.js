@@ -24,7 +24,7 @@ export default class login extends Component {
                     </Text>
                     <Image source={require('../../assets/login.png')} style={style.image} />
                     <Text style={style.user}>
-                        User
+                        {this.props.navigation.state.params?this.props.navigation.state.params.role:'User'}
                     </Text>
                     <View style={style.wrapForm}>
                         <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} />
@@ -44,7 +44,7 @@ export default class login extends Component {
                         <Text style={style.dont}>
                             Dont Have Account?
                         </Text>
-                        <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register')}>
+                        <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register',{role: this.props.navigation.state.params?this.props.navigation.state.params.role:'user'})}>
                             <Text style={style.registerText}>
                                 Register Here
                             </Text>
