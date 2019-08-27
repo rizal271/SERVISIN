@@ -54,7 +54,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const stackNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
-      screen: Login,
+      screen: Category,
+      Category,
       navigationOptions: {
         tabBarIcon: ({focused}) => (
           <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />

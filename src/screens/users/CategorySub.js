@@ -2,19 +2,27 @@ import React, { Component } from 'react'
 import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
+import { connect } from 'react-redux';
+import { getsubCategory } from '../../publics/redux/actions/subCategory';
 
 class SubCategory extends Component {
     constructor(props) {
         super(props)
         this.state = {
             category:this.props.navigation.state.params,
-            data:[
-                {'sub':'sub1'},
-                {'sub':'sub2'},
-            ]
+            subCategory:[]
         }
     }
+
+    componentDidMount = async () => {
+        idCat=4
+        await this.props.dispatch(getsubCategory(idCat));
+        this.setState({
+            subCategory: this.props.subCategory.subCategoryList,
+        });
+    }
     render() {
+        console.log(this.state.subCategory)
         return (
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -27,12 +35,12 @@ class SubCategory extends Component {
                 </View>
                 <FlatList
                     style={styles.FlatList}
-                    data={this.state.data}
+                    data={this.state.subCategory}
                     numColumns={2}
                     renderItem={({ item, index }) => {
                         return (
                             <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser') }}>
-                                    <Text style={styles.text}>CEK</Text>
+                                    <Text style={styles.text}>{item.subName}</Text>
                             </TouchableOpacity>
                         )
                     }} />
@@ -43,8 +51,12 @@ class SubCategory extends Component {
         )
     }
 }
-
-export default SubCategory;
+const mapStateToProps = state => {
+    return {
+        subCategory: state.subCategory
+    };
+};
+export default connect(mapStateToProps)(SubCategory);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
