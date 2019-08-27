@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
+import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar, ActivityIndicator } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
 import { connect } from 'react-redux';
@@ -10,13 +10,16 @@ class HomeUser extends Component {
         super(props)
         this.state = {
             category: [],
+            isLoading:false
         }
     }
 
     componentDidMount = async () => {
+        this.setState({isLoading:true})
         await this.props.dispatch(getCategory());
         this.setState({
             category: this.props.category.categoryList,
+            isLoading:false
         });
     }
     render() {
@@ -32,6 +35,7 @@ class HomeUser extends Component {
                     <Text style={styles.textTitle}>Services Here</Text>
                 </View>
                 <View>
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
                     <FlatList
                         style={styles.FlatList}
                         data={this.state.category}
@@ -43,7 +47,7 @@ class HomeUser extends Component {
                                     <Text style={styles.text}>{item.catName}</Text>
                                 </TouchableOpacity>
                             )
-                        }} />
+                        }} />}
 
                     <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
                         <Text style={styles.buttonText}>History Services</Text>

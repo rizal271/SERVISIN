@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
+import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar, ActivityIndicator } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
 import { connect } from 'react-redux';
@@ -9,16 +9,19 @@ class SubCategory extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category:this.props.navigation.state.params,
-            subCategory:[]
+            category: this.props.navigation.state.params,
+            subCategory: [],
+            isLoading:false
         }
     }
 
     componentDidMount = async () => {
-        idCat=4
+        this.setState({isLoading:true})
+        idCat = 2
         await this.props.dispatch(getsubCategory(idCat));
         this.setState({
             subCategory: this.props.subCategory.subCategoryList,
+            isLoading:false
         });
     }
     render() {
@@ -33,6 +36,7 @@ class SubCategory extends Component {
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>this.state.category</Text>
                 </View>
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
                 <FlatList
                     style={styles.FlatList}
                     data={this.state.subCategory}
@@ -40,13 +44,16 @@ class SubCategory extends Component {
                     renderItem={({ item, index }) => {
                         return (
                             <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser') }}>
-                                    <Text style={styles.text}>{item.subName}</Text>
+                                <Image style={styles.image} source={{ uri: `${item.image}` }} />
+                                <Text style={styles.text}>{item.subName}</Text>
                             </TouchableOpacity>
                         )
-                    }} />
+                    }} />}
+                <View>
                     <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
-                    <Text style={styles.buttonText}>History Services</Text>
-                </TouchableOpacity>
+                        <Text style={styles.buttonText}>History Services</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -77,37 +84,39 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '700'
     },
+    image: {
+        alignSelf: 'center',
+        marginVertical: 7,
+        width: '80%',
+        height: 65,
+    },
     item: {
         flex: 1,
     },
-    FlatList:{
+    FlatList: {
         width: Dimensions.get('screen').width,
         marginTop: 10,
-        marginBottom:8,
+        marginBottom: 8,
         paddingHorizontal: 20,
         alignSelf: 'center',
     },
-    text:{
-        textAlign:'center',
-        color:'white'
+    text: {
+        textAlign: 'center',
+        color: 'white',
+        marginBottom: 5,
+        fontWeight: '400'
     },
     button: {
-        marginLeft:15,
+        marginLeft: 15,
         marginVertical: 10,
         justifyContent: 'flex-end',
         backgroundColor: '#6497b1',
         borderRadius: 8,
         elevation: 6,
         width: '42%',
-        height: 120,
+        height: 110,
     },
-    image: {
-        alignSelf: 'center',
-        marginVertical: 10,
-        width: '80%',
-        height: 70,
-    },
-    order:{
+    order: {
         alignSelf: 'center',
         backgroundColor: '#005b96',
         paddingVertical: 10,
@@ -115,9 +124,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         width: Dimensions.get('screen').width * 0.85
     },
-    buttonText:{
-        textAlign:'center',
-        color:'#FFFFFF',
-        fontWeight:'700'
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '700'
     },
 });
