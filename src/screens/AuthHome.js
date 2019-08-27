@@ -8,7 +8,7 @@ export default class Auth extends Component {
         role: 'user'
     }
     componentWillMount = () => {
-        this.props.navigation.navigate(this.state.role == 'user' ? 'Homeuser' : 'Homemitra')
+        this.props.navigation.navigate(this.state.role == 'user' ? 'Homeuser' : 'HomeMitra')
     }
     render() {
         return (
