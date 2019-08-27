@@ -63,7 +63,7 @@ class HomeMitra extends Component {
                           
                         Servis AC di Jakal No. 52
                       </Text>
-                      <Text style={{color: 'black'}}>
+                      <Text style={{coloor: 'black'}}>
                         Di Jalan
                       </Text>
                       <Text style={{color: 'black'}}>
