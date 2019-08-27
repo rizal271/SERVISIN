@@ -4,7 +4,7 @@ import {
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
@@ -49,7 +49,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Home: {
       screen: HomeMitra,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -57,7 +57,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Maps: {
       screen: HomeMitra,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="map" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -65,7 +65,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Profil: {
       screen: HomeMitra,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -75,19 +75,19 @@ const stackNavigator = createMaterialBottomTabNavigator(
     initialRouteName: 'Home',
     activeColor: '#f0edf6',
     inactiveColor: '#b3cde0',
-    barStyle: {backgroundColor: '#005b96'},
+    barStyle: { backgroundColor: '#005b96' },
   },
 );
 
 const authNavigator = createStackNavigator({
   ChooseRole: {
-        screen: ChooseRole,
-        navigationOptions: {
-            header: null
-        }
-    },
+    screen: ChooseRole,
+    navigationOptions: {
+      header: null
+    }
+  },
   Login,
-  
+
 });
 
 const appNavigator = createSwitchNavigator({
