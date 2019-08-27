@@ -4,15 +4,20 @@ import {
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
-import ListPenghasilan from '../../screens/mitra/ListPenghasilan';
 import HomeMitra from '../../screens/mitra/Home';
 import HomeUser from '../../screens/users/Home';
 import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
+import HistoryOrder from '../../screens/users/HistoryOrder';
+import Register from '../../screens/auth/register'
+import DetailOrder from '../../screens/users/DetailOrder'
+import ChatRoom from '../../screens/ChatRoom'
+import ProfileMitra from '../../screens/mitra/Profile'
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'  
 import Icon from 'react-native-vector-icons/FontAwesome';
 // const stackNavigator = createStackNavigator({
 
@@ -87,7 +92,6 @@ const authNavigator = createStackNavigator({
     }
   },
   Login,
-
 });
 
 const appNavigator = createSwitchNavigator({
