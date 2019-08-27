@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 
 import { login } from '../../publics/redux/actions/mitra'
+import { } from '../../publics/redux/actions/user'
 import { connect } from 'react-redux'
 
 const width = Dimensions.get('screen').width
@@ -35,8 +36,14 @@ class Login extends Component {
             .then((response) => {
                 const token = response.value.data.token
                 const role = response.value.data.role
+                const idUser = response.value.data.idUser
+                const idMitra = response.value.data.idMitra
                 AsyncStorage.setItem('token', token)
                 AsyncStorage.setItem('role', role)
+                AsyncStorage.setItem('iduser', idUser)
+                AsyncStorage.setItem('idmitra', idMitra)
+                console.warn('ROLE LOGIN: ', response)
+                this.props.navigation.navigate('AuthHome')
             })
             .catch((error) => {
                 alert(error)

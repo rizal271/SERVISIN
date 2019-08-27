@@ -10,31 +10,22 @@ export class Welcome extends Component {
       show_Main_App: false
 
     };
-    this._cekToken()
   }
-
-  _cekToken = async () => {
-    const token = await AsyncStorage.getItem('token')
-    const role = await AsyncStorage.getItem('role')
-
-    this.props.navigation.navigate(
-      token && role === 'user' ? 'App' : 'Welcome'
-        ||
-        token && role === 'mitra' ? 'AppMitra' : 'Welcome'
-    )
+  UNSAFE_componentWillMount = async () => {
   }
-
-  on_Done_all_slides = () => {
+  on_Done_all_slides = async () => {
+    await AsyncStorage.setItem('welcome', 'udah')
     this.setState({ show_Main_App: true });
   };
 
-  on_Skip_slides = () => {
+  on_Skip_slides = async () => {
+    await AsyncStorage.setItem('welcome', 'udah')
     this.setState({ show_Main_App: true });
   }
 
   render() {
     if (this.state.show_Main_App) {
-      this.props.navigation.navigate('Auth')
+      this.props.navigation.navigate('ChooseRole')
     }
     return (
       <>
