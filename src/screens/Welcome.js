@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, StyleSheet, StatusBar} from 'react-native'
+import { Platform, StyleSheet, StatusBar, AsyncStorage } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 export class Welcome extends Component {
@@ -11,17 +11,21 @@ export class Welcome extends Component {
 
     };
   }
-  on_Done_all_slides = () => {
+  UNSAFE_componentWillMount = async () => {
+  }
+  on_Done_all_slides = async () => {
+    await AsyncStorage.setItem('welcome', 'udah')
     this.setState({ show_Main_App: true });
   };
 
-  on_Skip_slides = () => {
+  on_Skip_slides = async () => {
+    await AsyncStorage.setItem('welcome', 'udah')
     this.setState({ show_Main_App: true });
   }
 
   render() {
     if (this.state.show_Main_App) {
-      this.props.navigation.navigate('Auth')
+      this.props.navigation.navigate('ChooseRole')
     }
     return (
       <>

@@ -5,7 +5,7 @@ const initialState = {
     isRejected: false,
 };
 
-const register = (state = initialState, action) => {
+const user = (state = initialState, action) => {
     switch (action.type) {
         case 'REGISTER_PENDING':
             return {
@@ -27,9 +27,29 @@ const register = (state = initialState, action) => {
                 isFulfilled: true,
                 userList: [state.userList, action.payload[0]]
             };
+        case 'LOGIN_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'LOGIN_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'LOGIN_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                userList: action.payload.data
+            };
         default:
             return state;
     };
 
 }
-export default register
+export default user
