@@ -19,6 +19,8 @@ import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 // const stackNavigator = createStackNavigator({
 
 //     ChooseRole: {
@@ -52,7 +54,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const stackNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
-      screen: HomeMitra,
+      screen: DetailOrder,
       navigationOptions: {
         tabBarIcon: ({focused}) => (
           <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />

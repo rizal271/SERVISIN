@@ -51,7 +51,7 @@ export default class DetailOrder extends Component {
 
         return (
             <>
-                <StatusBar translucent />
+                <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
                 <ScrollView style={style.scrollView}>
                     <MapView
                         region={this.state.mapRegion}
