@@ -150,7 +150,9 @@ const AuthStack = createStackNavigator({
   ChooseRole,
   Login,
   Register
-})
+}, {
+    headerMode: 'none'
+  })
 
 const Apps = createSwitchNavigator({
   AuthHome,

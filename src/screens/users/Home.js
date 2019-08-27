@@ -1,25 +1,27 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar, ActivityIndicator } from 'react-native';
+import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar, ActivityIndicator, AsyncStorage } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
 import { connect } from 'react-redux';
 import { getCategory } from '../../publics/redux/actions/category';
+import { Button } from 'native-base';
+
 
 class HomeUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
             category: [],
-            isLoading:false
+            isLoading: false
         }
     }
 
     componentDidMount = async () => {
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         await this.props.dispatch(getCategory());
         this.setState({
             category: this.props.category.categoryList,
-            isLoading:false
+            isLoading: false
         });
     }
     render() {
@@ -34,24 +36,28 @@ class HomeUser extends Component {
                     <Text style={styles.textTitle}>Services Here</Text>
                 </View>
                 <View>
-                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={100}/>:
-                    <FlatList
-                        style={styles.FlatList}
-                        data={this.state.category}
-                        numColumns={2}
-                        renderItem={({ item, index }) => {
-                            return (
-                                <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item) }}>
-                                    <Image style={styles.image} source={{ uri: `${item.image}` }} />
-                                    <Text style={styles.text}>{item.catName}</Text>
-                                </TouchableOpacity>
-                            )
-                        }} />}
+                    {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={100} /> :
+                        <FlatList
+                            style={styles.FlatList}
+                            data={this.state.category}
+                            numColumns={2}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item) }}>
+                                        <Image style={styles.image} source={{ uri: `${item.image}` }} />
+                                        <Text style={styles.text}>{item.catName}</Text>
+                                    </TouchableOpacity>
+                                )
+                            }} />}
 
                     <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
                         <Text style={styles.buttonText}>History Services</Text>
                     </TouchableOpacity>
                 </View>
+                <Button primary rounded onPress={() => {
+                    AsyncStorage.clear()
+                    this.props.navigation.navigate('AuthHome')
+                }}><Text>Logout</Text></Button>
             </View>
         )
     }
