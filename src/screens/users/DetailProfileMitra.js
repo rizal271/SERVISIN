@@ -5,10 +5,23 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Linking,
+    Platform
 } from 'react-native'
 
 class Profile extends Component {
+
+    diaCall = () => {
+        let phoneNumber = ''
+        if (Platform.OS = 'android') {
+            phoneNumber = `tel: ${'085358483247'}`
+        } else {
+            phoneNumber = `telprompt: ${'085358483247'}`
+        }
+        Linking.openURL(phoneNumber)
+    }
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -20,16 +33,25 @@ class Profile extends Component {
                     <Text style={styles.textCompanyName}> Tukang Gali Kubur </Text>
                     <Text style={styles.textPhoneNumber}> 082277435678 </Text>
                     <Text style={styles.textEmail}> kubur@gmail.com </Text>
-                    <Image 
-                      source = {require('../../assets/images/Chat_icon.png')}
-                      style={styles.iconChat} 
-                    />
+
+                    <TouchableOpacity onPress={this.diaCall}>
+                        <Image 
+                        source = {require('../../assets/images/in_call.png')}
+                        style={styles.iconCall} 
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom')}>
+                        <Image 
+                        source = {require('../../assets/images/Chat_icon.png')}
+                        style={styles.iconChat} 
+                        />
+                    </TouchableOpacity>
                 </View>
                 <ScrollView>
                     <View style={styles.view2}>
                         <View style={styles.viewAlamat}>
                             <Text style={styles.alamat}> Alamat Lengkap: </Text>
-                            <Text style={styles.isiAlamat}> Jln.Dimana, RT berapa, RW berapa, Kec.Apa, Kab/Kota.Apa, Porv.Apa, Negara.Mana </Text>
+                             <Text style={styles.isiAlamat}> Jln.Dimana, RT berapa, RW berapa, Kec.Apa, Kab/Kota.Apa, Porv.Apa, Negara.Mana </Text>
                             <TouchableOpacity style={styles.buttonLihatPeta}>
                                 <Text style={styles.textButtonPeta}> Lihat Peta </Text>
                             </TouchableOpacity>
@@ -54,11 +76,11 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
     view1: {
-        flex: 1, 
+        flex: 8, 
         backgroundColor: '#6497B1'
     },
     view2: {
-        flex: 1.7,
+        // flex: 1.7,
         alignItems: 'center'
     },
     image: {
@@ -73,7 +95,14 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 50,
         marginLeft: 290,
-        marginTop: 30
+        marginTop: 10
+    },
+    iconCall: {
+        width: 43,
+        height: 43,
+        borderRadius: 50,
+        marginLeft: 290,
+        marginTop: -20
     },
     textCompanyName: {
         position: 'absolute',

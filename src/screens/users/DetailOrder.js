@@ -9,7 +9,7 @@ import {
     Image,
     StatusBar
 } from 'react-native'
-import MapView from 'react-native-maps'
+import MapView, { Marker } from 'react-native-maps'
 import GeoLocation from '@react-native-community/geolocation'
 import Geocoder from 'react-native-geocoder'
 const width = Dimensions.get('screen').width
@@ -29,8 +29,8 @@ export default class DetailOrder extends Component {
             let region = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
-                latitudeDelta: 0.00922 * 1.5,
-                longitudeDelta: 0.00421 * 1.5,
+                latitudeDelta: 0.00922 * 0.9,
+                longitudeDelta: 0.00421 * 0.9,
             }
             let pos = {
                 lat: position.coords.latitude,
@@ -43,6 +43,8 @@ export default class DetailOrder extends Component {
             })
             this.setState({
                 mapRegion: region,
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
             })
         }, (error) => console.warn(error));
     }
@@ -57,7 +59,21 @@ export default class DetailOrder extends Component {
                         region={this.state.mapRegion}
                         style={style.mapView}
                         showsUserLocation
+                        pitchEnabled={false}
+                        rotateEnabled={false}
+                        scrollEnabled={false}
+                        zoomEnabled={false}
                     >
+                        <Marker
+                            coordinate={{ latitude: this.state.latitude || 0, longitude: this.state.longitude || 0 }}
+                        >
+                            <Image style={style.marker} source={require('../../assets/images/mitra.png')} />
+                        </Marker>
+                        <Marker
+                            coordinate={{ latitude: this.state.latitude || 0, longitude: this.state.longitude || 0 }}
+                        >
+                            <Image style={style.marker} source={require('../../assets/images/User_icon.png')} />
+                        </Marker>
                     </MapView>
                     <View style={style.container}>
                         <View style={style.wrapChat}>
@@ -111,11 +127,6 @@ export default class DetailOrder extends Component {
                             </View>
                         </View>
                     </View>
-                    <TouchableOpacity style={style.batal} >
-                        <Text style={style.batalText}>
-                            Batalkan Service
-                    </Text>
-                    </TouchableOpacity>
                 </ScrollView>
             </>
         )
@@ -129,22 +140,26 @@ const style = StyleSheet.create({
         width: '100%',
         height: 300,
     },
+    marker: {
+        width: 30,
+        height: 30
+    },
     container: {
         paddingHorizontal: width * 0.05,
         paddingVertical: 20,
         borderRadius: 20,
         backgroundColor: 'white',
         elevation: 5,
-        marginVertical: 20
+        marginBottom: 20
     },
     detailOrder: {
-        fontSize: 22,
+        fontSize: 18,
         marginVertical: 10
     },
-    wrapChat:{
-        flex:2,
-        flexDirection:'row',
-        justifyContent:'space-between'
+    wrapChat: {
+        flex: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     wrapDetail: {
         marginHorizontal: 5
@@ -160,29 +175,13 @@ const style = StyleSheet.create({
         paddingHorizontal: '2%'
     },
     textKey: {
-        fontSize: 18,
+        fontSize: 15,
         maxWidth: 100
     },
     textValue: {
-        fontSize: 18,
+        fontSize: 15,
         maxWidth: 180,
         textAlign: 'right'
-    },
-    batal: {
-        backgroundColor: '#FF0000',
-        marginHorizontal: width * 0.05,
-        borderRadius: 50,
-        marginBottom: 50
-    },
-    batalText: {
-        paddingVertical: 15,
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#FFF',
-        textShadowColor: '#000',
-        textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 2
     },
     wrapAlamat: {
         width: '100%',
@@ -192,10 +191,10 @@ const style = StyleSheet.create({
         paddingHorizontal: '2%'
     },
     textAlamatKey: {
-        fontSize: 18
+        fontSize: 15
     },
     textAlamatValue: {
-        fontSize: 15,
+        fontSize: 13,
         paddingHorizontal: '2%'
     },
     chat: {
