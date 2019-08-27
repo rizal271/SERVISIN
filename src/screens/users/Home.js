@@ -23,7 +23,6 @@ class HomeUser extends Component {
         });
     }
     render() {
-        console.log(this.state.category)
         return (
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -35,14 +34,14 @@ class HomeUser extends Component {
                     <Text style={styles.textTitle}>Services Here</Text>
                 </View>
                 <View>
-                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={100}/>:
                     <FlatList
                         style={styles.FlatList}
                         data={this.state.category}
                         numColumns={2}
                         renderItem={({ item, index }) => {
                             return (
-                                <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item.category) }}>
+                                <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item) }}>
                                     <Image style={styles.image} source={{ uri: `${item.image}` }} />
                                     <Text style={styles.text}>{item.catName}</Text>
                                 </TouchableOpacity>
