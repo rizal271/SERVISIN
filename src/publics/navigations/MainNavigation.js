@@ -17,7 +17,7 @@ import Register from '../../screens/auth/register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'  
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -56,7 +56,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Home: {
       screen: DetailOrder,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -64,7 +64,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Maps: {
       screen: HomeMitra,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="map" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -72,7 +72,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
     Profil: {
       screen: HomeMitra,
       navigationOptions: {
-        tabBarIcon: ({focused}) => (
+        tabBarIcon: ({ focused }) => (
           <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
         ),
       },
@@ -82,21 +82,27 @@ const stackNavigator = createMaterialBottomTabNavigator(
     initialRouteName: 'Home',
     activeColor: '#f0edf6',
     inactiveColor: '#b3cde0',
-    barStyle: {backgroundColor: '#005b96'},
+    barStyle: { backgroundColor: '#005b96' },
   },
 );
 
 const authNavigator = createStackNavigator({
+  ChooseRole: {
+    screen: ChooseRole,
+    navigationOptions: {
+      header: null
+    }
+  },
   Login,
 });
 
 const appNavigator = createSwitchNavigator({
-    Welcome: {
-        screen: Welcome,
-        navigationOptions: {
-            header: null
-        }
+  Welcome: {
+    screen: Welcome,
+    navigationOptions: {
+      header: null,
     },
+  },
   Auth: {
     screen: authNavigator,
   },

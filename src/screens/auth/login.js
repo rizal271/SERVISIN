@@ -28,7 +28,7 @@ export default class login extends Component {
                     </Text>
                     <View style={style.wrapForm}>
                         <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} />
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true}/>
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} />
                         <View style={style.wrapButton}>
                             <TouchableOpacity style={style.button}>
                                 <Text style={style.buttonText}>
@@ -44,7 +44,7 @@ export default class login extends Component {
                         <Text style={style.dont}>
                             Dont Have Account?
                         </Text>
-                        <TouchableOpacity style={style.register} onPress={()=>this.props.navigation.navigate('Register')}>
+                        <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text style={style.registerText}>
                                 Register Here
                             </Text>
@@ -131,10 +131,10 @@ const style = StyleSheet.create({
         fontSize: 15,
         color: '#fff'
     },
-    register:{
-        paddingVertical:5
+    register: {
+        paddingVertical: 5
     },
-    registerText:{
+    registerText: {
         textAlign: "center",
         fontSize: 15,
         color: '#fff'
