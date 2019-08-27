@@ -4,7 +4,7 @@ import {
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
@@ -17,7 +17,7 @@ import Register from '../../screens/auth/register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-import DetailProfileMitra from '../../screens/users/DetailProfileMitra'  
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -94,6 +94,7 @@ const authNavigator = createStackNavigator({
     }
   },
   Login,
+  Register,
 });
 
 const appNavigator = createSwitchNavigator({

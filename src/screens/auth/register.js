@@ -33,6 +33,8 @@ class RegisterScreen extends Component {
                 email: this.state.email,
                 noHp: this.state.noHp,
                 password: this.state.password,
+                lat: 0,
+                long: 0
             });
             console.log(this.state.user);
             add()
