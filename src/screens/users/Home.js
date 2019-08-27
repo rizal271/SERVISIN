@@ -1,21 +1,29 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
+import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar, ActivityIndicator } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
+import { connect } from 'react-redux';
+import { getCategory } from '../../publics/redux/actions/category';
 
 class HomeUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: [
-                { 'id': '01', 'category': 'Otomotif', 'image': 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566791479/icon/oto_wdxv7a.png' },
-                { 'id': '02', 'category': 'Elektronik', 'image': 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566791479/icon/elek_xzpwms.png' },
-                { 'id': '03', 'category': 'Builders', 'image': 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566791479/icon/build_kbl4tu.png' },
-                { 'id': '04', 'category': 'Emergency', 'image': 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566791479/icon/emer_vdxvvb.png' },
-            ],
+            category: [],
+            isLoading:false
         }
     }
+
+    componentDidMount = async () => {
+        this.setState({isLoading:true})
+        await this.props.dispatch(getCategory());
+        this.setState({
+            category: this.props.category.categoryList,
+            isLoading:false
+        });
+    }
     render() {
+        console.log(this.state.category)
         return (
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -26,24 +34,36 @@ class HomeUser extends Component {
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>Services Here</Text>
                 </View>
-                <FlatList
-                    style={styles.FlatList}
-                    data={this.state.data}
-                    numColumns={2}
-                    renderItem={({ item, index }) => {
-                        return (
+                <View>
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
+                    <FlatList
+                        style={styles.FlatList}
+                        data={this.state.category}
+                        numColumns={2}
+                        renderItem={({ item, index }) => {
+                            return (
                                 <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item.category) }}>
                                     <Image style={styles.image} source={{ uri: `${item.image}` }} />
-                                    <Text style={styles.text}>{item.category}</Text>
+                                    <Text style={styles.text}>{item.catName}</Text>
                                 </TouchableOpacity>
-                        )
-                    }} />
+                            )
+                        }} />}
+
+                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
+                        <Text style={styles.buttonText}>History Services</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
 }
 
-export default HomeUser;
+const mapStateToProps = state => {
+    return {
+        category: state.category
+    };
+};
+export default connect(mapStateToProps)(HomeUser);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -66,9 +86,9 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        marginVertical: 10,
+        marginVertical: 7,
         width: '80%',
-        height: 70,
+        height: 65,
     },
     item: {
         flex: 1,
@@ -76,7 +96,8 @@ const styles = StyleSheet.create({
     FlatList: {
         width: Dimensions.get('screen').width,
         marginTop: 10,
-        paddingHorizontal:20,
+        marginBottom: 8,
+        paddingHorizontal: 20,
         alignSelf: 'center',
     },
     text: {
@@ -86,13 +107,26 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     },
     button: {
-        marginLeft:15,
+        marginLeft: 15,
         marginVertical: 10,
         justifyContent: 'flex-end',
         backgroundColor: '#6497b1',
         borderRadius: 8,
         elevation: 6,
         width: '42%',
-        height: 120,
+        height: 110,
+    },
+    order: {
+        alignSelf: 'center',
+        backgroundColor: '#005b96',
+        paddingVertical: 10,
+        marginHorizontal: 20,
+        marginBottom: 10,
+        width: Dimensions.get('screen').width * 0.85
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '700'
     },
 });
