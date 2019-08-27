@@ -70,7 +70,7 @@ const stackNavigator = createMaterialBottomTabNavigator(
       },
     },
     Profil: {
-      screen: HomeMitra,
+      screen: ProfileMitra,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
