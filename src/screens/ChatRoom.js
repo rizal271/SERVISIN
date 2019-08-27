@@ -1,49 +1,82 @@
 import React, { Component } from 'react'
 import {
-    View,
-    Text,
+  View,
+  Text,
+  StatusBar
 } from 'react-native'
-import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat } from 'react-native-gifted-chat';
+import HeaderChat from '../components/HeaderChat';
+import firebase from 'firebase';
+import { Database, Auth } from '../publics/firebase/config';
 
 class ChatRoom extends Component {
-    state = {
-        messages: [],
-    }
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: 'Imam User',
+      uid: 10,
+      myuid: 10,
+      myname: 'anto',
+      avatar: '',
+      image: 'blabla',
+      text: '',
+      messagesList: [],
 
-    componentWillMount() {
-        this.setState({
-          messages: [
-            {
-              _id: 1,
-              text: 'Hello Hello',
-              createdAt: new Date(),
-              user: {
-                _id: 2,
-                name: 'Apa Hello2 ha?',
-                avatar: 'https://placeimg.com/140/140/any',
-              }
-            }
-          ]
+    }
+  }
+
+  async componentDidMount() {
+    await Database.ref('messages').child(this.state.myuid).child(this.state.uid)
+      .on('child_added', (value) => {
+        this.setState((previousState) => {
+          return {
+            messagesList: GiftedChat.append(previousState.messagesList, value.val()),
+          }
         })
-      }
+      })
+  }
 
-      onSend(messages = [] ) {
-          this.setState(previousState => ({
-              messages: GiftedChat.append(previousState.messages, messages)
-          }))
+  sendMessage = async () => {
+    if (this.state.text.length > 0) {
+      let msgId = Database.ref('messages').child(this.state.myuid).child(this.state.uid).push().key;
+      let updates = {};
+      let message = {
+        _id: msgId,
+        text: this.state.text,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        user: {
+          _id: this.state.myuid,
+          name: this.state.myname,
+          avatar: this.state.avatar
+        }
       }
-    
-    render() {
-        return (
-            <GiftedChat 
-                messages = {this.state.messages}
-                onSend = {messages => this.onSend(messages)}
-                user = {{
-                    _id: 1
-                }}
-                />
-        )
+      updates['messages/' + this.state.myuid + '/' + this.state.uid + '/' + msgId] = message;
+      updates['messages/' + this.state.uid + '/' + this.state.myuid + '/' + msgId] = message;
+      Database.ref().update(updates)
+      this.setState({ text: '' })
+
     }
+  }
+  render() {
+    return (
+      <>
+        <StatusBar translucent backgroundColor="transparent" />
+        <HeaderChat />
+        <GiftedChat
+          text={this.state.text}
+          messages={this.state.messagesList}
+          onSend={this.sendMessage}
+          showAvatarForEveryMessage={true}
+          user={{
+            _id: this.state.myuid,
+            name: this.state.myname,
+            avatar: this.state.avatar
+          }}
+          onInputTextChanged={(value) => this.setState({ text: value })}
+        />
+      </>
+    );
+  }
 }
 
 export default ChatRoom

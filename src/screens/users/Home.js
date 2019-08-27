@@ -26,22 +26,24 @@ class HomeUser extends Component {
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>Services Here</Text>
                 </View>
-                <FlatList
-                    style={styles.FlatList}
-                    data={this.state.data}
-                    numColumns={2}
-                    renderItem={({ item, index }) => {
-                        return (
+                <View>
+                    <FlatList
+                        style={styles.FlatList}
+                        data={this.state.data}
+                        numColumns={2}
+                        renderItem={({ item, index }) => {
+                            return (
                                 <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('Category', item.category) }}>
                                     <Image style={styles.image} source={{ uri: `${item.image}` }} />
                                     <Text style={styles.text}>{item.category}</Text>
                                 </TouchableOpacity>
-                        )
-                    }} />
+                            )
+                        }} />
 
-                <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
-                    <Text style={styles.buttonText}>History Services</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
+                        <Text style={styles.buttonText}>History Services</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -70,18 +72,18 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        marginVertical: 10,
+        marginVertical: 7,
         width: '80%',
-        height: 70,
+        height: 65,
     },
     item: {
         flex: 1,
     },
     FlatList: {
         width: Dimensions.get('screen').width,
-        height: Dimensions.get('screen').height,
         marginTop: 10,
-        paddingHorizontal:20,
+        marginBottom:8,
+        paddingHorizontal: 20,
         alignSelf: 'center',
     },
     text: {
@@ -91,26 +93,26 @@ const styles = StyleSheet.create({
         fontWeight: '400'
     },
     button: {
-        marginLeft:15,
+        marginLeft: 15,
         marginVertical: 10,
         justifyContent: 'flex-end',
         backgroundColor: '#6497b1',
         borderRadius: 8,
         elevation: 6,
         width: '42%',
-        height: 120,
+        height: 110,
     },
-    order:{
+    order: {
         alignSelf: 'center',
-        backgroundColor:'#005b96',
-        paddingVertical:15,
-        marginHorizontal:15,
-        marginBottom:30,
-        width:Dimensions.get('screen').width*0.9
+        backgroundColor: '#005b96',
+        paddingVertical: 10,
+        marginHorizontal: 20,
+        marginBottom: 10,
+        width: Dimensions.get('screen').width * 0.85
     },
-    buttonText:{
-        textAlign:'center',
-        color:'#FFFFFF',
-        fontWeight:'700'
+    buttonText: {
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontWeight: '700'
     },
 });
