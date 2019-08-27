@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Dimensions, Text, View, FlatList, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
 import Slider from '../../components/Slider';
 import Header from '../../components/HeaderUser';
 
@@ -17,12 +17,13 @@ class SubCategory extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar translucent backgroundColor="transparent" />
                 <Header />
                 <View style={styles.imageCon}>
                     <Slider />
                 </View>
                 <View style={styles.title}>
-                    <Text style={styles.textTitle}>{this.state.category}</Text>
+                    <Text style={styles.textTitle}>this.state.category</Text>
                 </View>
                 <FlatList
                     style={styles.FlatList}
@@ -68,7 +69,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     FlatList:{
-        alignSelf:'center'
+        width: Dimensions.get('screen').width,
+        marginTop: 10,
+        marginBottom:8,
+        paddingHorizontal: 20,
+        alignSelf: 'center',
     },
     text:{
         textAlign:'center',
@@ -92,11 +97,11 @@ const styles = StyleSheet.create({
     },
     order:{
         alignSelf: 'center',
-        backgroundColor:'#005b96',
-        paddingVertical:15,
-        marginHorizontal:15,
-        marginBottom:30,
-        width:Dimensions.get('screen').width*0.9
+        backgroundColor: '#005b96',
+        paddingVertical: 10,
+        marginHorizontal: 20,
+        marginBottom: 10,
+        width: Dimensions.get('screen').width * 0.85
     },
     buttonText:{
         textAlign:'center',
