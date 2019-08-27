@@ -8,7 +8,8 @@ export default class Auth extends Component {
         super(props)
 
         this.state = {
-            role: ''
+            role: '',
+            welcome: null,
         }
     }
     componentWillMount = async () => {
@@ -19,7 +20,7 @@ export default class Auth extends Component {
                 })
             }
         })
-        if (this.state.welcome !== '') {
+        if (this.state.welcome !== null) {
             await AsyncStorage.getItem('role', (err, result) => {
                 if (result) {
                     this.setState({

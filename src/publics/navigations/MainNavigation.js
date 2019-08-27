@@ -155,6 +155,7 @@ const AuthStack = createStackNavigator({
   })
 
 const Apps = createSwitchNavigator({
+  Welcome,
   AuthHome,
   AuthStack,
   AppStackNavigator
