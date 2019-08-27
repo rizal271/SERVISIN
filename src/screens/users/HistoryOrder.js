@@ -28,8 +28,8 @@ class HistoryOrder extends Component {
     }
     render() {
         return (
-            <View style={styles.container}> 
-                 <StatusBar translucent backgroundColor="transparent" />
+            <View style={styles.container}>
+                <StatusBar translucent backgroundColor="transparent" />
                 <Header />
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>History Services</Text>
@@ -70,20 +70,20 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#c4c4c4',
         marginHorizontal: 20,
-        marginVertical:4,
+        marginVertical: 4,
 
     },
     content: {
-        flex:5,
+        flex: 5,
     },
-    textDate:{
-        fontSize:12,
+    textDate: {
+        fontSize: 12,
         paddingHorizontal: 4,
         paddingVertical: 4,
-        textAlign:'right'
+        textAlign: 'right'
     },
-    FlatList:{
-        marginTop:10
+    FlatList: {
+        marginTop: 10
     },
     title: {
         justifyContent: 'center',

@@ -7,7 +7,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     ScrollView,
-    Dimensions
+    Dimensions,
+    StatusBar
 } from 'react-native'
 
 class register extends Component {
@@ -29,58 +30,59 @@ class register extends Component {
     handleChangeText = key => val => {
         this.setState({ [key]: val })
     }
-    
+
     render() {
-        return (   
-            <ScrollView>           
-            <View style={styles.container}>
-                <Text style={styles.textSignUp}> SIGN UP </Text>
-                <Image 
-                    style={styles.image}
-                    source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx'}} 
-                />
-                <Text style={styles.textUser}> User </Text>
-                <TextInput 
-                    placeholderTextColor= 'white'
-                    placeholder= 'Fullname...'
-                    style={styles.textInput}
+        return (
+            <ScrollView>
+                <StatusBar translucent backgroundColor="transparent" />
+                <View style={styles.container}>
+                    <Text style={styles.textSignUp}> SIGN UP </Text>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx' }}
+                    />
+                    <Text style={styles.textUser}> User </Text>
+                    <TextInput
+                        placeholderTextColor='white'
+                        placeholder='Fullname...'
+                        style={styles.textInput}
 
-                    value={this.state.fullName}
-                    onChangeText={this.handleChangeText('fullName')}
-                />
-                <TextInput 
-                    placeholderTextColor= 'white'
-                    placeholder= 'Phone Number...'
-                    style={styles.textInput}
+                        value={this.state.fullName}
+                        onChangeText={this.handleChangeText('fullName')}
+                    />
+                    <TextInput
+                        placeholderTextColor='white'
+                        placeholder='Phone Number...'
+                        style={styles.textInput}
 
-                    value={this.state.phoneNumber}
-                    onChangeText={this.handleChangeText('phoneNumber')}
-                />
-                <TextInput 
-                    placeholderTextColor= 'white'
-                    placeholder= 'Email...'
-                    style={styles.textInput}
+                        value={this.state.phoneNumber}
+                        onChangeText={this.handleChangeText('phoneNumber')}
+                    />
+                    <TextInput
+                        placeholderTextColor='white'
+                        placeholder='Email...'
+                        style={styles.textInput}
 
-                    value={this.state.email}
-                    onChangeText={this.handleChangeText('email')}
-                />
-                <TextInput 
-                    placeholderTextColor= 'white'
-                    placeholder= 'Password...'
-                    style={styles.textInput}
+                        value={this.state.email}
+                        onChangeText={this.handleChangeText('email')}
+                    />
+                    <TextInput
+                        placeholderTextColor='white'
+                        placeholder='Password...'
+                        style={styles.textInput}
 
-                    value={this.state.password}
-                    onChangeText={this.handleChangeText('password')}
+                        value={this.state.password}
+                        onChangeText={this.handleChangeText('password')}
 
-                />
-                <TouchableOpacity style={styles.buttonSignUp}>
-                    <Text style={styles.textButton}> Sign Up </Text>
-                </TouchableOpacity>
-                <Text style={styles.alreade}> Already have account? </Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
-                    <Text style={styles.textLogin}> Login here </Text>
-                </TouchableOpacity>
-            </View>
+                    />
+                    <TouchableOpacity style={styles.buttonSignUp}>
+                        <Text style={styles.textButton}> Sign Up </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.alreade}> Already have account? </Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={styles.textLogin}> Login here </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         )
     }
