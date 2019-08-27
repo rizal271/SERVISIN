@@ -106,6 +106,7 @@ const MitraTabNavigator = createMaterialTopTabNavigator(
     },
   },
   {
+    initialRouteName: 'Profile',
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     animationEnabled: false,

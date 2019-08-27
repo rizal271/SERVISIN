@@ -25,10 +25,25 @@ const mitra = (state = initialState, action) => {
             const token = action.payload.data.token
             const role = action.payload.data.role
             const idMitra = action.payload.data.idMitra
+            const fullname = action.payload.data.fullname
+            const email = action.payload.data.email
+            const phone = action.payload.data.nohp.toString()
+            const idCategory = action.payload.data.idCategory
+            const lat = action.payload.data.lat.toString()
+            const long = action.payload.data.long.toString()
+            const image = action.payload.data.image
+
+            AsyncStorage.setItem('idCategory', idCategory)
+            AsyncStorage.setItem('lat', lat)
+            AsyncStorage.setItem('long', long)
+            AsyncStorage.setItem('image', image)
+            AsyncStorage.setItem('fullname', fullname)
+            AsyncStorage.setItem('email', email)
+            AsyncStorage.setItem('phone', phone)
             AsyncStorage.setItem('token', token)
             AsyncStorage.setItem('role', role)
             AsyncStorage.setItem('idmitra', idMitra)
-            console.warn('ROLE LOGIN: ', action.payload.data)
+            console.warn('ROLE LOGIN: ', action.payload.data.nohp)
             return {
                 ...state,
                 isLoading: false,
