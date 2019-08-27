@@ -5,7 +5,7 @@ import {
   createSwitchNavigator,
 } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import Login from '../../screens/auth/login';
+import Login from '../../screens/auth/Login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';
@@ -13,7 +13,7 @@ import HomeUser from '../../screens/users/Home';
 import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import HistoryOrder from '../../screens/users/HistoryOrder';
-import Register from '../../screens/auth/register'
+import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'

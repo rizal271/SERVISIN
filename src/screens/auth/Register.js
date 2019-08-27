@@ -13,7 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { register } from '../../publics/redux/actions/user';
 
-class RegisterScreen extends Component {
+class Register extends Component {
     static navigationOptions = {
         header: null,
         footer: null
@@ -106,7 +106,7 @@ const mapStateToProps = state => {
         user: state.user
     };
 };
-export default connect(mapStateToProps)(RegisterScreen);
+export default connect(mapStateToProps)(Register);
 const styles = StyleSheet.create({
     container: {
         flex: 1,
