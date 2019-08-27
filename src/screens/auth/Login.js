@@ -8,7 +8,7 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
-    AsyncStorage as storage
+    AsyncStorage
 } from 'react-native'
 
 import { login } from '../../publics/redux/actions/mitra'
@@ -33,8 +33,13 @@ class Login extends Component {
     _handleLogin = async (data) => {
         await this.props.dispatch(login(data))
             .then((response) => {
-                console.warn('response login: ', response)
-                console.warn('token', response.value.data.token)
+                const token = response.value.data.token
+                const role = response.value.data.role
+                AsyncStorage.setItem('token', token)
+                AsyncStorage.setItem('role', role)
+            })
+            .catch((error) => {
+                alert(error)
             })
     }
 

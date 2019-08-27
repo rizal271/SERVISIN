@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, StyleSheet, StatusBar} from 'react-native'
+import { Platform, StyleSheet, StatusBar, AsyncStorage } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider';
 
 export class Welcome extends Component {
@@ -10,7 +10,20 @@ export class Welcome extends Component {
       show_Main_App: false
 
     };
+    this._cekToken()
   }
+
+  _cekToken = async () => {
+    const token = await AsyncStorage.getItem('token')
+    const role = await AsyncStorage.getItem('role')
+
+    this.props.navigation.navigate(
+      token && role === 'user' ? 'App' : 'Welcome'
+        ||
+        token && role === 'mitra' ? 'AppMitra' : 'Welcome'
+    )
+  }
+
   on_Done_all_slides = () => {
     this.setState({ show_Main_App: true });
   };
