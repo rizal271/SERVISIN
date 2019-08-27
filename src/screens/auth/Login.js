@@ -45,6 +45,11 @@ class Login extends Component {
         }
     }
     render() {
+        const { email, password } = this.state
+        const data = {
+            email: email,
+            password: password
+        }
         return (
             <ScrollView style={style.body} keyboardShouldPersistTaps={'always'}>
                 <View style={style.container}>

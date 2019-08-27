@@ -64,7 +64,7 @@ class Profile extends Component {
                                 when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.buttonOrder}>
+                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('DetailOrder')}>
                             <Text style={styles.textButtonOrder}> Order Sekarang </Text>
                         </TouchableOpacity>
                     </View>

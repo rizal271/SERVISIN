@@ -8,6 +8,7 @@ class Maps extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      category:this.props.navigation.state.params,
       mapRegion: null,
       lastLat: null,
       lastLong: null,
@@ -35,6 +36,8 @@ class Maps extends Component {
   }
 
   render() {
+    console.log(this.props.navigation.state.params);
+    
     return (
       <View style={styles.con}>
         <Header />
@@ -53,7 +56,7 @@ class Maps extends Component {
                 latitude: -7.7685000,
                 longitude: 110.3781497
               }}
-              onPress={() => { this.props.navigation.navigate('Category') }}>
+              onPress={() => { this.props.navigation.navigate('DetailProfileMitra') }}>
               <View style={styles.mapCoor}>
                 <Image
                   source={{ uri: 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566321024/img/blank-profile-picture-973460_960_720_wolhdp.png' }}

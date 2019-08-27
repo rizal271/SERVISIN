@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import {
   createAppContainer,
   createStackNavigator,
-  createSwitchNavigator,
+  createMaterialTopTabNavigator,
 } from 'react-navigation';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import AuthHome from '../../screens/AuthHome';
 import Login from '../../screens/auth/login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
@@ -13,101 +13,138 @@ import HomeUser from '../../screens/users/Home';
 import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import HistoryOrder from '../../screens/users/HistoryOrder';
-import Register from '../../screens/auth/register'
+import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-import DetailProfileMitra from '../../screens/users/DetailProfileMitra'  
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
+import {Icon} from 'native-base';
 
 
-// const stackNavigator = createStackNavigator({
-
-//     ChooseRole: {
-//         screen: ChooseRole,
-//         navigationOptions: {
-//             header: null
-//         }
-//     },
-//     HomeMitra: {
-//         screen: HomeMitra,
-//         navigationOptions: {
-//             header: null
-//         }
-//     },
-//   HomeUser: {
-//         screen: HomeUser,
-//         navigationOptions: {
-//             header: null
-//         }
-//     },
-//   Category: {
-//         screen: Category,
-//         navigationOptions: {
-//             header: null
-//         }
-//     }
-// }, {
-//         initialRouteName: 'HomeMitra'
-//     })
-
-const stackNavigator = createMaterialBottomTabNavigator(
+const UserTabNavigator = createMaterialTopTabNavigator(
   {
     Home: {
-      screen: Login,
+      screen: HomeUser,
       navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <Icon name="home" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="home" color={tintColor} size={24} />
+
         ),
       },
     },
     Maps: {
-      screen: HomeMitra,
+      screen: MapsUser,
       navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <Icon name="map" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="map" color={tintColor} size={24} />
         ),
       },
     },
-    Profil: {
-      screen: HomeMitra,
+    Profile: {
+      screen: MapsUser,
       navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <Icon name="user" size={20} color={focused ? '#FFF' : '#DACE91'} />
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="person" color={tintColor} size={24} />
+
         ),
       },
     },
   },
   {
-    initialRouteName: 'Home',
-    activeColor: '#f0edf6',
-    inactiveColor: '#b3cde0',
-    barStyle: { backgroundColor: '#005b96' },
+    tabBarPosition: 'bottom',
+    swipeEnabled: false,
+    animationEnabled: false,
+    tabBarOptions: {
+      activeTintColor: 'white',
+      inactiveTintColor: '#b3cde0',
+      upperCaseLabel: false,
+      labelStyle: {
+        fontSize: 9,
+        marginTop: 1,
+      },
+      style: {
+        backgroundColor: '#005b96',
+        elevation: 15,
+        height: 50,
+      },
+      indicatorStyle: {
+        height: 0,
+      },
+      showIcon: true,
+    },
   },
 );
 
-const authNavigator = createStackNavigator({
-  ChooseRole: {
-    screen: ChooseRole,
-    navigationOptions: {
-      header: null
-    }
-  },
-  Login,
-});
-
-const appNavigator = createSwitchNavigator({
-  Welcome: {
-    screen: Welcome,
-    navigationOptions: {
-      header: null,
+const MitraTabNavigator = createMaterialTopTabNavigator(
+  {
+    Home: {
+      screen: HomeMitra,
+      Category,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="home" color={tintColor} size={24} />
+        ),
+      },
+    },
+    Maps: {
+      screen: MapsUser,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="map" color={tintColor} size={24} />
+        ),
+      },
+    },
+    Profile: {
+      screen: ProfileMitra,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="person" color={tintColor} size={24} />
+        ),
+      },
     },
   },
-  Auth: {
-    screen: authNavigator,
+  {
+    tabBarPosition: 'bottom',
+    swipeEnabled: false,
+    animationEnabled: false,
+    tabBarOptions: {
+      activeTintColor: 'white',
+      inactiveTintColor: '#b3cde0',
+      upperCaseLabel: false,
+      labelStyle: {
+        fontSize: 9,
+        marginTop: 1,
+      },
+      style: {
+        backgroundColor: '#005b96',
+        elevation: 15,
+        height: 50,
+      },
+      indicatorStyle: {
+        height: 0,
+      },
+      showIcon: true,
+    },
   },
-  App: {
-    screen: stackNavigator,
+);
+
+const AppStackNavigator = createStackNavigator(
+  {
+    Homeuser: UserTabNavigator,
+    Homemitra: MitraTabNavigator,
+    AuthHome,
+    Category,
+    MapsUser,
+    HistoryOrder,
+    DetailProfileMitra,
+    ChatRoom,
+    DetailOrder
   },
-});
-export default createAppContainer(appNavigator);
+  {
+    headerMode: 'none',
+    initialRouteName: 'AuthHome',
+  },
+);
+
+export default createAppContainer(AppStackNavigator);
