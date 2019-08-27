@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   createAppContainer,
   createStackNavigator,
@@ -13,13 +13,13 @@ import HomeUser from '../../screens/users/Home';
 import MapsUser from '../../screens/users/MapSub';
 import Category from '../../screens/users/CategorySub';
 import HistoryOrder from '../../screens/users/HistoryOrder';
-import Register from '../../screens/auth/register'
+import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
+
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
 import {Icon} from 'native-base';
-import {Image} from 'react-native';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -29,6 +29,7 @@ const UserTabNavigator = createMaterialTopTabNavigator(
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon name="home" color={tintColor} size={24} />
+
         ),
       },
     },
@@ -45,6 +46,7 @@ const UserTabNavigator = createMaterialTopTabNavigator(
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon name="person" color={tintColor} size={24} />
+
         ),
       },
     },

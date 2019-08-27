@@ -22,7 +22,12 @@
     "react-native-gifted-chat": "^0.9.11",
     "react-native-image-slider-box": "^1.0.5",
     "react-native-image-slider-show": "^1.0.3",
+<<<<<<< HEAD
+    "react-native-material-bottom-navigation": "^1.0.4",
+=======
     "react-native-maps": "0.25.0",
+    "react-native-material-menu": "^1.0.0",
+>>>>>>> fbc78f34ed0968d1e3c98f40893e669e0be72ec6
     "react-native-paper": "^2.16.0",
     "react-native-reanimated": "^1.2.0",
     "react-native-snap-carousel": "^3.8.0",
