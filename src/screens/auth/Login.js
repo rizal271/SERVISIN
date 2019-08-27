@@ -7,15 +7,43 @@ import {
     Image,
     Dimensions,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage as storage
 } from 'react-native'
+
+import { login } from '../../publics/redux/actions/mitra'
+import { connect } from 'react-redux'
+
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
-export default class login extends Component {
+class Login extends Component {
     static navigationOptions = {
         header: null
     }
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            email: '',
+            password: ''
+        }
+    }
+
+    _handleLogin = async (data) => {
+        await this.props.dispatch(login(data))
+            .then((response) => {
+                console.warn('response login: ', response)
+                console.warn('token', response.value.data.token)
+            })
+    }
+
     render() {
+        const { email, password } = this.state
+        const data = {
+            email: email,
+            password: password
+        }
         return (
             <ScrollView style={style.body} keyboardShouldPersistTaps={'always'}>
                 <View style={style.container}>
@@ -27,10 +55,10 @@ export default class login extends Component {
                         User
                     </Text>
                     <View style={style.wrapForm}>
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} />
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true}/>
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} onChangeText={email => this.setState({ email })} />
+                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} onChangeText={password => this.setState({ password })} />
                         <View style={style.wrapButton}>
-                            <TouchableOpacity style={style.button}>
+                            <TouchableOpacity onPress={() => this._handleLogin(data)} style={style.button}>
                                 <Text style={style.buttonText}>
                                     Sign In
                             </Text>
@@ -44,7 +72,7 @@ export default class login extends Component {
                         <Text style={style.dont}>
                             Dont Have Account?
                         </Text>
-                        <TouchableOpacity style={style.register} onPress={()=>this.props.navigation.navigate('Register')}>
+                        <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text style={style.registerText}>
                                 Register Here
                             </Text>
@@ -55,6 +83,12 @@ export default class login extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        user: state.mitra.result
+    };
+};
+export default connect(mapStateToProps)(Login)
 const style = StyleSheet.create({
     body: {
         backgroundColor: '#6497B1',
@@ -131,10 +165,10 @@ const style = StyleSheet.create({
         fontSize: 15,
         color: '#fff'
     },
-    register:{
-        paddingVertical:5
+    register: {
+        paddingVertical: 5
     },
-    registerText:{
+    registerText: {
         textAlign: "center",
         fontSize: 15,
         color: '#fff'
