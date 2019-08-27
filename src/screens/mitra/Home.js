@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -10,6 +10,7 @@ import {
   Image,
   AsyncStorage,
 } from 'react-native';
+import { Button } from 'native-base';
 
 class HomeMitra extends Component {
   render() {
@@ -35,9 +36,9 @@ class HomeMitra extends Component {
         </View> */}
         <View>
           <FlatList
-            data={[{key: 'a'}, {key: 'b'}]}
+            data={[{ key: 'a' }, { key: 'b' }]}
             // renderItem={({item}) => <Text>{item.key}</Text>}
-            renderItem={({item}) => {
+            renderItem={({ item }) => {
               return (
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate('PersonChat')}>
@@ -49,29 +50,29 @@ class HomeMitra extends Component {
                     }}>
                     <View>
                       <Image
-                        style={{height: 60, width: 60, borderRadius: 50}}
+                        style={{ height: 60, width: 60, borderRadius: 50 }}
                         source={require('../../assets/images/plumber-35611_960_720.png')}
                       />
                     </View>
-                    <View style={{marginLeft: 10, width: 270}}>
+                    <View style={{ marginLeft: 10, width: 270 }}>
                       <Text
                         style={{
                           color: 'black',
                           fontSize: 17,
                           fontWeight: 'bold',
                         }}>
-                          
+
                         Servis AC di Jakal No. 52
                       </Text>
-                      <Text style={{color: 'black'}}>
+                      <Text style={{ color: 'black' }}>
                         Di Jalan
                       </Text>
-                      <Text style={{color: 'black'}}>
+                      <Text style={{ color: 'black' }}>
                         26 Agust 2019 . 13.30 WIB
                       </Text>
                     </View>
                     <View
-                      style={{borderBottomWidth: 3, borderColor: 'black'}}
+                      style={{ borderBottomWidth: 3, borderColor: 'black' }}
                     />
                   </View>
                 </TouchableOpacity>
@@ -79,6 +80,11 @@ class HomeMitra extends Component {
             }}
             style={styles.flatlist}
           />
+
+          <Button primary onPress={async () => {
+            await AsyncStorage.clear()
+            await this.props.navigation.navigate('AuthHome')
+          }}><Text>Logout</Text></Button>
         </View>
       </Fragment>
     );
@@ -113,14 +119,14 @@ const styles = StyleSheet.create({
     // marginLeft: '12%',
     padding: 12,
   },
-  noOrder:{
+  noOrder: {
     //   flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems:'center',
-      marginTop: '50%'
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '50%'
   },
-  textnoOrder:{
-      fontSize: 24,
+  textnoOrder: {
+    fontSize: 24,
   },
   flatlist: {
     paddingVertical: 10,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://192.168.6.103:3333'
+const url = 'http://192.168.6.122:333'
 export const register = (data) => {
     return {
         type: 'REGISTER',

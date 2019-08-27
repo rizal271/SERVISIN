@@ -9,10 +9,14 @@ import {
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
-    Alert
+    Alert,
+    AsyncStorage
+
 } from 'react-native'
-import {login} from '../../publics/redux/actions/user'
-import {connect} from 'react-redux'
+import { login as loginUser } from '../../publics/redux/actions/user'
+import { login as loginMitra } from '../../publics/redux/actions/mitra'
+import { connect } from 'react-redux'
+
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
 class Login extends Component {
@@ -23,48 +27,73 @@ class Login extends Component {
             password: '',
             isLoading: false
         }
+        console.warn(this.props.navigation.state.params.role);
+
     }
     static navigationOptions = {
         header: null
     }
-    login = async() => {
+    login = async () => {
         await this.setState({ isLoading: true })
         if (this.state.email !== '' && this.state.password !== '') {
-            await this.props.dispatch(login({email:this.state.email,password:this.state.password}))
-            console.warn(this.props.user);
-            this.setState({isLoading:false})
-            if(typeof this.props.user.userList === 'object' ){
-                console.warn(this.props.user.userList);
-                Alert.alert('Info','Success Login As '+this.props.user.userList.fullname)
-            }else{
-                Alert.alert('Warning',this.props.user.userList)
+            if (this.props.navigation.state.params.role === 'user') {
+                await this.props.dispatch(loginUser({ email: this.state.email, password: this.state.password }))
+                if (typeof(this.props.user.userList) === "object" && this.props.user.isFulfilled) {
+                    await Alert.alert('Info', 'Success Login')
+                    await this.setState({
+                        isLoading: false,
+                        email: '',
+                        password: '',
+                    })
+                    this.props.navigation.navigate('Homeuser')
+                } else {
+                    this.setState({
+                        isLoading: false,
+                    })
+                    console.warn(this.props.user.userList);
+                    Alert.alert('Warning', this.props.user.userList)
+                }
+            } else {
+                await this.props.dispatch(loginMitra({ email: this.state.email, password: this.state.password }))
+                this.setState({ isLoading: false })
+                console.warn(this.props.mitra);
+                if (typeof(this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
+                    await Alert.alert('Info', 'Success Login')
+                    await this.setState({
+                        isLoading: false,
+                        email: '',
+                        password: '',
+                    })
+                    this.props.navigation.navigate('Homemitra')
+                } else {
+                    this.setState({
+                        isLoading: false,
+                    })
+                    Alert.alert('Warning', this.props.mitra.mitraList)
+                }
             }
         } else {
-            Alert.alert('Warning','Semua Field Harus Di isi')
+            Alert.alert('Warning', 'Semua Field Harus Di isi')
             this.setState({ isLoading: false })
         }
+
     }
     render() {
-        const { email, password } = this.state
-        const data = {
-            email: email,
-            password: password
-        }
         return (
             <ScrollView style={style.body} keyboardShouldPersistTaps={'always'}>
                 <View style={style.container}>
                     <Text style={style.signIn}>
                         SIGN IN
-                    </Text>
-                    <Image source={require('../../assets/login.png')} style={style.image} />
+                     </Text>
+                    <Image source={this.props.navigation.state.params.role === 'mitra' ? require('../../assets/images/Engineer_icon.png') : require('../../assets/login.png')} style={style.image} />
                     <Text style={style.user}>
-                        User
+                        {this.props.navigation.state.params.role}
                     </Text>
                     <View style={style.wrapForm}>
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} onChangeText={(email) => this.setState({ email })} />
-                        <TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} onChangeText={(password) => this.setState({ password })} />
-                        <View style={style.wrapButton}>
-                            <TouchableOpacity style={style.button} onPress={!this.state.isLoading ? this.login :null} disabled={this.state.isLoading && true}>
+                        < TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Email..'} selectionColor={'#fff'} keyboardType={'email-address'} onChangeText={(email) => this.setState({ email })} />
+                        < TextInput style={style.textInput} placeholderTextColor={'#fff'} placeholder={'Password..'} selectionColor={'#fff'} secureTextEntry={true} onChangeText={(password) => this.setState({ password })} />
+                        < View style={style.wrapButton} >
+                            <TouchableOpacity style={style.button} onPress={!this.state.isLoading ? this.login : null} disabled={this.state.isLoading && true}>
                                 {!this.state.isLoading ?
                                     <Text style={style.buttonText}>
                                         Sign In
@@ -85,7 +114,7 @@ class Login extends Component {
                         <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text style={style.registerText}>
                                 Register Here
-                            </Text>
+                                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -93,9 +122,11 @@ class Login extends Component {
         )
     }
 }
-const mapState= (state)=>{
-    return{
-        user:state.user
+const mapState = (state) => {
+    return {
+        user: state.user,
+        mitra: state.mitra
+
     }
 }
 export default connect(mapState)(Login)
@@ -144,7 +175,7 @@ const style = StyleSheet.create({
     wrapButton: {
         flex: 1,
         flexDirection: "row",
-        justifyContent:'space-between'
+        justifyContent: 'space-between'
     },
     button: {
         backgroundColor: '#005B96',
@@ -185,6 +216,6 @@ const style = StyleSheet.create({
         textAlign: "center",
         fontSize: 15,
         color: '#fff',
-        fontWeight:'700'
+        fontWeight: '700'
     }
 })

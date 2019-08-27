@@ -14,7 +14,7 @@ export class ChooseRole extends Component {
                 <Text style={styles.titleScreen}>Choose your role</Text>
                 <View style={styles.chooseRoleRow}>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login',{role:'user'})}>
                             <View style={styles.shadowImg}>
                                 <Image source={require('../assets/images/User_icon.png')} style={styles.imgRole} />
                             </View>
@@ -22,7 +22,7 @@ export class ChooseRole extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.chooseRoleCol}>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Login',{role:'mitra'})}>
                             <View style={styles.shadowImg}>
                                 <Image source={require('../assets/images/Engineer_icon.png')} style={styles.imgRole} />
                             </View>
