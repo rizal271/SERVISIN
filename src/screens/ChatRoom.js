@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat';
 import HeaderChat from '../components/HeaderChat';
@@ -17,18 +18,17 @@ class ChatRoom extends Component {
       uid: this.props.navigation.state.params.idMitra,
       image: 'blabla',
       text: '',
-      myuid:'',
       messagesList: [],
 
     }
-
   }
 
   async componentDidMount() {
-    const myuid = await AsyncStorage.getItem('idUser')
-    console.log('ini jos', myuid);
-    
-    this.setState({ myuid })
+    this.setState({
+      myuid: await AsyncStorage.getItem('idUser'),
+      myname: await AsyncStorage.getItem('fullname'),
+      avatar: await AsyncStorage.getItem('image')
+    })
     await Database.ref('messages').child(this.state.myuid).child(this.state.uid)
       .on('child_added', (value) => {
         this.setState((previousState) => {
