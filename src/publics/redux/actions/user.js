@@ -7,10 +7,9 @@ export const register = (data) => {
         payload: axios.post(`${url}/user/register/`, data)
     }
 };
-
 export const login = (data) => {
     return {
         type: 'LOGIN',
-        payload: axios.post(`${url}/user/login`, data)
+        payload: axios.post(`${url}/user/login/`, data)
     }
 }

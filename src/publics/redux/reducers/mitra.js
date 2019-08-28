@@ -49,8 +49,7 @@ const mitra = (state = initialState, action) => {
                 isLoading: false,
                 isFulfilled: true,
                 mitraList: [state.mitraList, action.payload.data]
-            };
-        case 'REGISTER_MITRA_PENDING':
+            }; case 'REGISTER_MITRA_PENDING':
             return {
                 ...state,
                 isLoading: true,
@@ -68,7 +67,7 @@ const mitra = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                mitraList: [state.mitraList, action.payload.data]
+                mitraList: action.payload.data
             };
         default:
             return state;
