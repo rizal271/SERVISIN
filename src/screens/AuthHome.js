@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import {
+    View,
     ActivityIndicator,
-    AsyncStorage
-} from 'react-native'
+    AsyncStorage,
+    StatusBar
+} from 'react-native';
 export default class Auth extends Component {
     constructor(props) {
         super(props)
@@ -40,10 +42,11 @@ export default class Auth extends Component {
         }
     }
     render() {
-        console.warn(this.state.welcome);
-        console.warn('roleee ', this.state.role)
         return (
-            <ActivityIndicator size='large' color='blue' />
+            <View style={{width:'100%', height:200}}>
+                <StatusBar translucent backgroundColor="white" barStyle="dark-content" />
+                <ActivityIndicator size='large' color='blue' paddingTop={200} />
+            </View>
         )
     }
 }

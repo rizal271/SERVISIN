@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import IconMaterial from 'react-native-vector-icons/MaterialIcons';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Text,
   View,
@@ -8,40 +6,22 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  AsyncStorage,
 } from 'react-native';
-import { Button } from 'native-base';
+import Header from '../../components/HeaderUser';
+
 
 class HomeMitra extends Component {
   render() {
     return (
       <Fragment>
-        <View style={styles.navbar}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('PersonChat')}>
-            <IconMaterial name="arrow-back" style={styles.iconnavbar} />
-          </TouchableOpacity>
-          <Text style={styles.textnavbar}>Home Mitra</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Icon name="history" style={styles.iconnavbar} />
-          </TouchableOpacity>
-        </View>
-        {/* <View style={styles.noOrder}>
-          <Image
-            style={{height: 140, width: 140}}
-            source={require('../../assets/images/plumber-35611_960_720.png')}
-          />
-          <Text style={styles.textnoOrder}>Berdo'a dan Bersabarlah</Text>
-          <Text style={styles.textnoOrder}>Yakin ada Orderan Masuk</Text>
-        </View> */}
+        <Header />
         <View>
           <FlatList
             data={[{ key: 'a' }, { key: 'b' }]}
-            // renderItem={({item}) => <Text>{item.key}</Text>}
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('PersonChat')}>
+                  onPress={() => this.props.navigation.navigate('DetailOrderMitra')}>
                   <View
                     style={{
                       flexDirection: 'row',

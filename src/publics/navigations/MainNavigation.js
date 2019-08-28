@@ -18,7 +18,7 @@ import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-
+import DetailOrderMitra from '../../screens/mitra/detailOrder';
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import { Icon } from 'native-base';
 import Profil from "../../screens/users/Profil";
@@ -141,6 +141,7 @@ const AppStackNavigator = createStackNavigator(
     DetailProfileMitra,
     ChatRoom,
     DetailOrder,
+    DetailOrderMitra,
   },
   {
     headerMode: 'none',
