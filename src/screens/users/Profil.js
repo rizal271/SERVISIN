@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   Image,
   AsyncStorage,
+  ScrollView
 } from 'react-native';
-import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux'
 import { updateFoto } from '../../publics/redux/actions/user';
+import Header from '../../components/HeaderUser';
 import { ActivityIndicator } from 'react-native-paper';
+
 class Profil extends Component {
   constructor(props) {
     super(props);
@@ -146,6 +148,7 @@ class Profil extends Component {
     const { fullname, imageSrc, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
+        <Header />
         <View style={styles.top}>
           <View style={{ marginTop: 20, marginLeft: 20, elevation: 20 }}>
             <TouchableOpacity onPress={() => this.handleChoosePhoto()}>
@@ -205,20 +208,23 @@ class Profil extends Component {
             </View>
           </View>
         </View>
+        <ScrollView>
         <View
           style={{
             top: 120,
             marginHorizontal: 12,
-            margin: 0,
             alignItems: 'center',
             justifyContent: 'center',
+            height:300,
+            marginBottom:5
           }}>
           <FlatList
             data={this.state.data}
             renderItem={this._renderItem}
             keyExtractor={item => item.id}
           />
-        </View>
+          </View>
+        </ScrollView>
       </Fragment>
     );
   }

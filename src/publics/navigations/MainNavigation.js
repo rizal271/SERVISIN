@@ -22,6 +22,7 @@ import DetailOrderMitra from '../../screens/mitra/detailOrder';
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import { Icon } from 'native-base';
 import Profil from "../../screens/users/Profil";
+import Maps from '../../screens/Maps';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -36,7 +37,7 @@ const UserTabNavigator = createMaterialTopTabNavigator(
       },
     },
     Maps: {
-      screen: MapsUser,
+      screen: Maps,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="map" color={tintColor} size={24} />
