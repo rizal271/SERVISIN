@@ -49,7 +49,7 @@ const user = (state = initialState, action) => {
             const idUser = action.payload.data.idUser
             const fullname = action.payload.data.fullname
             const email = action.payload.data.email
-            // const nohp = action.payload.data.nohp.toString()
+            const nohp = action.payload.data.nohp.toString()
             const lat = action.payload.data.lat
             const long = action.payload.data.long
             const image = action.payload.data.image
@@ -59,7 +59,7 @@ const user = (state = initialState, action) => {
             AsyncStorage.setItem('image', image)
             AsyncStorage.setItem('fullname', fullname)
             AsyncStorage.setItem('email', email)
-            // AsyncStorage.setItem('nohp', nohp)
+            AsyncStorage.setItem('nohp', nohp)
             AsyncStorage.setItem('token', token)
             AsyncStorage.setItem('role', role)
             AsyncStorage.setItem('idUser', idUser)

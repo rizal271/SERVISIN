@@ -54,7 +54,30 @@ class Profil extends Component {
           date: '17-08-2019',
         },
       ],
+
+      fullname: '',
+      phone: '',
+      email: '',
+      image: '',
+      lat: '',
+      long: '',
+      role: '',
+      idUser: '',
+      token: '',
     };
+  }
+
+  async componentDidMount() {
+    const fullname = await AsyncStorage.getItem('fullname')
+    const phone = await AsyncStorage.getItem('nohp')
+    const email = await AsyncStorage.getItem('email')
+    const image = await AsyncStorage.getItem('image')
+    const lat = await AsyncStorage.getItem('lat')
+    const long = await AsyncStorage.getItem('long')
+    const token = await AsyncStorage.getItem('token')
+    const role = await AsyncStorage.getItem('role')
+    const idUser = await AsyncStorage.getItem('idUser')
+    this.setState({ fullname, phone, email, image, lat, long, token, role, idUser })
   }
 
   _renderItem = ({ item }) => {
@@ -80,33 +103,36 @@ class Profil extends Component {
   }
 
   render() {
+    const { fullname, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
         <View style={styles.top}>
           <View style={{ marginTop: 20, marginLeft: 20, elevation: 20 }}>
             <Image
               style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
-              source={require('../../assets/images/plumber-35611_960_720.png')}
+              source={{ uri: image }}
             />
           </View>
           <View style={styles.textTop}>
             <View>
               <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
-                nama
+                {fullname}
               </Text>
               <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
-                0832637236
+                {phone}
               </Text>
               <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
-                Jakal Selatan
+                {email}
               </Text>
             </View>
             <View style={{ alignItems: 'flex-end', marginLeft: '50%' }}>
               <TouchableOpacity>
-                <Icon name="edit" style={{ fontSize: 30, color: '#fff' }} />
+                <Icon name="edit" style={{ fontSize: 30, color: '#fff', textAlign: 'center' }} />
+                <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this._handleLogout()}>
-                <Icon name="sign-out" style={{ fontSize: 30, color: 'salmon', marginTop: 10 }} />
+                <Icon name="sign-out" style={{ fontSize: 30, color: 'salmon', textAlign: 'center' }} />
+                <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Logout</Text>
               </TouchableOpacity>
             </View>
           </View>
