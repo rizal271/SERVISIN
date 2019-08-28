@@ -8,10 +8,11 @@ import {
     Dimensions,
     TextInput,
     TouchableOpacity,
-    AsyncStorage as storage
+    AsyncStorage
 } from 'react-native'
 
-import { login } from '../../publics/redux/actions/mitra'
+import { login as loginMitra } from '../../publics/redux/actions/mitra'
+import { login as loginUser } from '../../publics/redux/actions/user'
 import { connect } from 'react-redux'
 
 const width = Dimensions.get('screen').width
@@ -31,10 +32,12 @@ class Login extends Component {
     }
 
     _handleLogin = async (data) => {
-        await this.props.dispatch(login(data))
-            .then((response) => {
-                console.warn('response login: ', response)
-                console.warn('token', response.value.data.token)
+        await this.props.dispatch(loginMitra(data))
+            .then(() => {
+                this.props.navigation.navigate('AuthHome')
+            })
+            .catch((error) => {
+                alert(error)
             })
     }
 
@@ -85,7 +88,8 @@ class Login extends Component {
 }
 const mapStateToProps = state => {
     return {
-        user: state.mitra.result
+        mitra: state.mitra.result,
+        user: state.user.result
     };
 };
 export default connect(mapStateToProps)(Login)
