@@ -81,10 +81,18 @@ class RegisterMitra extends Component {
                         selectedValue={this.state.idCategory}
                         onValueChange={(value) => this.setState({idCategory:value})}>
                             <Picker.Item label='Category' value='' color='white' />
-                            <Picker.Item label='Otomotif' value='1' />
-                            <Picker.Item label='Elektronik' value='2' />
-                            <Picker.Item label='Builders' value='3' />
-                            <Picker.Item label='Emergensy' value='4' />
+                            <Picker.Item label='Mobil' value='1' />
+                            <Picker.Item label='Sepeda Motor' value='2' />
+                            <Picker.Item label='Service TV' value='3' />
+                            <Picker.Item label='Service AC' value='4' />
+                            <Picker.Item label='Service Kulkas' value='5' />
+                            <Picker.Item label='Service Mesin Cuci' value='6' />
+                            <Picker.Item label='Jasa Cat' value='7' />
+                            <Picker.Item label='Sedot Tinja' value='8' />
+                            <Picker.Item label='Aliran Listrik' value='9' />
+                            <Picker.Item label='Tambal Ban' value='10' />
+                            <Picker.Item label='Bahan Bakar' value='11' />
+                            <Picker.Item label='Tempah Kunci' value='12' />
                     </Picker>
                     <TextInput
                         placeholderTextColor='white'
