@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
-import { FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet } from 'react-native'
-import { Header, Text, Card, CardItem, Badge } from 'native-base'
+import { FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
+import { Text, Card, CardItem, Badge } from 'native-base'
 import { connect } from 'react-redux'
 import { getOrderMitraSelesai } from '../../publics/redux/actions/order'
-import moment from 'moment'
+import moment from 'moment';
+import Header from '../../components/HeaderUser';
 
 class OrderList extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            isLoading:false,
             data: [],
             idmitra: this.props.navigation.getParam('idmitra')
         }
     }
 
     componentDidMount = async () => {
+        this.setState({ isLoading:true})
         await this.getOrderSelesai()
     }
 
@@ -23,7 +26,7 @@ class OrderList extends Component {
         this.props.dispatch(getOrderMitraSelesai(this.state.idmitra))
             .then((response) => {
                 console.warn(response)
-                this.setState({ data: this.props.order.orderList })
+                this.setState({ data: this.props.order.orderList, isLoading:false })
             })
     }
 
@@ -68,11 +71,10 @@ class OrderList extends Component {
     }
 
     render() {
-        console.warn('data order: ', this.state.data);
-
         return (
             <>
                 <Header />
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height*0.5} style={{alignSelf:'center', width:Dimensions.get('screen').width}} /> :
                 <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
                     <Card>
                         <CardItem>
@@ -83,7 +85,7 @@ class OrderList extends Component {
                             />
                         </CardItem>
                     </Card>
-                </View>
+                </View>}
             </>
         )
     }

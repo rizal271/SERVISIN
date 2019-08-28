@@ -8,3 +8,10 @@ export const getOrderMitraSelesai = (idMitra) => {
         payload: axios.get(`${url}/order/mitraselesai/${idMitra}`),
     }
 };
+
+export const getOrderMitraPending = (idMitra) => {
+    return {
+        type: 'GET_ORDER_MITRAPENDING',
+        payload: axios.get(`${url}/order/mitrapending/${idMitra}`),
+    }
+};

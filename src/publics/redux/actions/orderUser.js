@@ -10,3 +10,11 @@ export const getOrderUserSelesai = (idUser) => {
     }
 };
 
+export const getOrderUserPending = (idUser) => {
+    return {
+        type: 'GET_USER_PENDING',
+        payload: axios.get(`${url}/order/userpending/${idUser}`),
+
+    }
+};
+

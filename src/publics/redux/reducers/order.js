@@ -5,7 +5,7 @@ const initialState = {
     isRejected: false,
 };
 
-//manage state 
+//manage state GET_ORDER_MITRAPENDING
 const order = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_ORDERMITRASELESAI_PENDING':
@@ -26,7 +26,28 @@ const order = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                orderList : action.payload.data.result
+                orderList: action.payload.data.result
+            };
+
+        case 'GET_ORDER_MITRAPENDING_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_ORDER_MITRAPENDING_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_ORDER_MITRAPENDING_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                orderList: action.payload.data.result
             };
         default:
             return state;
