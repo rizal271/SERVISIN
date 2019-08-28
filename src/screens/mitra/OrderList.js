@@ -11,42 +11,39 @@ class OrderList extends Component {
                         data={[{ key: 'a' }, { key: 'b' }]}
                         renderItem={({ item }) => {
                             return (
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate('DetailOrderMitra')}>
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                            marginHorizontal: 10,
-                                            marginBottom: 10,
-                                        }}>
-                                        <View>
-                                            <Image
-                                                style={{ height: 60, width: 60, borderRadius: 50 }}
-                                                source={require('../../assets/images/plumber-35611_960_720.png')}
-                                            />
-                                        </View>
-                                        <View style={{ marginLeft: 10, width: 270 }}>
-                                            <Text
-                                                style={{
-                                                    color: 'black',
-                                                    fontSize: 17,
-                                                    fontWeight: 'bold',
-                                                }}>
-
-                                                Servis AC di Jakal No. 52
-                      </Text>
-                                            <Text style={{ color: 'black' }}>
-                                                Di Jalan
-                      </Text>
-                                            <Text style={{ color: 'black' }}>
-                                                26 Agust 2019 . 13.30 WIB
-                      </Text>
-                                        </View>
-                                        <View
-                                            style={{ borderBottomWidth: 3, borderColor: 'black' }}
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        marginHorizontal: 10,
+                                        marginBottom: 10,
+                                    }}>
+                                    <View>
+                                        <Image
+                                            style={{ height: 60, width: 60, borderRadius: 50 }}
+                                            source={require('../../assets/images/plumber-35611_960_720.png')}
                                         />
                                     </View>
-                                </TouchableOpacity>
+                                    <View style={{ marginLeft: 10, width: 270 }}>
+                                        <Text
+                                            style={{
+                                                color: 'black',
+                                                fontSize: 17,
+                                                fontWeight: 'bold',
+                                            }}>
+
+                                            Servis AC di Jakal No. 52
+                                        </Text>
+                                        <Text style={{ color: 'black' }}>
+                                            Di Jalan
+                                        </Text>
+                                        <Text style={{ color: 'black' }}>
+                                            26 Agust 2019 . 13.30 WIB
+                                        </Text>
+                                    </View>
+                                    <View
+                                        style={{ borderBottomWidth: 3, borderColor: 'black' }}
+                                    />
+                                </View>
                             );
                         }}
                         style={styles.flatlist}

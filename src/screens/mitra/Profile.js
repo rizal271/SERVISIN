@@ -110,10 +110,12 @@ class Profile extends Component {
                                 <Text style={styles.textCol2}> 78 </Text>
                             </View>
                         </View>
-                        <View style={styles.card2}>
-                            <Text style={styles.textCard2}> Orderan Beres </Text>
-                            <Text style={styles.textCard2}> 20 </Text>
-                        </View>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList')}>
+                            <View style={styles.card2}>
+                                <Text style={styles.textCard2}> Orderan Beres </Text>
+                                <Text style={styles.textCard2}> 20 </Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </>
