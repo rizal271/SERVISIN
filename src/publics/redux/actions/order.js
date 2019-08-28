@@ -6,6 +6,5 @@ export const getOrderMitraSelesai = (idMitra) => {
     return {
         type: 'GET_ORDERMITRASELESAI',
         payload: axios.get(`${url}/order/mitraselesai/${idMitra}`),
-
     }
 };

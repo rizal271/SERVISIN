@@ -24,11 +24,13 @@ class Profile extends Component {
             lat: '',
             long: '',
             idCategory: '',
+            idmitra: ''
 
         }
     }
 
     async componentDidMount() {
+        const idmitra = await AsyncStorage.getItem('idmitra')
         const mitra = await AsyncStorage.getItem('fullname')
         const phone = await AsyncStorage.getItem('phone')
         const email = await AsyncStorage.getItem('email')
@@ -43,7 +45,8 @@ class Profile extends Component {
             image,
             lat,
             long,
-            idCategory
+            idCategory,
+            idmitra
         })
         console.warn('phone', phone);
 
@@ -64,7 +67,7 @@ class Profile extends Component {
     }
 
     render() {
-        const { mitra, phone, email, image, lat, long, idCategory } = this.state
+        const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
         return (
             <>
                 <ScrollView style={{ flex: 1 }}>
@@ -110,7 +113,7 @@ class Profile extends Component {
                                 <Text style={styles.textCol2}> 78 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList', { idmitra })}>
                             <View style={styles.card2}>
                                 <Text style={styles.textCard2}> Orderan Beres </Text>
                                 <Text style={styles.textCard2}> 20 </Text>
