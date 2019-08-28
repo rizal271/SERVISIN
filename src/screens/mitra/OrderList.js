@@ -1,53 +1,57 @@
 import React, { Component } from 'react'
 import { Text, FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet } from 'react-native'
-import { Header } from 'native-base'
+import { Header, Card, CardItem } from 'native-base'
 class OrderList extends Component {
     render() {
         return (
             <>
                 <Header />
-                <View>
-                    <FlatList
-                        data={[{ key: 'a' }, { key: 'b' }]}
-                        renderItem={({ item }) => {
-                            return (
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        marginHorizontal: 10,
-                                        marginBottom: 10,
-                                    }}>
-                                    <View>
-                                        <Image
-                                            style={{ height: 60, width: 60, borderRadius: 50 }}
-                                            source={require('../../assets/images/plumber-35611_960_720.png')}
-                                        />
-                                    </View>
-                                    <View style={{ marginLeft: 10, width: 270 }}>
-                                        <Text
+                <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+                    <Card>
+                        <CardItem>
+                            <FlatList
+                                data={[{ key: 'a' }, { key: 'b' }]}
+                                renderItem={({ item }) => {
+                                    return (
+                                        <View
                                             style={{
-                                                color: 'black',
-                                                fontSize: 17,
-                                                fontWeight: 'bold',
+                                                flexDirection: 'row',
+                                                marginHorizontal: 10,
+                                                marginBottom: 10,
                                             }}>
+                                            <View>
+                                                <Image
+                                                    style={{ height: 60, width: 60, borderRadius: 50 }}
+                                                    source={require('../../assets/images/plumber-35611_960_720.png')}
+                                                />
+                                            </View>
+                                            <View style={{ marginLeft: 10, width: 270 }}>
+                                                <Text
+                                                    style={{
+                                                        color: 'black',
+                                                        fontSize: 17,
+                                                        fontWeight: 'bold',
+                                                    }}>
 
-                                            Servis AC di Jakal No. 52
+                                                    Servis AC di Jakal No. 52
                                         </Text>
-                                        <Text style={{ color: 'black' }}>
-                                            Di Jalan
+                                                <Text style={{ color: 'black' }}>
+                                                    Di Jalan
                                         </Text>
-                                        <Text style={{ color: 'black' }}>
-                                            26 Agust 2019 . 13.30 WIB
+                                                <Text style={{ color: 'black' }}>
+                                                    26 Agust 2019 . 13.30 WIB
                                         </Text>
-                                    </View>
-                                    <View
-                                        style={{ borderBottomWidth: 3, borderColor: 'black' }}
-                                    />
-                                </View>
-                            );
-                        }}
-                        style={styles.flatlist}
-                    />
+                                            </View>
+                                            <View
+                                                style={{ borderBottomWidth: 3, borderColor: 'black' }}
+                                            />
+                                        </View>
+                                    );
+                                }}
+                                style={styles.flatlist}
+                            />
+                        </CardItem>
+                    </Card>
                 </View>
             </>
         )
