@@ -14,62 +14,48 @@ const width = Dimensions.get('screen').width
 export default class DetailOrder extends Component {
     render() {
         return (
-            <ScrollView>
-                <StatusBar translucent backgroundColor="transparent"/>
+            <>
+                <StatusBar translucent backgroundColor="transparent" />
                 <Header />
-                <View style={style.container}>
-                    <View style={style.wrapChat}>
-                        <Text style={style.detailOrder}>
-                            Detail Order
+                <ScrollView>
+                    <View style={style.container}>
+                        <View style={style.wrapChat}>
+                            <Text style={style.detailOrder}>
+                                Detail Order
                             </Text>
-                        <TouchableOpacity>
-                            <Image source={require('../../assets/images/Chat_icon.png')} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={style.wrapDetail}>
-                        <View style={style.wrapText}>
-                            <Text style={style.textKey}>
-                                Category :
-                            </Text>
-                            <Text style={style.textValue}>
-                                aabsbd
-                            </Text>
+                            <TouchableOpacity>
+                                <Image source={require('../../assets/images/Chat_icon.png')} />
+                            </TouchableOpacity>
                         </View>
-                        <View style={style.wrapText}>
-                            <Text style={style.textKey}>
-                                Kerusakan / Kebutuhan :
+                        <View style={style.wrapDetail}>
+                            <View style={style.wrapText}>
+                                <Text style={style.textKey}>
+                                    Category :
                             </Text>
-                            <Text style={style.textValue}>
-                                asndijadsk askjdnajsd sadunasoidk asduinaisd asijdbnasdnas duasbbdniasd uansdbi
+                                <Text style={style.textValue}>
+                                    aabsbd
                             </Text>
-                        </View>
-                        <View style={style.wrapText}>
-                            <Text style={style.textKey}>
-                                Estimasi Harga :
+                            </View>
+                            <View style={style.wrapText}>
+                                <Text style={style.textKey}>
+                                    Estimasi Harga :
                             </Text>
-                            <Text style={style.textValue}>
-                                aabsbd
+                                <Text style={style.textValue}>
+                                    aabsbd
                             </Text>
-                        </View>
-                        <View style={style.wrapAlamat}>
-                            <Text style={style.textAlamatKey}>
-                                Alamat:
+                            </View>
+                            <View style={style.wrapAlamat}>
+                                <Text style={style.textAlamatKey}>
+                                    Alamat:
                                 </Text>
-                            <Text style={style.textAlamatValue}>
-                                JALAN JALAN
+                                <Text style={style.textAlamatValue}>
+                                    JALAN JALAN
                                 </Text>
-                        </View>
-                        <View style={style.wrapAlamat}>
-                            <Text style={style.textAlamatKey}>
-                                Alamat Service:
-                                </Text>
-                            <Text style={style.textAlamatValue}>
-                                asadnasdkj
-                                </Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </>
         )
     }
 }

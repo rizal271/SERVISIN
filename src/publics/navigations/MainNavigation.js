@@ -22,6 +22,9 @@ import DetailOrderMitra from '../../screens/mitra/detailOrder';
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import { Icon } from 'native-base';
 import Profil from "../../screens/users/Profil";
+import ListPenghasilan from "../../screens/mitra/ListPenghasilan";
+import OrderList from "../../screens/mitra/OrderList";
+import MapsMitra from '../../screens/mitra/MapsMitra';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -80,17 +83,8 @@ const UserTabNavigator = createMaterialTopTabNavigator(
 
 const MitraTabNavigator = createMaterialTopTabNavigator(
   {
-    Home: {
-      screen: HomeMitra,
-      Category,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="home" color={tintColor} size={24} />
-        ),
-      },
-    },
     Maps: {
-      screen: MapsUser,
+      screen: MapsMitra,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="map" color={tintColor} size={24} />
@@ -142,6 +136,8 @@ const AppStackNavigator = createStackNavigator(
     ChatRoom,
     DetailOrder,
     DetailOrderMitra,
+    ListPenghasilan,
+    OrderList
   },
   {
     headerMode: 'none',
