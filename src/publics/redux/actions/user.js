@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://192.168.6.100:3333'
+const url = 'http://192.168.6.189:3333'
 export const register = (data) => {
     return {
         type: 'REGISTER',
@@ -11,6 +11,13 @@ export const login = (data) => {
     return {
         type: 'LOGIN',
         payload: axios.post(`${url}/user/login/`, data)
+    }
+}
+
+export const updateLongLat = (idUser, data) => {
+    return {
+        type: 'UPDATE_LONGLAT',
+        payload: axios.patch(`${url}/user/posision/${idUser}`, data)
     }
 }
 
