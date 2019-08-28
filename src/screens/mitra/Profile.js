@@ -5,61 +5,102 @@ import {
     StyleSheet,
     Image,
     ScrollView,
-    TextInput, 
+    TextInput,
     StatusBar,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu'
 
 class Profile extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            mitra: '',
+            phone: '',
+            email: '',
+            image: '',
+            lat: '',
+            long: '',
+            idCategory: '',
+
+        }
+    }
+
+    async componentDidMount() {
+        const mitra = await AsyncStorage.getItem('fullname')
+        const phone = await AsyncStorage.getItem('phone')
+        const email = await AsyncStorage.getItem('email')
+        const image = await AsyncStorage.getItem('image')
+        const lat = await AsyncStorage.getItem('lat')
+        const long = await AsyncStorage.getItem('long')
+        const idCategory = await AsyncStorage.getItem('idCategory')
+        await this.setState({
+            mitra,
+            phone,
+            email,
+            image,
+            lat,
+            long,
+            idCategory
+        })
+        console.warn('phone', phone);
+
+    }
 
     _menu = null;
- 
+
     setMenuRef = ref => {
-      this._menu = ref
+        this._menu = ref
     }
-   
+
     hideMenu = () => {
-      this._menu.hide()
+        this._menu.hide()
     }
-   
+
     showMenu = () => {
-      this._menu.show()
+        this._menu.show()
     }
 
     render() {
+        const { mitra, phone, email, image, lat, long, idCategory } = this.state
         return (
             <>
-             <ScrollView style={{flex: 1}}>
-                <StatusBar translucent backgroundColor="transparent" />
-                <View style={styles.view1}>
-                    
-                        
-                    <Menu
-                        style={{marginLeft: 200,}}
-                        ref={this.setMenuRef}
-                        button={<Text onPress={this.showMenu} style={{width: 15, height: 20, marginLeft: 313, marginTop: 35}}>
-                            <Image 
-                                            style={{width: 15, height: 20, marginLeft: 313, marginTop: 35}}
-                                            source={require('../../assets/images/Menue-Icon-PNG.png')} ></Image>
-                        </Text>}
+                <ScrollView style={{ flex: 1 }}>
+                    <StatusBar translucent backgroundColor="transparent" />
+                    <View style={styles.view1}>
+
+
+                        <Menu
+                            style={{ marginLeft: 200, }}
+                            ref={this.setMenuRef}
+                            button={<Text onPress={this.showMenu} style={{ width: 15, height: 20, marginLeft: 313, marginTop: 35 }}>
+                                <Image
+                                    style={{ width: 15, height: 20, marginLeft: 313, marginTop: 35 }}
+                                    source={require('../../assets/images/Menue-Icon-PNG.png')} ></Image>
+                            </Text>}
                         >
-                        <MenuItem onPress={this.hideMenu}>Income List </MenuItem>
-                        <MenuItem onPress={this.hideMenu}>Order List</MenuItem>
-                        <MenuItem onPress={this.hideMenu}>Edit Profile</MenuItem>
-                        <MenuDivider />
-                        <MenuItem onPress={this.hideMenu}>Sign Out</MenuItem>
-                    </Menu>
-                    
-                    <Image 
-                      source={require('../../assets/images/Engineer_icon.png')}
-                      style={styles.image}
-                    />
-                    <Text style={styles.text}> Company Name </Text>
-                    <Text style={styles.text}> Phone Number </Text>
-                    <Text style={styles.text}> Email </Text>
-                </View>
-               
+                            <MenuItem onPress={this.hideMenu}>Income List </MenuItem>
+                            <MenuItem onPress={this.hideMenu}>Order List</MenuItem>
+                            <MenuItem onPress={this.hideMenu}>Edit Profile</MenuItem>
+                            <MenuDivider />
+                            <MenuItem onPress={this.hideMenu} onPress={async () => {
+                                await AsyncStorage.clear()
+                                await AsyncStorage.setItem('welcome', 'udah')
+                                await this.props.navigation.navigate('AuthHome')
+                            }}>Sign Out</MenuItem>
+                        </Menu>
+
+                        <Image
+                            source={{ uri: image }}
+                            style={styles.image}
+                        />
+                        <Text style={styles.text}> {mitra} </Text>
+                        <Text style={styles.text}>{phone} </Text>
+                        <Text style={styles.text}> {email} </Text>
+                    </View>
+
                     <View style={styles.view2}>
                         <View style={styles.card1}>
                             <View style={styles.col1}>
@@ -69,7 +110,7 @@ class Profile extends Component {
                             <View style={styles.col2}>
                                 <Text style={styles.textCol2}> Rp.1.500.000 </Text>
                                 <Text style={styles.textCol2}> 78 </Text>
-                            </View>  
+                            </View>
                         </View>
                         <View style={styles.card2}>
                             <Text style={styles.textCard2}> Orderan Beres </Text>
@@ -81,10 +122,10 @@ class Profile extends Component {
                         </View>
                         <View style={styles.viewDetailPerusahaan}>
                             <Text style={styles.textDetailPerusahaan}> Detail Perusahaan: </Text>
-                            <Text style={styles.isiDetailPerusahaan}> 
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                            <Text style={styles.isiDetailPerusahaan}>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                             </Text>
                         </View>
                     </View>
@@ -148,9 +189,9 @@ const styles = StyleSheet.create({
         marginBottom: 20,
 
         color: '#FFFFFF',
-    }, 
+    },
     card2: {
-        height: 120, 
+        height: 120,
         width: 120,
         marginLeft: 37,
         marginTop: 15,
@@ -159,7 +200,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     card3: {
-        height: 120, 
+        height: 120,
         width: 120,
         marginLeft: 205,
         marginTop: -121,

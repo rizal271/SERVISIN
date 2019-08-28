@@ -11,10 +11,10 @@ import {
     ActivityIndicator,
     Alert,
     AsyncStorage
-} from 'react-native'
 
-import { login as loginMitra } from '../../publics/redux/actions/mitra';
-import { login as loginUser } from '../../publics/redux/actions/user';
+} from 'react-native'
+import { login as loginUser } from '../../publics/redux/actions/user'
+import { login as loginMitra } from '../../publics/redux/actions/mitra'
 import { connect } from 'react-redux'
 
 const width = Dimensions.get('screen').width
@@ -29,60 +29,54 @@ class Login extends Component {
         }
         console.warn(this.props.navigation.state.params.role);
 
-        _handleLogin = async (data) => {
-            await this.props.dispatch(loginMitra(data))
-                .then(() => {
-                    this.props.navigation.navigate('AuthHome')
-                })
-                .catch((error) => {
-                    alert(error)
-                })
-        }
-        login = async () => {
-            await this.setState({ isLoading: true })
-            if (this.state.email !== '' && this.state.password !== '') {
-                if (this.props.navigation.state.params.role === 'user') {
-                    await this.props.dispatch(loginUser({ email: this.state.email, password: this.state.password }))
-                    if (typeof (this.props.user.userList) === "object" && this.props.user.isFulfilled) {
-                        await Alert.alert('Info', 'Success Login')
-                        await this.setState({
-                            isLoading: false,
-                            email: '',
-                            password: '',
-                        })
-                        this.props.navigation.navigate('Homeuser')
-                    } else {
-                        this.setState({
-                            isLoading: false,
-                        })
-                        console.warn(this.props.user.userList);
-                        Alert.alert('Warning', this.props.user.userList)
-                    }
+    }
+    static navigationOptions = {
+        header: null
+    }
+    login = async () => {
+        await this.setState({ isLoading: true })
+        if (this.state.email !== '' && this.state.password !== '') {
+            if (this.props.navigation.state.params.role === 'user') {
+                await this.props.dispatch(loginUser({ email: this.state.email, password: this.state.password }))
+                if (typeof (this.props.user.userList) === "object" && this.props.user.isFulfilled) {
+                    await Alert.alert('Info', 'Success Login')
+                    await this.setState({
+                        isLoading: false,
+                        email: '',
+                        password: '',
+                    })
+                    this.props.navigation.navigate('Homeuser')
                 } else {
-                    await this.props.dispatch(loginMitra({ email: this.state.email, password: this.state.password }))
-                    this.setState({ isLoading: false })
-                    console.warn(this.props.mitra);
-                    if (typeof (this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
-                        await Alert.alert('Info', 'Success Login')
-                        await this.setState({
-                            isLoading: false,
-                            email: '',
-                            password: '',
-                        })
-                        this.props.navigation.navigate('Homemitra')
-                    } else {
-                        this.setState({
-                            isLoading: false,
-                        })
-                        Alert.alert('Warning', this.props.mitra.mitraList)
-                    }
+                    this.setState({
+                        isLoading: false,
+                    })
+                    console.warn(this.props.user.userList);
+                    Alert.alert('Warning', this.props.user.userList)
                 }
             } else {
-                Alert.alert('Warning', 'Semua Field Harus Di isi')
+                await this.props.dispatch(loginMitra({ email: this.state.email, password: this.state.password }))
                 this.setState({ isLoading: false })
+                console.warn(this.props.mitra);
+                if (typeof (this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
+                    await Alert.alert('Info', 'Success Login')
+                    await this.setState({
+                        isLoading: false,
+                        email: '',
+                        password: '',
+                    })
+                    this.props.navigation.navigate('Homemitra')
+                } else {
+                    this.setState({
+                        isLoading: false,
+                    })
+                    Alert.alert('Warning', this.props.mitra.mitraList)
+                }
             }
-
+        } else {
+            Alert.alert('Warning', 'Semua Field Harus Di isi')
+            this.setState({ isLoading: false })
         }
+
     }
     render() {
         return (
@@ -128,13 +122,14 @@ class Login extends Component {
         )
     }
 }
-const mapStateToProps = (state) => {
+const mapState = (state) => {
     return {
-        mitra: state.mitra.result,
-        user: state.user.result
-    };
-};
-export default connect(mapStateToProps)(Login)
+        user: state.user,
+        mitra: state.mitra
+
+    }
+}
+export default connect(mapState)(Login)
 const style = StyleSheet.create({
     body: {
         backgroundColor: '#6497B1',

@@ -43,7 +43,7 @@ class SubCategory extends Component {
                     numColumns={2}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser', this.state.category) }}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser', item) }}>
                                 <Image style={styles.image} source={{ uri: `${item.image}` }} />
                                 <Text style={styles.text}>{item.subName}</Text>
                             </TouchableOpacity>

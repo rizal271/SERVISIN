@@ -18,9 +18,10 @@ import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-import DetailOrderMitra from '../../screens/mitra/detailOrder';
+
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
 import { Icon } from 'native-base';
+import Profil from "../../screens/users/Profil";
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -43,7 +44,7 @@ const UserTabNavigator = createMaterialTopTabNavigator(
       },
     },
     Profile: {
-      screen: MapsUser,
+      screen: Profil,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon name="person" color={tintColor} size={24} />
@@ -140,7 +141,6 @@ const AppStackNavigator = createStackNavigator(
     DetailProfileMitra,
     ChatRoom,
     DetailOrder,
-    DetailOrderMitra,
   },
   {
     headerMode: 'none',
@@ -151,10 +151,8 @@ const AuthStack = createStackNavigator({
   ChooseRole,
   Login,
   Register
-
 },
   { headerMode: 'none' })
-
 
 const Apps = createSwitchNavigator({
   Welcome,
