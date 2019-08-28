@@ -16,6 +16,7 @@ class OrderList extends Component {
     }
 
     componentDidMount = async () => {
+        console.warn(this.state.idmitra)
         await this.getOrderSelesai()
     }
 
@@ -73,17 +74,30 @@ class OrderList extends Component {
         return (
             <>
                 <Header />
-                <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
-                    <Card>
-                        <CardItem>
-                            <FlatList
-                                data={this.state.data}
-                                renderItem={this._renderItem}
-                                style={styles.flatlist}
-                            />
-                        </CardItem>
-                    </Card>
-                </View>
+                {
+                    this.state.data && this.state.data.length > 0
+                        ?
+                        <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+                            <Card>
+                                <CardItem>
+                                    <FlatList
+                                        data={this.state.data}
+                                        renderItem={this._renderItem}
+                                        style={styles.flatlist}
+                                    />
+                                </CardItem>
+                            </Card>
+                        </View>
+                        :
+                        <View style={{
+                            flex: 1,
+                            margin: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text>Belum ada orderan, yang sabar yah ;(</Text>
+                        </View>
+                }
             </>
         )
     }

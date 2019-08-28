@@ -33,7 +33,7 @@ class RegisterMitra extends Component {
             this.state.mitra.push({
                 fullname: this.state.fullname,
                 email: this.state.email,
-                noHp: this.state.noHp,
+                nohp: this.state.noHp,
                 idCategory: this.state.idCategory,
                 password: this.state.password,
                 lat: 0,
@@ -56,7 +56,7 @@ class RegisterMitra extends Component {
                     <Text style={styles.textSignUp}> SIGN UP </Text>
                     <Image
                         style={styles.image}
-                        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx' }}
+                        source={require('../../assets/images/Engineer_icon.png')}
                     />
                     <Text style={styles.textUser}> Mitra </Text>
                     <TextInput
@@ -76,15 +76,15 @@ class RegisterMitra extends Component {
                         onChangeText={val => this.setState({ 'noHp': val })}
                     />
                     <Picker
-                        style={styles.textInput} 
+                        style={styles.textInput}
                         mode='dropdown'
                         selectedValue={this.state.idCategory}
-                        onValueChange={(value) => this.setState({idCategory:value})}>
-                            <Picker.Item label='Category' value='' color='white' />
-                            <Picker.Item label='Otomotif' value='1' />
-                            <Picker.Item label='Elektronik' value='2' />
-                            <Picker.Item label='Builders' value='3' />
-                            <Picker.Item label='Emergensy' value='4' />
+                        onValueChange={(value) => this.setState({ idCategory: value })}>
+                        <Picker.Item label='Category' value='' color='white' />
+                        <Picker.Item label='Otomotif' value='1' />
+                        <Picker.Item label='Elektronik' value='2' />
+                        <Picker.Item label='Builders' value='3' />
+                        <Picker.Item label='Emergensy' value='4' />
                     </Picker>
                     <TextInput
                         placeholderTextColor='white'
@@ -98,7 +98,7 @@ class RegisterMitra extends Component {
                         placeholderTextColor='white'
                         placeholder='Password...'
                         style={styles.textInput}
-
+                        secureTextEntry={true}
                         value={this.state.password}
                         onChangeText={val => this.setState({ 'password': val })}
 
