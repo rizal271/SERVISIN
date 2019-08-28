@@ -3,6 +3,7 @@ import { FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet } from 'r
 import { Header, Text, Card, CardItem, Badge } from 'native-base'
 import { connect } from 'react-redux'
 import { getOrderMitraSelesai } from '../../publics/redux/actions/order'
+import moment from 'moment'
 
 class OrderList extends Component {
     constructor(props) {
@@ -41,6 +42,9 @@ class OrderList extends Component {
                     />
                 </View>
                 <View style={{ marginLeft: 10, width: 270 }}>
+                    <Text>
+                        {moment(item.tglOrder).format('DD-MM-YYYY')}
+                    </Text>
                     <Text
                         style={{
                             color: 'black',
