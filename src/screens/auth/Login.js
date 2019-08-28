@@ -13,9 +13,11 @@ import {
     AsyncStorage
 
 } from 'react-native'
-import { login as loginUser } from '../../publics/redux/actions/user'
+import { login as loginUser, updateLongLat } from '../../publics/redux/actions/user'
 import { login as loginMitra } from '../../publics/redux/actions/mitra'
 import { connect } from 'react-redux'
+import Geolocation from '@react-native-community/geolocation'
+import { Database } from '../../publics/firebase/config';
 
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
@@ -25,7 +27,9 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            latitude: 0,
+            longitude: 0
         }
         console.warn(this.props.navigation.state.params.role);
 
@@ -33,11 +37,43 @@ class Login extends Component {
     static navigationOptions = {
         header: null
     }
+
+    async componentDidMount() {
+        await this.getCurrentPositionUser()
+    }
+
+    getCurrentPositionUser() {
+        Geolocation.getCurrentPosition((location) => {
+            this.setState({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            })
+            console.warn(location)
+        })
+    }
+
     login = async () => {
         await this.setState({ isLoading: true })
         if (this.state.email !== '' && this.state.password !== '') {
             if (this.props.navigation.state.params.role === 'user') {
                 await this.props.dispatch(loginUser({ email: this.state.email, password: this.state.password }))
+                    .then((response) => {
+                        console.warn(response);
+                        console.warn('lat: ', this.state.latitude);
+                        console.warn('long: ', this.state.longitude);
+                        const data = {
+                            lat: this.state.latitude.toString(),
+                            long: this.state.longitude.toString()
+                        }
+                        const idUser = response.value.data.idUser
+                        console.warn('iduser: ', idUser);
+                        this.props.dispatch(updateLongLat(idUser, data))
+                        Database.ref('/user' + idUser).set({
+                            idUser: idUser,
+                            latitude: data.lat,
+                            longitude: data.long
+                        })
+                    })
                 if (typeof (this.props.user.userList) === "object" && this.props.user.isFulfilled) {
                     await Alert.alert('Info', 'Success Login')
                     await this.setState({
