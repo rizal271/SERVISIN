@@ -13,3 +13,10 @@ export const login = (data) => {
         payload: axios.post(`${url}/user/login/`, data)
     }
 }
+
+export const updateFoto = (idUser, data) => {
+    return {
+        type: 'UPDATE_FOTO',
+        payload: axios.patch(`${url}/user/image/${idUser}`, data)
+    }
+}
