@@ -69,6 +69,48 @@ const mitra = (state = initialState, action) => {
                 isFulfilled: true,
                 mitraList: action.payload.data
             };
+
+        case 'GET_MITRABYCATEGORY_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_MITRABYCATEGORY_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_MITRABYCATEGORY_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                mitraList: action.payload.data
+            };
+
+            case 'GET_MITRABYID_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_MITRABYID_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_MITRABYID_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                mitraList: action.payload.data
+            };
         default:
             return state;
     };
