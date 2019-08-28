@@ -26,7 +26,27 @@ const orderuser = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                orderuserList : action.payload.data.result
+                orderuserList: action.payload.data.result
+            };
+        case 'GET_USER_PENDING_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_USER_PENDING_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_USER_PENDING_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                orderuserList: action.payload.data.result
             };
         default:
             return state;

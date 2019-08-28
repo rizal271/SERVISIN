@@ -50,8 +50,8 @@ class HomeUser extends Component {
                                 )
                             }} />}
 
-                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
-                        <Text style={styles.buttonText}>History Services</Text>
+                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('OrderPending') }}>
+                        <Text style={styles.buttonText}>On Process</Text>
                     </TouchableOpacity>
                 </View>
             </View>

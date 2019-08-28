@@ -16,6 +16,8 @@ import { getOrderUserSelesai } from '../../publics/redux/actions/orderUser';
 import { updateFoto } from '../../publics/redux/actions/user';
 import Header from '../../components/HeaderUser';
 import { ActivityIndicator } from 'react-native-paper';
+import moment from 'moment';
+
 
 class Profil extends Component {
   constructor(props) {
@@ -66,7 +68,10 @@ class Profil extends Component {
               <Text>{item.subName}</Text>
               <Text style={styles.txtRight}>Rp.{item.price}</Text>
             </View>
-            <Text style={styles.txtIncome}>Selesai</Text>
+            <View style={styles.headItem}>
+              <Text style={styles.txtIncome}>Selesai</Text>
+              <Text style={styles.txtRighttgl}> {moment(item.tglOrder).format('DD-MM-YYYY')}</Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -115,8 +120,6 @@ class Profil extends Component {
   }
 
   render() {
-    console.log(this.props.orderuser.orderuserList);
-
     const { fullname, imageSrc, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
@@ -218,6 +221,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
     textAlign: 'right'
+  },
+  txtRighttgl: {
+    flex: 1,
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
+    textAlign: 'right',
+    fontSize: 12
   },
   headItem: {
     flexDirection: 'row'
