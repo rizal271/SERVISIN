@@ -5,7 +5,7 @@ import {
   createMaterialTopTabNavigator,
 } from 'react-navigation';
 import AuthHome from '../../screens/AuthHome';
-import Login from '../../screens/auth/login';
+import Login from '../../screens/auth/Login';
 import Welcome from '../../screens/Welcome';
 import ChooseRole from '../../screens/ChooseRole';
 import HomeMitra from '../../screens/mitra/Home';

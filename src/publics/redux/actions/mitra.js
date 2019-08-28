@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://192.168.100.70:3333'
+const url = 'http://192.168.100.42:3345'
 
 export const login = (data) => {
     return {
