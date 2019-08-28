@@ -10,8 +10,9 @@ import {
   ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ImagePicker from 'react-native-image-picker'
-import { connect } from 'react-redux'
+import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux';
+import { getOrderUserSelesai } from '../../publics/redux/actions/orderUser';
 import { updateFoto } from '../../publics/redux/actions/user';
 import Header from '../../components/HeaderUser';
 import { ActivityIndicator } from 'react-native-paper';
@@ -21,45 +22,8 @@ class Profil extends Component {
     super(props);
 
     this.state = {
-      data: [
-        {
-          id: '1',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-        {
-          id: '2',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-        {
-          id: '3',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-        {
-          id: '4',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-        {
-          id: '5',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-        {
-          id: '6',
-          nameService: 'Service Ac',
-          status: 'Sedang dijalan',
-          date: '17-08-2019',
-        },
-      ],
-
+      orderuser: [],
+      isLoading: false,
       fullname: '',
       phone: '',
       email: '',
@@ -75,6 +39,7 @@ class Profil extends Component {
   }
 
   async componentDidMount() {
+    this.setState({ isLoading: true })
     const fullname = await AsyncStorage.getItem('fullname')
     const phone = await AsyncStorage.getItem('nohp')
     const email = await AsyncStorage.getItem('email')
@@ -85,6 +50,11 @@ class Profil extends Component {
     const role = await AsyncStorage.getItem('role')
     const idUser = await AsyncStorage.getItem('idUser')
     this.setState({ fullname, phone, email, image, lat, long, token, role, idUser })
+    await this.props.dispatch(getOrderUserSelesai(idUser));
+    this.setState({
+      orderuser: this.props.orderuser.orderuserList,
+      isLoading: false
+    });
   }
 
   _renderItem = ({ item }) => {
@@ -93,10 +63,10 @@ class Profil extends Component {
         <View style={styles.list}>
           <View style={styles.listItem}>
             <View style={styles.headItem}>
-              <Text>{item.nameService}</Text>
-              <Text style={styles.txtRight}>{item.date}</Text>
+              <Text>{item.subName}</Text>
+              <Text style={styles.txtRight}>Rp.{item.price}</Text>
             </View>
-            <Text style={styles.txtIncome}>{item.status}</Text>
+            <Text style={styles.txtIncome}>Selesai</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -145,6 +115,8 @@ class Profil extends Component {
   }
 
   render() {
+    console.log(this.props.orderuser.orderuserList);
+
     const { fullname, imageSrc, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
@@ -177,7 +149,7 @@ class Profil extends Component {
                 {email}
               </Text>
             </View>
-            <View style={{ alignItems: 'flex-end', marginLeft: '50%' }}>
+            <View style={{ marginLeft: '50%', marginBottom: 20, }}>
               <TouchableOpacity onPress={() => this.updateImage()}>
                 <Icon name="edit" style={{ fontSize: 30, color: '#fff', textAlign: 'center' }} />
                 <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Edit</Text>
@@ -188,41 +160,22 @@ class Profil extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.centeritem}>
-
-            <View style={{ alignItems: 'center', marginLeft: '5%' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
-                Order Pending
-              </Text>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
-                0
-              </Text>
-            </View>
-            <View style={{ alignItems: 'center', marginLeft: '17%' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
-                Order Selesai
-              </Text>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
-                0
-              </Text>
-            </View>
+          <View style={styles.title}>
+            <Text style={styles.textTitle}>History Services</Text>
           </View>
         </View>
         <ScrollView>
-        <View
-          style={{
-            top: 120,
-            marginHorizontal: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-            height:300,
-            marginBottom:5
-          }}>
-          <FlatList
-            data={this.state.data}
-            renderItem={this._renderItem}
-            keyExtractor={item => item.id}
-          />
+          <View
+            style={{
+              marginHorizontal: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <FlatList
+              data={this.state.orderuser}
+              renderItem={this._renderItem}
+              keyExtractor={item => item.id}
+            />
           </View>
         </ScrollView>
       </Fragment>
@@ -232,7 +185,7 @@ class Profil extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    orderuser: state.orderuser
   }
 }
 
@@ -241,7 +194,8 @@ export default connect(mapStateToProps)(Profil);
 const styles = StyleSheet.create({
   top: {
     backgroundColor: '#6497B1',
-    height: '35%',
+    height: '40%',
+    marginBottom: 45
   },
   textTop: {
     flexDirection: 'row',
@@ -286,5 +240,19 @@ const styles = StyleSheet.create({
   },
   txtTitle: {
     fontSize: 18
+  },
+  title: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#005b96',
+    paddingTop: 6,
+    paddingBottom: 4,
+    elevation: 6,
+  },
+  textTitle: {
+    marginBottom: 5,
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '700'
   },
 });
