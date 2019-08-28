@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Text,
   View,
@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import ImagePicker from 'react-native-image-picker'
+import { connect } from 'react-redux'
+import { updateFoto } from '../../publics/redux/actions/user';
+import { ActivityIndicator } from 'react-native-paper';
 class Profil extends Component {
   constructor(props) {
     super(props);
@@ -54,10 +57,35 @@ class Profil extends Component {
           date: '17-08-2019',
         },
       ],
+
+      fullname: '',
+      phone: '',
+      email: '',
+      image: null,
+      imageSrc: null,
+      lat: '',
+      long: '',
+      role: '',
+      idUser: '',
+      token: '',
+      user: [],
     };
   }
 
-  _renderItem = ({item}) => {
+  async componentDidMount() {
+    const fullname = await AsyncStorage.getItem('fullname')
+    const phone = await AsyncStorage.getItem('nohp')
+    const email = await AsyncStorage.getItem('email')
+    const image = await AsyncStorage.getItem('image')
+    const lat = await AsyncStorage.getItem('lat')
+    const long = await AsyncStorage.getItem('long')
+    const token = await AsyncStorage.getItem('token')
+    const role = await AsyncStorage.getItem('role')
+    const idUser = await AsyncStorage.getItem('idUser')
+    this.setState({ fullname, phone, email, image, lat, long, token, role, idUser })
+  }
+
+  _renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
         <View style={styles.list}>
@@ -72,48 +100,106 @@ class Profil extends Component {
       </TouchableOpacity>
     );
   };
+
+  _handleLogout = async () => {
+    await AsyncStorage.clear()
+    await AsyncStorage.setItem('welcome', 'udah')
+    await this.props.navigation.navigate('AuthHome')
+  }
+
+  handleChoosePhoto = async () => {
+    const options = {
+      noData: true,
+    }
+
+    await ImagePicker.showImagePicker(options, response => {
+      if (response.uri) {
+        this.setState({ imageSrc: response })
+      }
+    })
+  }
+
+  updateImage = async () => {
+    if (this.state.imageSrc !== null) {
+
+      const formdata = new FormData()
+      await formdata.append('image', {
+        name: this.state.imageSrc.fileName,
+        type: this.state.imageSrc.type || null,
+        uri: this.state.imageSrc.uri
+      })
+      await this.props.dispatch(updateFoto(this.state.idUser, formdata))
+        .then(() => {
+          this.setState({
+            user: this.props.user,
+            imageSrc: formdata,
+            image: formdata
+          })
+          this.props.navigation.navigate('AuthHome')
+        })
+    } else {
+      alert('Silahkan pilih foto terlebih dahulu!')
+    }
+  }
+
   render() {
+    const { fullname, imageSrc, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
         <View style={styles.top}>
-          <View style={{marginTop: 20, marginLeft: 20, elevation: 20}}>
-            <Image
-              style={{height: 85, width: 85, borderRadius: 100, elevation: 20}}
-              source={require('../../assets/images/plumber-35611_960_720.png')}
-            />
+          <View style={{ marginTop: 20, marginLeft: 20, elevation: 20 }}>
+            <TouchableOpacity onPress={() => this.handleChoosePhoto()}>
+              {
+                imageSrc &&
+                (<Image
+                  style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
+                  source={{ uri: imageSrc.uri }}
+                />) ||
+                image &&
+                (<Image
+                  style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
+                  source={{ uri: image }} />)
+              }
+            </TouchableOpacity>
           </View>
           <View style={styles.textTop}>
             <View>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
-                nama
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
+                {fullname}
               </Text>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
-                0832637236
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
+                {phone}
               </Text>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
-                Jakal Selatan
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
+                {email}
               </Text>
             </View>
-            <View style={{alignItems: 'flex-end', marginLeft: '50%'}}>
-              <TouchableOpacity>
-                <Icon name="edit" style={{fontSize: 40, color: '#fff'}} />
+            <View style={{ alignItems: 'flex-end', marginLeft: '50%' }}>
+              <TouchableOpacity onPress={() => this.updateImage()}>
+                <Icon name="edit" style={{ fontSize: 30, color: '#fff', textAlign: 'center' }} />
+                <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this._handleLogout()}>
+                <Icon name="sign-out" style={{ fontSize: 30, color: 'salmon', textAlign: 'center' }} />
+                <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Logout</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.centeritem}>
-            <View style={{alignItems: 'center', marginLeft: '5%'}}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+
+            <View style={{ alignItems: 'center', marginLeft: '5%' }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 Order Pending
               </Text>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 0
               </Text>
             </View>
-            <View style={{alignItems: 'center', marginLeft: '17%'}}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+            <View style={{ alignItems: 'center', marginLeft: '17%' }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 Order Selesai
               </Text>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 0
               </Text>
             </View>
@@ -137,7 +223,14 @@ class Profil extends Component {
     );
   }
 }
-export default Profil;
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Profil);
 
 const styles = StyleSheet.create({
   top: {
@@ -159,33 +252,33 @@ const styles = StyleSheet.create({
   },
   txtIncome: {
     color: '#70FF00'
-},
-txtRight: {
+  },
+  txtRight: {
     flex: 1,
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
     textAlign: 'right'
-},
-headItem: {
+  },
+  headItem: {
     flexDirection: 'row'
-},
-listItem: {
+  },
+  listItem: {
     flexDirection: 'column',
     width: 288,
     padding: 10,
     borderWidth: 0.5,
     borderColor: '#c4c4c4'
-},
-list: {
+  },
+  list: {
     flexDirection: 'row',
-},
-txtSubtitle: {
+  },
+  txtSubtitle: {
     fontSize: 14,
     textAlign: 'left',
     alignItems: 'flex-start',
     alignSelf: 'flex-start'
-},
-txtTitle: {
+  },
+  txtTitle: {
     fontSize: 18
-},
+  },
 });

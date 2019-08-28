@@ -7,10 +7,16 @@ export const register = (data) => {
         payload: axios.post(`${url}/user/register/`, data)
     }
 };
-
 export const login = (data) => {
     return {
         type: 'LOGIN',
-        payload: axios.post(`${url}/user/login`, data)
+        payload: axios.post(`${url}/user/login/`, data)
+    }
+}
+
+export const updateFoto = (idUser, data) => {
+    return {
+        type: 'UPDATE_FOTO',
+        payload: axios.patch(`${url}/user/image/${idUser}`, data)
     }
 }
