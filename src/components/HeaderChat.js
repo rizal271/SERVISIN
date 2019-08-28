@@ -4,14 +4,15 @@ import { withNavigation } from 'react-navigation';
 
 class Header extends Component {
     render() {
+        const item = this.props.navigation.state.params
         return (
             <TouchableOpacity activeOpacity={1} style={styles.container}>
                 <View style={styles.item}>
-                    <Image style={styles.image} source={{ uri: 'https://res.cloudinary.com/dbhwvh1mf/image/upload/v1566321024/img/blank-profile-picture-973460_960_720_wolhdp.png' }} />
+                    <Image style={styles.image} source={{ uri: item.image }} />
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.textName}>this.props.name</Text>
-                    <Text style={styles.textStatus}>this.props.status</Text>
+                    <Text style={styles.textName}>{item.fullname}</Text>
+                    <Text style={styles.textStatus}>{item.role}</Text>
                 </View>
             </TouchableOpacity>
         )

@@ -9,7 +9,8 @@ class SubCategory extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            category: this.props.navigation.state.params,
+            category: this.props.navigation.state.params.catName,
+            idCat:this.props.navigation.state.params.idCategory,
             subCategory: [],
             isLoading:false
         }
@@ -17,7 +18,7 @@ class SubCategory extends Component {
 
     componentDidMount = async () => {
         this.setState({isLoading:true})
-        idCat = 2
+        idCat = this.state.idCat
         await this.props.dispatch(getsubCategory(idCat));
         this.setState({
             subCategory: this.props.subCategory.subCategoryList,
@@ -25,7 +26,6 @@ class SubCategory extends Component {
         });
     }
     render() {
-        console.log(this.state.subCategory)
         return (
             <View style={styles.container}>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -34,7 +34,7 @@ class SubCategory extends Component {
                     <Slider />
                 </View>
                 <View style={styles.title}>
-                    <Text style={styles.textTitle}>this.state.category</Text>
+                    <Text style={styles.textTitle}>{this.state.category}</Text>
                 </View>
                 {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
                 <FlatList
@@ -43,7 +43,7 @@ class SubCategory extends Component {
                     numColumns={2}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser') }}>
+                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser', item) }}>
                                 <Image style={styles.image} source={{ uri: `${item.image}` }} />
                                 <Text style={styles.text}>{item.subName}</Text>
                             </TouchableOpacity>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#005b96',
         paddingVertical: 10,
         marginHorizontal: 20,
-        marginBottom: 10,
+        marginBottom: 20,
         width: Dimensions.get('screen').width * 0.85
     },
     buttonText: {

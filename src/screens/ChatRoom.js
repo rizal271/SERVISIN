@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat';
 import HeaderChat from '../components/HeaderChat';
@@ -13,11 +14,8 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: 'Imam User',
-      uid: 10,
-      myuid: 10,
-      myname: 'anto',
-      avatar: '',
+      name: this.props.navigation.state.params.fullname,
+      uid: this.props.navigation.state.params.idMitra,
       image: 'blabla',
       text: '',
       messagesList: [],
@@ -26,6 +24,11 @@ class ChatRoom extends Component {
   }
 
   async componentDidMount() {
+    this.setState({
+      myuid: await AsyncStorage.getItem('idUser'),
+      myname: await AsyncStorage.getItem('fullname'),
+      avatar: await AsyncStorage.getItem('image')
+    })
     await Database.ref('messages').child(this.state.myuid).child(this.state.uid)
       .on('child_added', (value) => {
         this.setState((previousState) => {
@@ -58,10 +61,12 @@ class ChatRoom extends Component {
     }
   }
   render() {
+    console.log(this.state.myuid);
+    
     return (
       <>
         <StatusBar translucent backgroundColor="transparent" />
-        <HeaderChat />
+        <HeaderChat item={this.props.navigation.state.params} />
         <GiftedChat
           text={this.state.text}
           messages={this.state.messagesList}
