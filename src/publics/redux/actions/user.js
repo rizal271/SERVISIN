@@ -14,6 +14,13 @@ export const login = (data) => {
     }
 }
 
+export const updateLongLat = (idUser, data) => {
+    return {
+        type: 'UPDATE_LONGLAT',
+        payload: axios.patch(`${url}/user/posision/${idUser}`, data)
+    }
+}
+
 export const updateFoto = (idUser, data) => {
     return {
         type: 'UPDATE_FOTO',

@@ -16,6 +16,13 @@ export const registerMitra = (data) => {
     }
 }
 
+export const getMitra = () => {
+    return {
+        type: 'GET_MITRA',
+        payload: axios.get(`${url}/mitra/`)
+    }
+};
+
 export const getMitraByCategory = (idCat) => {
     return {
         type: 'GET_MITRABYCATEGORY',
