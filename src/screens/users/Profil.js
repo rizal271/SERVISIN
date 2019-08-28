@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import ImagePicker from 'react-native-image-picker'
+import { connect } from 'react-redux'
+import { updateFoto } from '../../publics/redux/actions/user';
+import { ActivityIndicator } from 'react-native-paper';
 class Profil extends Component {
   constructor(props) {
     super(props);
@@ -58,12 +61,14 @@ class Profil extends Component {
       fullname: '',
       phone: '',
       email: '',
-      image: '',
+      image: null,
+      imageSrc: null,
       lat: '',
       long: '',
       role: '',
       idUser: '',
       token: '',
+      user: [],
     };
   }
 
@@ -102,16 +107,60 @@ class Profil extends Component {
     await this.props.navigation.navigate('AuthHome')
   }
 
+  handleChoosePhoto = async () => {
+    const options = {
+      noData: true,
+    }
+
+    await ImagePicker.showImagePicker(options, response => {
+      if (response.uri) {
+        this.setState({ imageSrc: response })
+      }
+    })
+  }
+
+  updateImage = async () => {
+    if (this.state.imageSrc !== null) {
+
+      const formdata = new FormData()
+      await formdata.append('image', {
+        name: this.state.imageSrc.fileName,
+        type: this.state.imageSrc.type || null,
+        uri: this.state.imageSrc.uri
+      })
+      await this.props.dispatch(updateFoto(this.state.idUser, formdata))
+        .then(() => {
+          this.setState({
+            user: this.props.user,
+            imageSrc: formdata,
+            image: formdata
+          })
+          this.props.navigation.navigate('AuthHome')
+        })
+    } else {
+      alert('Silahkan pilih foto terlebih dahulu!')
+    }
+  }
+
   render() {
-    const { fullname, image, idUser, role, email, phone, token, lat, long } = this.state
+    const { fullname, imageSrc, image, idUser, role, email, phone, token, lat, long } = this.state
     return (
       <Fragment>
         <View style={styles.top}>
           <View style={{ marginTop: 20, marginLeft: 20, elevation: 20 }}>
-            <Image
-              style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
-              source={{ uri: image }}
-            />
+            <TouchableOpacity onPress={() => this.handleChoosePhoto()}>
+              {
+                imageSrc &&
+                (<Image
+                  style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
+                  source={{ uri: imageSrc.uri }}
+                />) ||
+                image &&
+                (<Image
+                  style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
+                  source={{ uri: image }} />)
+              }
+            </TouchableOpacity>
           </View>
           <View style={styles.textTop}>
             <View>
@@ -126,7 +175,7 @@ class Profil extends Component {
               </Text>
             </View>
             <View style={{ alignItems: 'flex-end', marginLeft: '50%' }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => this.updateImage()}>
                 <Icon name="edit" style={{ fontSize: 30, color: '#fff', textAlign: 'center' }} />
                 <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Edit</Text>
               </TouchableOpacity>
@@ -174,7 +223,14 @@ class Profil extends Component {
     );
   }
 }
-export default Profil;
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Profil);
 
 const styles = StyleSheet.create({
   top: {
