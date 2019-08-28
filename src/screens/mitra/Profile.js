@@ -81,8 +81,6 @@ class Profile extends Component {
                                     source={require('../../assets/images/Menue-Icon-PNG.png')} ></Image>
                             </Text>}
                         >
-                            <MenuItem onPress={this.hideMenu}>Income List </MenuItem>
-                            <MenuItem onPress={this.hideMenu}>Order List</MenuItem>
                             <MenuItem onPress={this.hideMenu}>Edit Profile</MenuItem>
                             <MenuDivider />
                             <MenuItem onPress={this.hideMenu} onPress={async () => {
@@ -112,22 +110,12 @@ class Profile extends Component {
                                 <Text style={styles.textCol2}> 78 </Text>
                             </View>
                         </View>
-                        <View style={styles.card2}>
-                            <Text style={styles.textCard2}> Orderan Beres </Text>
-                            <Text style={styles.textCard2}> 20 </Text>
-                        </View>
-                        <View style={styles.card3}>
-                            <Text style={styles.textCard3}> Orderan Pending </Text>
-                            <Text style={styles.textCard3}> 14 </Text>
-                        </View>
-                        <View style={styles.viewDetailPerusahaan}>
-                            <Text style={styles.textDetailPerusahaan}> Detail Perusahaan: </Text>
-                            <Text style={styles.isiDetailPerusahaan}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                            </Text>
-                        </View>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList')}>
+                            <View style={styles.card2}>
+                                <Text style={styles.textCard2}> Orderan Beres </Text>
+                                <Text style={styles.textCard2}> 20 </Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </>
@@ -141,6 +129,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#6497B1',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    view2: {
+        marginTop: 30
     },
 
     image: {
@@ -160,9 +151,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '80%',
         marginLeft: 37,
-        backgroundColor: '#B3CDE0',
+        backgroundColor: '#005B96',
         marginTop: 20,
-        marginBottom: 20,
+        marginBottom: 10,
+        opacity: 0.8,
 
         elevation: 5
     },
@@ -191,22 +183,33 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     card2: {
-        height: 120,
-        width: 120,
-        marginLeft: 37,
-        marginTop: 15,
+        flex: 1,
+        flexDirection: 'row',
+        height: 80,
+        width: '80%',
         backgroundColor: '#005B96',
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        opacity: 0.8,
 
-        elevation: 3,
+        elevation: 5
     },
     card3: {
-        height: 120,
-        width: 120,
-        marginLeft: 205,
-        marginTop: -121,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        flexDirection: 'row',
+        width: '80%',
+        marginLeft: 37,
         backgroundColor: '#005B96',
+        marginTop: 30,
+        marginBottom: 10,
+        bottom: 0,
 
-        elevation: 3,
+        elevation: 5
     },
     viewDetailPerusahaan: {
         width: '80%',
@@ -230,16 +233,12 @@ const styles = StyleSheet.create({
     textCard2: {
         textAlign: 'center',
         fontSize: 19,
-        marginBottom: 20,
-        marginTop: 5,
 
         color: '#FFFFFF'
     },
     textCard3: {
         textAlign: 'center',
-        fontSize: 19,
-        marginBottom: 20,
-        marginTop: 5,
+        fontSize: 16,
 
         color: '#FFFFFF'
     },

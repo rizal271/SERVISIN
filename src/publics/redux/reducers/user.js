@@ -69,20 +69,20 @@ const user = (state = initialState, action) => {
                 isFulfilled: true,
                 userList: action.payload.data
             };
-        case 'LOGIN_PENDING':
+        case 'UPDATE_FOTO_PENDING':
             return {
                 ...state,
                 isLoading: true,
                 isFulfilled: false,
                 isRejected: false,
             };
-        case 'LOGIN_REJECTED':
+        case 'UPDATE_FOTO_REJECTED':
             return {
                 ...state,
                 isLoading: false,
                 isRejected: true,
             };
-        case 'LOGIN_FULFILLED':
+        case 'UPDATE_FOTO_FULFILLED':
             return {
                 ...state,
                 isLoading: false,

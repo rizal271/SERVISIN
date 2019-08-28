@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://192.168.6.100:3333'
+const url = 'http://192.168.6.189:3333'
 
 export const login = (data) => {
     return {
@@ -13,6 +13,13 @@ export const registerMitra = (data) => {
         type: 'REGISTER_MITRA',
         payload: axios.post(`${url}/mitra/register/`, data)
 
+    }
+};
+
+export const getMitra = () => {
+    return {
+        type: 'GET_MITRA',
+        payload: axios.get(`${url}/mitra/`)
     }
 };
 

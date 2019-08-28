@@ -46,6 +46,8 @@ class Maps extends Component {
   }
 
   render() {
+    console.log(this.state.mitra);
+    
     return (
       <View style={styles.con}>
         <Header />
