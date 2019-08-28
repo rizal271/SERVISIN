@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Text,
   View,
@@ -57,7 +57,7 @@ class Profil extends Component {
     };
   }
 
-  _renderItem = ({item}) => {
+  _renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
         <View style={styles.list}>
@@ -72,48 +72,59 @@ class Profil extends Component {
       </TouchableOpacity>
     );
   };
+
+  _handleLogout = async () => {
+    await AsyncStorage.clear()
+    await AsyncStorage.setItem('welcome', 'udah')
+    await this.props.navigation.navigate('AuthHome')
+  }
+
   render() {
     return (
       <Fragment>
         <View style={styles.top}>
-          <View style={{marginTop: 20, marginLeft: 20, elevation: 20}}>
+          <View style={{ marginTop: 20, marginLeft: 20, elevation: 20 }}>
             <Image
-              style={{height: 85, width: 85, borderRadius: 100, elevation: 20}}
+              style={{ height: 85, width: 85, borderRadius: 100, elevation: 20 }}
               source={require('../../assets/images/plumber-35611_960_720.png')}
             />
           </View>
           <View style={styles.textTop}>
             <View>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
                 nama
               </Text>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
                 0832637236
               </Text>
-              <Text style={{fontSize: 18, color: '#fff', fontWeight: 'bold'}}>
+              <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }}>
                 Jakal Selatan
               </Text>
             </View>
-            <View style={{alignItems: 'flex-end', marginLeft: '50%'}}>
+            <View style={{ alignItems: 'flex-end', marginLeft: '50%' }}>
               <TouchableOpacity>
-                <Icon name="edit" style={{fontSize: 40, color: '#fff'}} />
+                <Icon name="edit" style={{ fontSize: 30, color: '#fff' }} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this._handleLogout()}>
+                <Icon name="sign-out" style={{ fontSize: 30, color: 'salmon', marginTop: 10 }} />
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.centeritem}>
-            <View style={{alignItems: 'center', marginLeft: '5%'}}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+
+            <View style={{ alignItems: 'center', marginLeft: '5%' }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 Order Pending
               </Text>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 0
               </Text>
             </View>
-            <View style={{alignItems: 'center', marginLeft: '17%'}}>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+            <View style={{ alignItems: 'center', marginLeft: '17%' }}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 Order Selesai
               </Text>
-              <Text style={{fontSize: 18, fontWeight: 'bold', padding: 7}}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 7 }}>
                 0
               </Text>
             </View>
@@ -159,33 +170,33 @@ const styles = StyleSheet.create({
   },
   txtIncome: {
     color: '#70FF00'
-},
-txtRight: {
+  },
+  txtRight: {
     flex: 1,
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
     textAlign: 'right'
-},
-headItem: {
+  },
+  headItem: {
     flexDirection: 'row'
-},
-listItem: {
+  },
+  listItem: {
     flexDirection: 'column',
     width: 288,
     padding: 10,
     borderWidth: 0.5,
     borderColor: '#c4c4c4'
-},
-list: {
+  },
+  list: {
     flexDirection: 'row',
-},
-txtSubtitle: {
+  },
+  txtSubtitle: {
     fontSize: 14,
     textAlign: 'left',
     alignItems: 'flex-start',
     alignSelf: 'flex-start'
-},
-txtTitle: {
+  },
+  txtTitle: {
     fontSize: 18
-},
+  },
 });

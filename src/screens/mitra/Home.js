@@ -80,12 +80,6 @@ class HomeMitra extends Component {
             }}
             style={styles.flatlist}
           />
-
-          <Button primary onPress={async () => {
-            await AsyncStorage.clear()
-            await AsyncStorage.setItem('welcome', 'udah')
-            await this.props.navigation.navigate('AuthHome')
-          }}><Text>Logout</Text></Button>
         </View>
       </Fragment>
     );

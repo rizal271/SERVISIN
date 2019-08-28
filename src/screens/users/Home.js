@@ -54,11 +54,6 @@ class HomeUser extends Component {
                         <Text style={styles.buttonText}>History Services</Text>
                     </TouchableOpacity>
                 </View>
-                <Button primary rounded onPress={async () => {
-                    await AsyncStorage.clear()
-                    await AsyncStorage.setItem('welcome', 'udah')
-                    await this.props.navigation.navigate('AuthHome')
-                }}><Text>Logout</Text></Button>
             </View>
         )
     }
