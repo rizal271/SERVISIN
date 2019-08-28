@@ -1,8 +1,71 @@
 import React, { Component } from 'react'
-import { Text, FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet } from 'react-native'
-import { Header, Card, CardItem } from 'native-base'
+import { FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet } from 'react-native'
+import { Header, Text, Card, CardItem, Badge } from 'native-base'
+import { connect } from 'react-redux'
+import { getOrderMitraSelesai } from '../../publics/redux/actions/order'
+
 class OrderList extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            data: [],
+            idmitra: this.props.navigation.getParam('idmitra')
+        }
+    }
+
+    componentDidMount = async () => {
+        await this.getOrderSelesai()
+    }
+
+    getOrderSelesai() {
+        this.props.dispatch(getOrderMitraSelesai(this.state.idmitra))
+            .then((response) => {
+                console.warn(response)
+                this.setState({ data: this.props.order.orderList })
+            })
+    }
+
+    _renderItem = ({ item }) => {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                    marginBottom: 10,
+                }}>
+                <View>
+                    <Image
+                        style={{ height: 60, width: 60, borderRadius: 50 }}
+                        source={require('../../assets/images/plumber-35611_960_720.png')}
+                    />
+                </View>
+                <View style={{ marginLeft: 10, width: 270 }}>
+                    <Text
+                        style={{
+                            color: 'black',
+                            fontSize: 17,
+                            fontWeight: 'bold',
+                            marginBottom: 10
+                        }}>
+
+                        {item.catName + '\n' + '(' + item.subName + ')'}
+                    </Text>
+                    <Badge success><Text>{item.status}</Text></Badge>
+                    <Text style={{ color: '#4dad4a' }}>
+                        Rp.{item.price}
+                    </Text>
+                </View>
+                <View
+                    style={{ borderBottomWidth: 3, borderColor: 'black' }}
+                />
+            </View>
+        );
+    }
+
     render() {
+        console.warn('data order: ', this.state.data);
+
         return (
             <>
                 <Header />
@@ -10,44 +73,8 @@ class OrderList extends Component {
                     <Card>
                         <CardItem>
                             <FlatList
-                                data={[{ key: 'a' }, { key: 'b' }]}
-                                renderItem={({ item }) => {
-                                    return (
-                                        <View
-                                            style={{
-                                                flexDirection: 'row',
-                                                marginHorizontal: 10,
-                                                marginBottom: 10,
-                                            }}>
-                                            <View>
-                                                <Image
-                                                    style={{ height: 60, width: 60, borderRadius: 50 }}
-                                                    source={require('../../assets/images/plumber-35611_960_720.png')}
-                                                />
-                                            </View>
-                                            <View style={{ marginLeft: 10, width: 270 }}>
-                                                <Text
-                                                    style={{
-                                                        color: 'black',
-                                                        fontSize: 17,
-                                                        fontWeight: 'bold',
-                                                    }}>
-
-                                                    Servis AC di Jakal No. 52
-                                        </Text>
-                                                <Text style={{ color: 'black' }}>
-                                                    Di Jalan
-                                        </Text>
-                                                <Text style={{ color: 'black' }}>
-                                                    26 Agust 2019 . 13.30 WIB
-                                        </Text>
-                                            </View>
-                                            <View
-                                                style={{ borderBottomWidth: 3, borderColor: 'black' }}
-                                            />
-                                        </View>
-                                    );
-                                }}
+                                data={this.state.data}
+                                renderItem={this._renderItem}
                                 style={styles.flatlist}
                             />
                         </CardItem>
@@ -58,7 +85,13 @@ class OrderList extends Component {
     }
 }
 
-export default OrderList
+const mapStateToProps = state => {
+    return {
+        order: state.order
+    }
+}
+
+export default connect(mapStateToProps)(OrderList)
 const styles = StyleSheet.create({
     navbar: {
         backgroundColor: '#fff',
