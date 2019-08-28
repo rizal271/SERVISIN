@@ -53,12 +53,13 @@ class Profile extends Component {
             <View style={{ flex: 1 }}>
                 <View style={styles.view1}>
                     <Image
-                        source={{ uri: data.image }}
+                        source={{ uri: data.imageMitra }}
                         style={styles.image}
                     />
                     <Text style={styles.textCompanyName}>{data.fullname}</Text>
                     <Text style={styles.textPhoneNumber}>{data.nohp}</Text>
                     <Text style={styles.textEmail}>{data.email}</Text>
+                    <Text style={styles.textPrice}>Rp.{data.price}</Text>
 
                     <TouchableOpacity onPress={this.diaCall}>
                         <Image
@@ -161,6 +162,17 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 20,
         top: 179,
+
+        fontFamily: 'Roboto',
+        fontSize: 18,
+        fontStyle: 'normal',
+
+        color: '#FFFFFF'
+    },
+    textPrice:{
+        position: 'absolute',
+        left: 20,
+        top: 200,
 
         fontFamily: 'Roboto',
         fontSize: 18,
