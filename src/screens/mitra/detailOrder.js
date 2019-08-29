@@ -9,14 +9,17 @@ import {
     Image,
     StatusBar,
     AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import Header from '../../components/HeaderUser';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
-import { getOrderMitraPending } from '../../publics/redux/actions/order';
+import { getOrderMitraPending, patchOrder } from '../../publics/redux/actions/order';
 import Geocoder from 'react-native-geocoder';
+import { Database } from '../../publics/firebase/config'
+import firebase from 'firebase';
 
 const width = Dimensions.get('screen').width;
 
@@ -49,9 +52,30 @@ class DetailOrderMitra extends Component {
             })
         })
     }
+    orderSelesai = async () => {
+        if (this.state.order.idOrder && this.state.order.idOrder !== '') {
+            await this.props.dispatch(patchOrder(this.state.order.idOrder))
+            if (this.props.order.orderList === '') {
+                Alert.alert('Warning', 'Something Went Wrong')
+            } else {
+                await Database.ref(`user/${this.state.order.idMitra}/${this.state.order.idUser}`).remove()
+                    .catch((err) => {
+                        Alert.alert('Warning', 'Something Went Wrong')
+                    })
+                await Database.ref(`user/${this.state.order.idUser}/${this.state.order.idMitra}`).remove()
+                    .catch((err) => {
+                        Alert.alert('Warning', 'Something Went Wrong')
+                    })
+                await Alert.alert('Info', 'Order Selesai Terima Kasih')
+                await this.props.navigation.navigate('Homeuser')
+            }
+        } else {
+            Alert.alert('Warning', 'Something Went Wrong')
+        }
+    }
     render() {
         const pending = this.state.order != [] && this.state.order;
-        console.log(this.props.order.orderList[0]);
+        console.warn(pending);
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -126,7 +150,7 @@ class DetailOrderMitra extends Component {
                                         </Button>
                                     </View>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop:10 }}>
+                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop: 10 }} onPress={this.orderSelesai}>
                                             <Text style={{
                                                 textAlign: 'center',
                                                 width: '100%',
