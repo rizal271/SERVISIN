@@ -71,7 +71,7 @@ class RegisterMitra extends Component {
                     'Berhasil',
                     'Sign up berhasil!',
                     [
-                        { text: 'Ok', onPress: () => this.props.navigation.navigate('Login') }
+                        { text: 'Ok', onPress: () => this.props.navigation.goBack() }
                     ]
                 )
             } else {
