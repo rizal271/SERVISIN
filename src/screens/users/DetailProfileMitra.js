@@ -68,7 +68,9 @@ class Profile extends Component {
                             style={styles.iconCall}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', data)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom',{
+                                uid:data&&data.idMitra, name:data&&data.fullname, image:data&&data.imageMitra
+                            })}>
                         <Image
                             source={require('../../assets/images/Chat_icon.png')}
                             style={styles.iconChat}
