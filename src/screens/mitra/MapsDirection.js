@@ -14,7 +14,9 @@ class MapsDirection extends Component {
             mapRegion: null,
             lastLat: null,
             lastLong: null,
-            isLoading: false
+            isLoading: false,
+            lat:this.props.navigation.state.params.lat,
+            long:this.props.navigation.state.params.long
         }
     };
 
@@ -60,7 +62,10 @@ class MapsDirection extends Component {
                 latitude: this.state.lastLat, 
                 longitude: this.state.lastLong
             }}
-            destination={destination}
+            destination={{
+                latitude: this.state.lat,
+                longitude: this.state.long
+            }}
             apikey={GOOGLE_MAPS_APIKEY}
             strokeWidth={3}
             strokeColor="#00b02f"
@@ -75,7 +80,10 @@ class MapsDirection extends Component {
             />
 
             <Marker
-                coordinate={destination}
+                coordinate={{
+                    latitude: this.state.lat,
+                    longitude: this.state.long
+                }}
                 description={"testing"}
                 title={"tujuan"}
             />
