@@ -49,6 +49,26 @@ const order = (state = initialState, action) => {
                 isFulfilled: true,
                 orderList: action.payload.data.result
             };
+        case 'POST_ORDER_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'POST_ORDER_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'POST_ORDER_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                orderList: action.payload.data.result
+            };
         default:
             return state;
     };
