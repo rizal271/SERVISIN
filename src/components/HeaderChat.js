@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#005b96',
         flexDirection: 'row',
         paddingHorizontal: 10,
-        paddingTop:10,
+        paddingTop: 10,
         borderBottomWidth: 1,
         borderColor: '#c4c4c4',
-        height:'15%'
+        height: '15%'
     },
-     item: {
+    item: {
         flex: 1,
         justifyContent: 'center',
     },

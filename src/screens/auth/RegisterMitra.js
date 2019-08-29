@@ -56,7 +56,7 @@ class RegisterMitra extends Component {
                     fullname: fullname,
                     email: email,
                     nohp: nohp,
-                    idSubCat: idSubCat,
+                    idCategory: idSubCat,
                     password: password,
                     lat: lat,
                     long: long
@@ -113,11 +113,7 @@ class RegisterMitra extends Component {
                         mode='dropdown'
                         selectedValue={this.state.idSubCat}
                         onValueChange={(value) => this.setState({ idSubCat: value })}>
-                        {/* <Picker.Item label='Category' value='' color='white' />
-                        <Picker.Item label='Otomotif' value={1} />
-                        <Picker.Item label='Elektronik' value={2} />
-                        <Picker.Item label='Builders' value={3} />
-                        <Picker.Item label='Emergensy' value={4} /> */}
+
                         {this.state.category.map((value) => {
                             return (<Picker.Item label={value.catName} value={value.idCategory} />)
                         })}

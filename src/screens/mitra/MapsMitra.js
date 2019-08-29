@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Dimensions, StatusBar, StyleSheet, View, AsyncStorage, Text, Image, ScrollView, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import geolocation from '@react-native-community/geolocation';
+import Geolocation from '@react-native-community/geolocation';
 import Header from '../../components/HeaderUser';
 import { connect } from 'react-redux';
+import { Database } from '../../publics/firebase/config'
 
 class Maps extends Component {
     constructor(props) {
@@ -11,30 +12,47 @@ class Maps extends Component {
         this.state = {
             mitra: [],
             mapRegion: null,
-            lastLat: null,
-            lastLong: null,
+            lastLat: 0,
+            lastLong: 0,
             isLoading: false
         }
     };
 
-    async componentDidMount() {
-        this.watchID = geolocation.getCurrentPosition((position) => {
+    componentDidMount() {
+        Geolocation.getCurrentPosition((position) => {
             let region = {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
                 latitudeDelta: 0.00922 * 1.5,
                 longitudeDelta: 0.00421 * 1.5
             }
-            this.onRegionChange(region, region.latitude, region.longitude);
-        }, (error) => console.log(error));
+            this.setState({
+                mapRegion: region
+            })
+        })
+        setInterval(() => this.getCurrentPositionMitra(), 15000)
+        setInterval(() => this.updateCoordsMitra(), 15000)
     }
 
-    onRegionChange(region, lastLat, lastLong) {
-        this.setState({
-            mapRegion: region,
-            lastLat: lastLat || this.state.lastLat,
-            lastLong: lastLong || this.state.lastLong
-        });
+    async getCurrentPositionMitra() {
+        await Geolocation.getCurrentPosition((location) => {
+
+            this.setState({
+                lastLat: location.coords.latitude,
+                lastLong: location.coords.longitude
+            })
+            console.warn(location)
+        })
+    }
+
+    updateCoordsMitra = async () => {
+        const idMitra = await AsyncStorage.getItem('idmitra')
+        Database.ref('/mitra').orderByChild('idMitra').equalTo(idMitra).on('child_added', (result) => {
+            Database.ref('/mitra/' + idMitra).update({
+                latitude: this.state.lastLat,
+                longitude: this.state.lastLong
+            })
+        })
     }
 
     render() {
@@ -78,14 +96,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         backgroundColor: '#005b96',
-        height: '8%',
+        height: '12%',
         width: '90%',
         margin: 20,
         elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 0,
-        opacity: 0.9
+        opacity: 0.8
 
     },
     chats:{
@@ -102,7 +120,7 @@ const styles = StyleSheet.create({
         opacity: 0.9
     },
     textOrder: {
-        color: 'white',
+        color: '#bdbdbd',
         fontStyle: 'italic',
         fontSize: 14,
     },

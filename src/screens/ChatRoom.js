@@ -25,10 +25,10 @@ class ChatRoom extends Component {
 
   async componentDidMount() {
     const role = await AsyncStorage.getItem('role')
-    let id 
-    if(role=== 'mitra'){
+    let id
+    if (role === 'mitra') {
       id = await AsyncStorage.getItem('idmitra')
-    }else{
+    } else {
       id = await AsyncStorage.getItem('idUser')
     }
     this.setState({

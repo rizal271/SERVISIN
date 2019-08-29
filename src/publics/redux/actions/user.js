@@ -1,12 +1,23 @@
 import axios from 'axios';
 import url from './host'
 
+
+export const upIDPhoneUser = (idUser, data) => {
+    console.warn('id pohne action: ', data);
+
+    return {
+        type: 'ID_PHONE',
+        payload: axios.patch(`${url}/user/idphone/${idUser}/`, data)
+    }
+}
+
 export const getAllUser = () => {
     return {
         type: 'GET_USER',
         payload: axios.get(`${url}/user/`)
     }
 };
+
 
 export const register = (data) => {
     return {

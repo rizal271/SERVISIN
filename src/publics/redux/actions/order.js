@@ -20,3 +20,4 @@ export const patchOrder = (idOrder) => {
         payload: axios.patch(`${url}/order/${idOrder}`),
     }
 };
+

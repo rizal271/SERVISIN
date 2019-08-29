@@ -71,6 +71,7 @@ class DetailOrderMitra extends Component {
                     })
                 await Alert.alert('Info', 'Order Selesai Terima Kasih')
                 await this.props.navigation.navigate('Homemitra')
+
             }
         } else {
             Alert.alert('Warning', 'Something Went Wrong')
@@ -78,12 +79,7 @@ class DetailOrderMitra extends Component {
     }
     render() {
         const pending = this.state.order != [] && this.state.order;
-        const idOrder = this.state.order && this.state.order.idOrder ;
-        const idUser = this.state.order && this.state.order.idUser;
-        const idMitra = this.state.order && this.state.order.idMitra;
-        console.warn(idOrder);
-        console.warn(idUser);
-        console.warn(idMitra);
+        
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />

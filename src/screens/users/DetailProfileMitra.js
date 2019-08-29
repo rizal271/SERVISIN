@@ -51,8 +51,6 @@ class Profile extends Component {
     }
     render() {
         const data = this.state.mitra && this.state.mitra
-        console.log('detailmitra',data);
-        
         return (
             <>
             {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
@@ -73,9 +71,9 @@ class Profile extends Component {
                             style={styles.iconCall}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom',{
-                                uid:data&&data.idMitra, name:data&&data.fullname, image:data&&data.imageMitra
-                            })}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', {
+                        uid: data && data.idMitra, name: data && data.fullname, image: data && data.imageMitra
+                    })}>
                         <Image
                             source={require('../../assets/images/Chat_icon.png')}
                             style={styles.iconChat}
@@ -94,7 +92,7 @@ class Profile extends Component {
                                 Berpengalaman di bidang Service
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment',{category:data.subName,price:data.price,idMitra:data.idMitra})}>
+                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra })}>
                             <Text style={styles.textButtonOrder}> Order Sekarang </Text>
                         </TouchableOpacity>
                     </View>
@@ -173,7 +171,7 @@ const styles = StyleSheet.create({
 
         color: '#FFFFFF'
     },
-    textPrice:{
+    textPrice: {
         position: 'absolute',
         left: 20,
         top: 200,

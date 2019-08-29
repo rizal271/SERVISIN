@@ -12,15 +12,19 @@ import {
     ActivityIndicator,
     Dimensions
 } from 'react-native'
+
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Header from '../../components/HeaderUser';
+import ImagePicker from 'react-native-image-picker'
+import { connect } from 'react-redux'
+import { updateFoto } from '../../publics/redux/actions/mitra'
 
 class Profile extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            isLoading:false,
+            isLoading: false,
             mitra: '',
             phone: '',
             email: '',
@@ -34,7 +38,7 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
-        this.setState({ isLoading:true })
+        this.setState({ isLoading: true })
         const idmitra = await AsyncStorage.getItem('idmitra')
         const mitra = await AsyncStorage.getItem('fullname')
         const phone = await AsyncStorage.getItem('phone')
@@ -52,7 +56,7 @@ class Profile extends Component {
             long,
             idCategory,
             idmitra,
-            isLoading:false
+            isLoading: false
         })
         console.warn('phone', phone);
 
@@ -72,10 +76,45 @@ class Profile extends Component {
         this._menu.show()
     }
 
+    handleChoosePhoto = async () => {
+        const options = {
+            noData: true,
+        }
+
+        await ImagePicker.showImagePicker(options, response => {
+            if (response.uri) {
+                this.setState({ imageSrc: response })
+            }
+        })
+    }
+
+    updateImage = async () => {
+        if (this.state.imageSrc !== null) {
+
+            const formdata = new FormData()
+            await formdata.append('image', {
+                name: this.state.imageSrc.fileName,
+                type: this.state.imageSrc.type || null,
+                uri: this.state.imageSrc.uri
+            })
+            await this.props.dispatch(updateFoto(this.state.idMitra, formdata))
+                .then(() => {
+                    this.setState({
+                        mitra: this.props.mitra,
+                        imageSrc: formdata,
+                        image: formdata
+                    })
+                    this.props.navigation.navigate('AuthHome')
+                })
+        } else {
+            alert('Silahkan pilih foto terlebih dahulu!')
+        }
+    }
+
     render() {
-        const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
+        const { mitra, phone, email, image, lat, long, idCategory, idmitra, imageSrc } = this.state
         return (
-            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'}/>:
+            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'} /> :
                 <ScrollView style={{ flex: 1 }}>
                     <StatusBar translucent backgroundColor="transparent" />
                     <Header />
@@ -99,11 +138,27 @@ class Profile extends Component {
                                 await this.props.navigation.navigate('AuthHome')
                             }}>Sign Out</MenuItem>
                         </Menu>
+                        {/* <TouchableOpacity style={styles.image}
+                            onPress={() => this.handleChoosePhoto()}>
+                            {
+                                imageSrc &&
+                                (<Image
+                                    source={{ uri: imageSrc.uri }}
+                                    style={styles.image}
+                                />) ||
+                                image &&
+                                (<Image
+                                    source={{ uri: image }}
+                                    style={styles.image}
+                                />)
+                            }
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.updateImage()}>
+                            <Image
+                                style={{ width: 20, height: 20, marginTop: -8, }}
+                                source={require('../../assets/images/icon_edit_image.png')} />
+                        </TouchableOpacity> */}
 
-                        <Image
-                            source={{ uri: image }}
-                            style={styles.image}
-                        />
                         <Text style={styles.text}> {mitra} </Text>
                         <Text style={styles.text}>{phone} </Text>
                         <Text style={styles.text}> {email} </Text>
@@ -193,7 +248,7 @@ const styles = StyleSheet.create({
     },
     card2: {
         height: 80,
-        paddingBottom:20,
+        paddingBottom: 20,
         width: '80%',
         backgroundColor: '#005B96',
         justifyContent: 'center',
@@ -251,4 +306,10 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Profile
+const mapStateToProps = state => {
+    return {
+        mitra: state.mitra
+    }
+}
+
+export default connect(mapStateToProps)(Profile)

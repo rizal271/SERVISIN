@@ -2,6 +2,14 @@ import axios from 'axios';
 
 import url from './host'
 
+export const upIDPhoneMitra = (idMitra, data) => {
+    console.warn('id pohne action: ', data);
+
+    return {
+        type: 'ID_PHONE',
+        payload: axios.patch(`${url}/mitra/idphone/${idMitra}/`, data)
+    }
+}
 
 export const login = (data) => {
     return {
@@ -42,5 +50,12 @@ export const updateFoto = (idMitra, data) => {
     return {
         type: 'UPDATE_FOTO',
         payload: axios.patch(`${url}/mitra/image/${idMitra}`, data)
+    }
+}
+
+export const updateLongLatMitra = (idMitra, data) => {
+    return {
+        type: 'UPDATE_LONGLAT',
+        payload: axios.patch(`${url}/mitra/posision/${idMitra}`, data)
     }
 }
