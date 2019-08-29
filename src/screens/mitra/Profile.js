@@ -13,14 +13,16 @@ import {
     Dimensions
 } from 'react-native'
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { logout } from '../../publics/redux/actions/mitra';
 import Header from '../../components/HeaderUser';
+import {connect} from 'react-redux';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            isLoading:false,
+            isLoading: false,
             mitra: '',
             phone: '',
             email: '',
@@ -34,7 +36,7 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
-        this.setState({ isLoading:true })
+        this.setState({ isLoading: true })
         const idmitra = await AsyncStorage.getItem('idmitra')
         const mitra = await AsyncStorage.getItem('fullname')
         const phone = await AsyncStorage.getItem('phone')
@@ -52,7 +54,7 @@ class Profile extends Component {
             long,
             idCategory,
             idmitra,
-            isLoading:false
+            isLoading: false
         })
         console.warn('phone', phone);
 
@@ -71,11 +73,20 @@ class Profile extends Component {
     showMenu = () => {
         this._menu.show()
     }
+    logout = async () => {
+        await AsyncStorage.clear()
+        await AsyncStorage.setItem('welcome', 'udah')
+        if (!this.state.idmitra || this.state.idmitra === '') {
 
+        } else {
+            await this.props.dispatch(logout(this.state.idmitra))
+            await this.props.navigation.navigate('AuthHome')
+        }
+    }
     render() {
         const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
         return (
-            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'}/>:
+            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'} /> :
                 <ScrollView style={{ flex: 1 }}>
                     <StatusBar translucent backgroundColor="transparent" />
                     <Header />
@@ -93,11 +104,7 @@ class Profile extends Component {
                         >
                             <MenuItem onPress={this.hideMenu}>Edit Profile</MenuItem>
                             <MenuDivider />
-                            <MenuItem onPress={this.hideMenu} onPress={async () => {
-                                await AsyncStorage.clear()
-                                await AsyncStorage.setItem('welcome', 'udah')
-                                await this.props.navigation.navigate('AuthHome')
-                            }}>Sign Out</MenuItem>
+                            <MenuItem onPress={this.hideMenu} onPress={this.logout}>Sign Out</MenuItem>
                         </Menu>
 
                         <Image
@@ -193,7 +200,7 @@ const styles = StyleSheet.create({
     },
     card2: {
         height: 80,
-        paddingBottom:20,
+        paddingBottom: 20,
         width: '80%',
         backgroundColor: '#005B96',
         justifyContent: 'center',
@@ -251,4 +258,9 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Profile
+const mapStateToProps = (state)=>{
+    return {
+        mitra:state.mitra
+    }
+}
+export default connect(mapStateToProps)(Profile)
