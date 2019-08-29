@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { getOrderMitraPending, patchOrder } from '../../publics/redux/actions/order';
 import Geocoder from 'react-native-geocoder';
 import { Database } from '../../publics/firebase/config'
+import { postNotifMitra } from '../../publics/redux/actions/notif';
 import firebase from 'firebase';
 
 const width = Dimensions.get('screen').width;
@@ -58,6 +59,14 @@ class DetailOrderMitra extends Component {
         const idMitra = this.state.order && this.state.order.idMitra;
         if (this.state.order && this.state.order.idOrder !== '') {
             await this.props.dispatch(patchOrder(idOrder))
+            const notif = {
+                msg:'Terima Kasih',
+                phoneid:this.state.order && this.state.order.IDponselUser,
+                header:'Order Selesai'
+            }
+            console.warn(this.state.order && this.state.order.IDponselUser);
+            
+            await this.props.dispatch(postNotifMitra(notif))
             if (this.props.order.orderList === '') {
                 Alert.alert('Warning', 'Something Went Wrong')
             } else {

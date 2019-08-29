@@ -51,6 +51,8 @@ class Profile extends Component {
     }
     render() {
         const data = this.state.mitra && this.state.mitra
+        console.warn('dats', data);
+        
         return (
             <>
             {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
