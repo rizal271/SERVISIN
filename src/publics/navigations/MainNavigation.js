@@ -30,6 +30,7 @@ import Maps from '../../screens/Maps';
 import RegisterMitra from "../../screens/auth/RegisterMitra";
 import OrderPending from '../../screens/users/OrderPending';
 import MapsDirection from '../../screens/mitra/MapsDirection';
+import ChatList from '../../screens/mitra/ChatList';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -145,7 +146,8 @@ const AppStackNavigator = createStackNavigator(
     OrderList,
     OrderPending,
     MapsDirection,
-    Payment
+    Payment,
+    ChatList
   },
   {
     headerMode: 'none',

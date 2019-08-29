@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     ScrollView,
     Linking,
-    Platform
+    Platform,
+    ActivityIndicator
 } from 'react-native';
 import Geocoder from 'react-native-geocoder';
 import { connect } from 'react-redux';
@@ -18,6 +19,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             mitra: [],
+            isLoading:false,
         }
     };
     diaCall = () => {
@@ -30,6 +32,7 @@ class Profile extends Component {
         Linking.openURL(phoneNumber)
     }
     componentDidMount = async () => {
+        this.setState({isLoading:true})
         const idMitra = this.props.navigation.state.params.idMitra
         await this.props.dispatch(getMitraById(idMitra));
         this.setState({
@@ -48,9 +51,9 @@ class Profile extends Component {
     }
     render() {
         const data = this.state.mitra && this.state.mitra
-        console.warn(data);
-
         return (
+            <>
+            {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
             <View style={{ flex: 1 }}>
                 <View style={styles.view1}>
                     <Image
@@ -82,16 +85,11 @@ class Profile extends Component {
                         <View style={styles.viewAlamat}>
                             <Text style={styles.alamat}> Alamat Lengkap: </Text>
                             <Text style={styles.isiAlamat}>{this.state.address}</Text>
-                            <TouchableOpacity style={styles.buttonLihatPeta}>
-                                <Text style={styles.textButtonPeta}> Lihat Peta </Text>
-                            </TouchableOpacity>
                         </View>
                         <View style={styles.viewDetailPerusahaan}>
-                            <Text style={styles.textDetailPerusahaan}> Detail Perusahaan: </Text>
+                            <Text style={styles.textDetailPerusahaan}> Detail Mitra: </Text>
                             <Text style={styles.isiDetailPerusahaan}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                Berpengalaman di bidang Service
                             </Text>
                         </View>
                         <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra })}>
@@ -99,7 +97,8 @@ class Profile extends Component {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-            </View>
+            </View>}
+            </>
         )
     }
 }

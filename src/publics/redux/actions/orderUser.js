@@ -23,4 +23,3 @@ export const postOrder = (data) => {
         payload: axios.post(`${url}/order/`,data),
     }
 };
-

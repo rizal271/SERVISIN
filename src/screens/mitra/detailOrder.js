@@ -53,21 +53,25 @@ class DetailOrderMitra extends Component {
         })
     }
     orderSelesai = async () => {
-        if (this.state.order.idOrder && this.state.order.idOrder !== '') {
-            await this.props.dispatch(patchOrder(this.state.order.idOrder))
+        const idOrder = this.state.order && this.state.order.idOrder ;
+        const idUser = this.state.order && this.state.order.idUser;
+        const idMitra = this.state.order && this.state.order.idMitra;
+        if (this.state.order && this.state.order.idOrder !== '') {
+            await this.props.dispatch(patchOrder(idOrder))
             if (this.props.order.orderList === '') {
                 Alert.alert('Warning', 'Something Went Wrong')
             } else {
-                await Database.ref(`user/${this.state.order.idMitra}/${this.state.order.idUser}`).remove()
+                await Database.ref(`messages/${idMitra}/${idUser}`).remove()
                     .catch((err) => {
                         Alert.alert('Warning', 'Something Went Wrong')
                     })
-                await Database.ref(`user/${this.state.order.idUser}/${this.state.order.idMitra}`).remove()
+                await Database.ref(`messages/${idUser}/${idMitra}`).remove()
                     .catch((err) => {
                         Alert.alert('Warning', 'Something Went Wrong')
                     })
                 await Alert.alert('Info', 'Order Selesai Terima Kasih')
-                await this.props.navigation.navigate('Homeuser')
+                await this.props.navigation.navigate('Homemitra')
+
             }
         } else {
             Alert.alert('Warning', 'Something Went Wrong')
@@ -75,7 +79,7 @@ class DetailOrderMitra extends Component {
     }
     render() {
         const pending = this.state.order != [] && this.state.order;
-        console.warn(pending);
+        
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -255,20 +259,13 @@ const style = StyleSheet.create({
     },
     orderan: {
         alignSelf: 'center',
-        position: 'absolute',
-        backgroundColor: '#005b96',
-        height: '12%',
+        height: '90%',
         width: '90%',
-        margin: 20,
-        elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        bottom: 0,
-        opacity: 0.8
 
     },
     textOrder: {
-        color: '#bdbdbd',
         fontStyle: 'italic',
         fontSize: 14,
     },
