@@ -49,11 +49,6 @@ class SubCategory extends Component {
                             </TouchableOpacity>
                         )
                     }} />}
-                <View>
-                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
-                        <Text style={styles.buttonText}>History Services</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         )
     }

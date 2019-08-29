@@ -8,11 +8,10 @@ class Header extends Component {
         return (
             <TouchableOpacity activeOpacity={1} style={styles.container}>
                 <View style={styles.item}>
-                    <Image style={styles.image} source={{ uri: item.imageMitra }} />
+                    <Image style={styles.image} source={{ uri: item.image }} />
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.textName}>{item.fullname}</Text>
-                    <Text style={styles.textStatus}>{item.role}</Text>
+                    <Text style={styles.textName}>{item.name}</Text>
                 </View>
             </TouchableOpacity>
         )

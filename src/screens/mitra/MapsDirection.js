@@ -4,8 +4,9 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import geolocation from '@react-native-community/geolocation';
 import Header from '../../components/HeaderUser';
 import { connect } from 'react-redux';
+import MapViewDirections from 'react-native-maps-directions';
 
-class Maps extends Component {
+class MapsDirection extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +14,9 @@ class Maps extends Component {
             mapRegion: null,
             lastLat: null,
             lastLong: null,
-            isLoading: false
+            isLoading: false,
+            lat: this.props.navigation.state.params.lat,
+            long: this.props.navigation.state.params.long
         }
     };
 
@@ -38,6 +41,8 @@ class Maps extends Component {
     }
 
     render() {
+        const GOOGLE_MAPS_APIKEY = 'AIzaSyBsPKumgKCIWwdeZSRYD-AQFZS8hihxtoM';
+
         return (
             <View style={styles.con}>
                 <Header />
@@ -50,11 +55,30 @@ class Maps extends Component {
                     showsCompass={true}
                     minZoomLevel={0}
                     maxZoomLevel={20}
+                    onRegionChange={this.componentDidMount}
                 >
+                    <MapViewDirections
+                        origin={{
+                            latitude: this.state.lastLat,
+                            longitude: this.state.lastLong
+                        }}
+                        destination={{
+                            latitude: this.state.lat,
+                            longitude: this.state.long
+                        }}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        strokeWidth={3}
+                        strokeColor="#005b96"
+                    />
+                    <Marker
+                        coordinate={{
+                            latitude: this.state.lat,
+                            longitude: this.state.long
+                        }}
+                        description={"testing"}
+                        title={"tujuan"}
+                    />
                 </MapView>
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('DetailOrderMitra') }} style={styles.orderan}>
-                    <Text style={styles.textOrder}>"Your Service"</Text>
-                </TouchableOpacity >
             </View>
         );
     }
@@ -64,7 +88,7 @@ const mapStateToProps = state => {
         mitra: state.mitra
     };
 };
-export default connect(mapStateToProps)(Maps);
+export default connect(mapStateToProps)(MapsDirection);
 const styles = StyleSheet.create({
     con: {
         flex: 1,
@@ -75,18 +99,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         backgroundColor: '#005b96',
-        height: '8%',
+        height: '12%',
         width: '90%',
         margin: 20,
         elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 0,
-        opacity: 0.9
+        opacity: 0.8
 
     },
     textOrder: {
-        color: 'white',
+        color: '#bdbdbd',
         fontStyle: 'italic',
         fontSize: 14,
     },

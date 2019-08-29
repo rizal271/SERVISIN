@@ -26,6 +26,9 @@ import ListPenghasilan from "../../screens/mitra/ListPenghasilan";
 import OrderList from "../../screens/mitra/OrderList";
 import MapsMitra from '../../screens/mitra/MapsMitra';
 import Maps from '../../screens/Maps';
+import RegisterMitra from "../../screens/auth/RegisterMitra";
+import OrderPending from '../../screens/users/OrderPending';
+import MapsDirection from '../../screens/mitra/MapsDirection';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -138,7 +141,9 @@ const AppStackNavigator = createStackNavigator(
     DetailOrder,
     DetailOrderMitra,
     ListPenghasilan,
-    OrderList
+    OrderList,
+    OrderPending,
+    MapsDirection
   },
   {
     headerMode: 'none',
@@ -148,7 +153,8 @@ const AppStackNavigator = createStackNavigator(
 const AuthStack = createStackNavigator({
   ChooseRole,
   Login,
-  Register
+  Register,
+  RegisterMitra
 },
   { headerMode: 'none' })
 

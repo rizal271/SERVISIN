@@ -73,40 +73,51 @@ class Login extends Component {
                             latitude: data.lat,
                             longitude: data.long
                         })
+                        if (typeof (this.props.user.userList) === "object" && this.props.user.isFulfilled) {
+                            Alert.alert('Info', 'Success Login')
+                            this.setState({
+                                isLoading: false,
+                                email: '',
+                                password: '',
+                            })
+                            this.props.navigation.navigate('Homeuser')
+                        } else {
+                            this.setState({
+                                isLoading: false,
+                            })
+                            console.warn(this.props.user.userList);
+                            Alert.alert('Warning', this.props.user.userList)
+                        }
                     })
-                if (typeof (this.props.user.userList) === "object" && this.props.user.isFulfilled) {
-                    await Alert.alert('Info', 'Success Login')
-                    await this.setState({
-                        isLoading: false,
-                        email: '',
-                        password: '',
+                    .catch((error) => {
+                        alert('oops email atau password tidak terdaftar!', error)
+                        this.setState({ isLoading: false })
                     })
-                    this.props.navigation.navigate('Homeuser')
-                } else {
-                    this.setState({
-                        isLoading: false,
-                    })
-                    console.warn(this.props.user.userList);
-                    Alert.alert('Warning', this.props.user.userList)
-                }
+
             } else {
                 await this.props.dispatch(loginMitra({ email: this.state.email, password: this.state.password }))
-                this.setState({ isLoading: false })
-                console.warn(this.props.mitra);
-                if (typeof (this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
-                    await Alert.alert('Info', 'Success Login')
-                    await this.setState({
-                        isLoading: false,
-                        email: '',
-                        password: '',
+                    .then(() => {
+                        this.setState({ isLoading: false })
+                        console.warn(this.props.mitra);
+                        if (typeof (this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
+                            Alert.alert('Info', 'Success Login')
+                            this.setState({
+                                isLoading: false,
+                                email: '',
+                                password: '',
+                            })
+                            this.props.navigation.navigate('Homemitra')
+                        } else {
+                            this.setState({
+                                isLoading: false,
+                            })
+                            Alert.alert('Warning', this.props.mitra.mitraList)
+                        }
                     })
-                    this.props.navigation.navigate('Homemitra')
-                } else {
-                    this.setState({
-                        isLoading: false,
+                    .catch((error) => {
+                        alert('oops email atau password tidak terdaftar!', error)
+                        this.setState({ isLoading: false })
                     })
-                    Alert.alert('Warning', this.props.mitra.mitraList)
-                }
             }
         } else {
             Alert.alert('Warning', 'Semua Field Harus Di isi')
@@ -147,11 +158,21 @@ class Login extends Component {
                         <Text style={style.dont}>
                             Dont Have Account?
                         </Text>
-                        <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register')}>
-                            <Text style={style.registerText}>
-                                Register Here
-                                            </Text>
-                        </TouchableOpacity>
+                        {
+                            this.props.navigation.getParam('role') === 'user'
+                                ?
+                                <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('Register', { role: 'user' })}>
+                                    <Text style={style.registerText}>
+                                        Register Here
+                            </Text>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity style={style.register} onPress={() => this.props.navigation.navigate('RegisterMitra', { role: 'mitra' })}>
+                                    <Text style={style.registerText}>
+                                        Register Here
+                            </Text>
+                                </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </ScrollView>

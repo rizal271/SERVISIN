@@ -8,35 +8,35 @@ import {
     TextInput,
     StatusBar,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    ActivityIndicator,
+    Dimensions
 } from 'react-native'
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu'
-import ImagePicker from 'react-native-image-picker'
-import { connect } from 'react-redux'
-import { updateFoto } from '../../publics/redux/actions/mitra'
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import Header from '../../components/HeaderUser';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            idMitra: '',
-            fullname: '',
+            isLoading:false,
+            mitra: '',
             phone: '',
             email: '',
-            image: null,
-            imageSrc: null,
+            image: '',
             lat: '',
             long: '',
             idCategory: '',
-            mitra: []
+            idmitra: ''
 
         }
     }
 
     async componentDidMount() {
-        const idMitra = await AsyncStorage.getItem('idMitra')
-        const fullname = await AsyncStorage.getItem('fullname')
+        this.setState({ isLoading:true })
+        const idmitra = await AsyncStorage.getItem('idmitra')
+        const mitra = await AsyncStorage.getItem('fullname')
         const phone = await AsyncStorage.getItem('phone')
         const email = await AsyncStorage.getItem('email')
         const image = await AsyncStorage.getItem('image')
@@ -44,14 +44,15 @@ class Profile extends Component {
         const long = await AsyncStorage.getItem('long')
         const idCategory = await AsyncStorage.getItem('idCategory')
         await this.setState({
-            idMitra,
-            fullname,
+            mitra,
             phone,
             email,
             image,
             lat,
             long,
-            idCategory
+            idCategory,
+            idmitra,
+            isLoading:false
         })
         console.warn('phone', phone);
 
@@ -71,47 +72,13 @@ class Profile extends Component {
         this._menu.show()
     }
 
-    handleChoosePhoto = async () => {
-        const options = {
-          noData: true,
-        }
-    
-        await ImagePicker.showImagePicker(options, response => {
-          if (response.uri) {
-            this.setState({ imageSrc: response })
-          }
-        })
-      }
-
-      updateImage = async () => {
-        if (this.state.imageSrc !== null) {
-    
-          const formdata = new FormData()
-          await formdata.append('image', {
-            name: this.state.imageSrc.fileName,
-            type: this.state.imageSrc.type || null,
-            uri: this.state.imageSrc.uri
-          })
-          await this.props.dispatch(updateFoto(this.state.idMitra, formdata))
-            .then(() => {
-              this.setState({
-                mitra: this.props.mitra,
-                imageSrc: formdata,
-                image: formdata
-              })
-              this.props.navigation.navigate('AuthHome')
-            })
-        } else {
-          alert('Silahkan pilih foto terlebih dahulu!')
-        }
-      }
-
     render() {
-        const { fullname,mitra, phone, email, image, imageSrc, idMitra, lat, long, idCategory } = this.state
+        const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
         return (
-            <>
+            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'}/>:
                 <ScrollView style={{ flex: 1 }}>
                     <StatusBar translucent backgroundColor="transparent" />
+                    <Header />
                     <View style={styles.view1}>
 
 
@@ -132,27 +99,11 @@ class Profile extends Component {
                                 await this.props.navigation.navigate('AuthHome')
                             }}>Sign Out</MenuItem>
                         </Menu>
-                        <TouchableOpacity style={styles.image}
-                            onPress={() => this.handleChoosePhoto()}>
-                            {
-                                imageSrc && 
-                                (<Image
-                                    source={{ uri: imageSrc.uri }}
-                                    style={styles.image}
-                                />) ||
-                                image &&
-                                (<Image
-                                    source={{ uri: image }}
-                                    style={styles.image}
-                                />)
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.updateImage()}>
-                            <Image 
-                                style={{width:20, height:20, marginTop: -8, }}
-                                source={require('../../assets/images/icon_edit_image.png')} />
-                        </TouchableOpacity>
-                        
+
+                        <Image
+                            source={{ uri: image }}
+                            style={styles.image}
+                        />
                         <Text style={styles.text}> {mitra} </Text>
                         <Text style={styles.text}>{phone} </Text>
                         <Text style={styles.text}> {email} </Text>
@@ -169,14 +120,13 @@ class Profile extends Component {
                                 <Text style={styles.textCol2}> 78 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList', { idmitra })}>
                             <View style={styles.card2}>
                                 <Text style={styles.textCard2}> Orderan Beres </Text>
-                                <Text style={styles.textCard2}> 20 </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </ScrollView>}
             </>
         )
     }
@@ -197,7 +147,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 50,
-        marginBottom: 0,
+        marginBottom: 5,
         marginTop: -15
     },
     text: {
@@ -242,12 +192,10 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     card2: {
-        flex: 1,
-        flexDirection: 'row',
         height: 80,
+        paddingBottom:20,
         width: '80%',
         backgroundColor: '#005B96',
-        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
@@ -303,10 +251,4 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = state => {
-    return {
-      mitra: state.mitra
-    }
-  }
-
-export default connect(mapStateToProps)(Profile)
+export default Profile
