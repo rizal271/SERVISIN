@@ -9,6 +9,8 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import HeaderChat from '../components/HeaderChat';
 import firebase from 'firebase';
 import { Database, Auth } from '../publics/firebase/config';
+import { connect } from 'react-redux';
+import { postNotifMitra } from '../publics/redux/actions/notif';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -47,8 +49,11 @@ class ChatRoom extends Component {
   }
 
   sendMessage = async () => {
+
+
     if (this.state.text.length > 0) {
       let msgId = Database.ref('messages').child(this.state.myuid).child(this.state.uid).push().key;
+
       let updates = {};
       let message = {
         _id: msgId,
@@ -60,6 +65,12 @@ class ChatRoom extends Component {
           avatar: this.state.avatar
         }
       }
+      const notif = {
+        msg: this.state.text,
+        phoneid: this.props.navigation.state.params.idphone,
+        header: 'Pesan Baru'
+      }
+      this.props.dispatch(postNotifMitra(notif))
       updates['messages/' + this.state.myuid + '/' + this.state.uid + '/' + msgId] = message;
       updates['messages/' + this.state.uid + '/' + this.state.myuid + '/' + msgId] = message;
       Database.ref().update(updates)
@@ -68,6 +79,7 @@ class ChatRoom extends Component {
     }
   }
   render() {
+    console.warn(this.props.navigation.state.params.data)
     return (
       <>
         <StatusBar translucent backgroundColor="transparent" />
@@ -89,4 +101,10 @@ class ChatRoom extends Component {
   }
 }
 
-export default ChatRoom
+const mapStateToProps = state => {
+  return {
+    notif: state.notif
+  }
+}
+
+export default connect(mapStateToProps)(ChatRoom);

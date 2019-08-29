@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import { getOrderUserSelesai } from '../../publics/redux/actions/orderUser';
-import { updateFoto } from '../../publics/redux/actions/user';
+import { updateFoto, logout } from '../../publics/redux/actions/user';
 import Header from '../../components/HeaderUser';
 import { ActivityIndicator } from 'react-native-paper';
 import moment from 'moment';
@@ -81,7 +81,12 @@ class Profil extends Component {
   _handleLogout = async () => {
     await AsyncStorage.clear()
     await AsyncStorage.setItem('welcome', 'udah')
-    await this.props.navigation.navigate('AuthHome')
+    if (!this.state.idUser || this.state.idUser === '') {
+
+    } else {
+      await this.props.dispatch(logout(this.state.idUser))
+      await this.props.navigation.navigate('AuthHome')
+    }
   }
 
   handleChoosePhoto = async () => {

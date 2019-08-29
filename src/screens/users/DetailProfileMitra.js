@@ -19,7 +19,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             mitra: [],
-            isLoading:false,
+            isLoading: false,
         }
     };
     diaCall = () => {
@@ -32,7 +32,7 @@ class Profile extends Component {
         Linking.openURL(phoneNumber)
     }
     componentDidMount = async () => {
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         const idMitra = this.props.navigation.state.params.idMitra
         await this.props.dispatch(getMitraById(idMitra));
         this.setState({
@@ -51,53 +51,55 @@ class Profile extends Component {
     }
     render() {
         const data = this.state.mitra && this.state.mitra
+        console.warn('dats', data);
+
         return (
             <>
-            {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
-            <View style={{ flex: 1 }}>
-                <View style={styles.view1}>
-                    <Image
-                        source={{ uri: data.imageMitra }}
-                        style={styles.image}
-                    />
-                    <Text style={styles.textCompanyName}>{data.fullname}</Text>
-                    <Text style={styles.textPhoneNumber}>{data.nohp}</Text>
-                    <Text style={styles.textEmail}>{data.email}</Text>
-                    <Text style={styles.textPrice}>Rp.{data.price}</Text>
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
+                    <View style={{ flex: 1 }}>
+                        <View style={styles.view1}>
+                            <Image
+                                source={{ uri: data.imageMitra }}
+                                style={styles.image}
+                            />
+                            <Text style={styles.textCompanyName}>{data.fullname}</Text>
+                            <Text style={styles.textPhoneNumber}>{data.nohp}</Text>
+                            <Text style={styles.textEmail}>{data.email}</Text>
+                            <Text style={styles.textPrice}>Rp.{data.price}</Text>
 
-                    <TouchableOpacity onPress={this.diaCall}>
-                        <Image
-                            source={require('../../assets/images/in_call.png')}
-                            style={styles.iconCall}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', {
-                        uid: data && data.idMitra, name: data && data.fullname, image: data && data.imageMitra
-                    })}>
-                        <Image
-                            source={require('../../assets/images/Chat_icon.png')}
-                            style={styles.iconChat}
-                        />
-                    </TouchableOpacity>
-                </View>
-                <ScrollView>
-                    <View style={styles.view2}>
-                        <View style={styles.viewAlamat}>
-                            <Text style={styles.alamat}> Alamat Lengkap: </Text>
-                            <Text style={styles.isiAlamat}>{this.state.address}</Text>
+                            <TouchableOpacity onPress={this.diaCall}>
+                                <Image
+                                    source={require('../../assets/images/in_call.png')}
+                                    style={styles.iconCall}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', {
+                                uid: data && data.idMitra, name: data && data.fullname, image: data && data.imageMitra, idphone: data.IDponselMitra
+                            })}>
+                                <Image
+                                    source={require('../../assets/images/Chat_icon.png')}
+                                    style={styles.iconChat}
+                                />
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.viewDetailPerusahaan}>
-                            <Text style={styles.textDetailPerusahaan}> Detail Mitra: </Text>
-                            <Text style={styles.isiDetailPerusahaan}>
-                                Berpengalaman di bidang Service
+                        <ScrollView>
+                            <View style={styles.view2}>
+                                <View style={styles.viewAlamat}>
+                                    <Text style={styles.alamat}> Alamat Lengkap: </Text>
+                                    <Text style={styles.isiAlamat}>{this.state.address}</Text>
+                                </View>
+                                <View style={styles.viewDetailPerusahaan}>
+                                    <Text style={styles.textDetailPerusahaan}> Detail Mitra: </Text>
+                                    <Text style={styles.isiDetailPerusahaan}>
+                                        Berpengalaman di bidang Service
                             </Text>
-                        </View>
-                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra })}>
-                            <Text style={styles.textButtonOrder}> Order Sekarang </Text>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </View>}
+                                </View>
+                                <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra, IDponselMitra: data.IDponselMitra })}>
+                                    <Text style={styles.textButtonOrder}> Order Sekarang </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                    </View>}
             </>
         )
     }
