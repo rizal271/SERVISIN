@@ -52,6 +52,9 @@ class Maps extends Component {
                     maxZoomLevel={20}
                 >
                 </MapView>
+                <TouchableOpacity onPress={() => { this.props.navigation.navigate('ChatList') }} style={styles.chats}>
+                    <Text style={styles.textOrder}>"Your Chat"</Text>
+                </TouchableOpacity >
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('DetailOrderMitra') }} style={styles.orderan}>
                     <Text style={styles.textOrder}>"Your Service"</Text>
                 </TouchableOpacity >
@@ -84,6 +87,19 @@ const styles = StyleSheet.create({
         bottom: 0,
         opacity: 0.9
 
+    },
+    chats:{
+        alignSelf: 'center',
+        position: 'absolute',
+        backgroundColor: '#005b96',
+        height: '8%',
+        width: '90%',
+        margin: 20,
+        elevation: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: '10%',
+        opacity: 0.9
     },
     textOrder: {
         color: 'white',

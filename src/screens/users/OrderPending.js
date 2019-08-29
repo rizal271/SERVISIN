@@ -49,14 +49,20 @@ class DetailOrder extends Component {
             })
         })
     }
-    // componentWillUnmount= ()=>{
-    // }
     render() {
         const data = this.state.orderuser !== [] && this.state.orderuser
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
                 <Header />
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
+                <>
+                {this.props.orderuser.orderuserList[0] == undefined ?
+                            <View style={style.orderan}>
+                                <Text style={style.textOrder}>
+                                    "Kamu Belum Order"
+                    </Text>
+                            </View> :
                 <ScrollView>
                     <View style={style.container}>
                         <View style={style.wrapChat}>
@@ -125,7 +131,8 @@ class DetailOrder extends Component {
                             </Button>
                         </View>
                     </View>
-                </ScrollView>
+                </ScrollView>}
+                </>}
             </>
         )
     }
@@ -216,5 +223,17 @@ const style = StyleSheet.create({
         position: 'absolute',
         bottom: 20,
         right: 20,
-    }
+    },
+    orderan: {
+        alignSelf: 'center',
+        height: '90%',
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    textOrder: {
+        fontStyle: 'italic',
+        fontSize: 14,
+    },
 })
