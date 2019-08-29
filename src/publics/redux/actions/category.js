@@ -1,6 +1,6 @@
 import axios from 'axios';
+import url from './host'
 
-const url = 'http://192.168.6.102:3333'
 
 export const getCategory = () => {
     return {
