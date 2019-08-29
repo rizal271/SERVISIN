@@ -1,7 +1,12 @@
 import axios from 'axios';
 import url from './host'
 
-
+export const getAllUser = () => {
+    return {
+        type: 'GET_USER',
+        payload: axios.get(`${url}/user/`)
+    }
+};
 
 export const register = (data) => {
     return {
