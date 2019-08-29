@@ -2,6 +2,14 @@ import axios from 'axios';
 
 import url from './host'
 
+export const upIDPhoneMitra = (idMitra, data) => {
+    console.warn('id pohne action: ', data);
+
+    return {
+        type: 'ID_PHONE',
+        payload: axios.patch(`${url}/mitra/idphone/${idMitra}/`, data)
+    }
+}
 
 export const login = (data) => {
     return {
