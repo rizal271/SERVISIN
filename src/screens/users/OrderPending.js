@@ -35,14 +35,12 @@ class DetailOrder extends Component {
         this.setState({ isLoading: true })
         await this.props.dispatch(getOrderUserPending(idUser));
         this.setState({
-            isLoading: false
+            isLoading: false,
+            orderuser:this.props.orderuser.orderuserList[0]
         });
-    }
-    render() {
-        const data = this.props.orderuser.orderuserList && this.props.orderuser.orderuserList[0]
         var pos = {
-            lat: Number(data&&data.latUser),
-            lng: Number(data&&data.longUser)
+            lat: Number(this.state.orderuser.latUser),
+            lng: Number(this.state.orderuser.longUser)
         };
 
         Geocoder.geocodePosition(pos).then(res => {
@@ -50,6 +48,11 @@ class DetailOrder extends Component {
                 address: res[0].formattedAddress
             })
         })
+    }
+    // componentWillUnmount= ()=>{
+    // }
+    render() {
+        const data = this.state.orderuser !== [] && this.state.orderuser
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -67,24 +70,24 @@ class DetailOrder extends Component {
                                     Mitra
                             </Text>
                                 <Text style={style.textValue}>
-                                   {data.mitraName}
-                            </Text>
+                                    {data && data.mitraName}
+                                </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
                                     Category
                             </Text>
                                 <Text style={style.textValue}>
-                                 {data.subName}
-                            </Text>
+                                    {data && data.subName}
+                                </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
                                     Estimasi Harga
                             </Text>
                                 <Text style={style.textValue}>
-                                    Rp. {data.price}
-                            </Text>
+                                    Rp. {data && data.price}
+                                </Text>
                             </View>
                             <View style={[style.wrapText, { borderBottomColor: 'white' }]}>
                                 <Text style={style.textKey}>
@@ -101,7 +104,7 @@ class DetailOrder extends Component {
                     <View style={{ marginVertical: 30 }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Button onPress={() => this.props.navigation.navigate('ChatRoom', {
-                                uid:data&&data.idMitra, name:data&&data.mitraName, image:data&&data.imageMitra
+                                uid: data && data.idMitra, name: data && data.mitraName, image: data && data.imageMitra
                             })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
                                 <Text style={{
                                     textAlign: 'center',
