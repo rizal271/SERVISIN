@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "491364879432",
+    "firebase_url": "https://servisinapp.firebaseio.com",
+    "project_id": "servisinapp",
+    "storage_bucket": "servisinapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491364879432:android:e578d23218edf0b1",
+        "android_client_info": {
+          "package_name": "com.servisin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491364879432-7u4qtrmplh0nbaiqh3rvvo49477m77q8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvkNlB4_ubjZZKIA7e4s2Rfnbgj5J_mZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491364879432-7u4qtrmplh0nbaiqh3rvvo49477m77q8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
