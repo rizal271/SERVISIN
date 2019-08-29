@@ -25,7 +25,7 @@ class ChatList extends Component {
             user: [],
             data: [],
             uid: null,
-            isLoading:false,
+            isLoading: false,
         }
     }
 
@@ -49,40 +49,42 @@ class ChatList extends Component {
     }
     render() {
         const user = this.state.user;
-        const chat = this.state.chat;     
+        const chat = this.state.chat;
         const data = []
         chat.forEach((items, key) => {
             data[key] = user.find((item) => item.idUser === items.id)
         })
-        console.log(data);
-        
+        console.warn(data);
+
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
                 <Header />
                 {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
-                <View>
-                <FlatList
-                    data={data&&data}
-                    keyExtractor={item=>item&&item.idUser}
-                    numColumns={1}
-                    renderItem={({ item }) => {
-                        return (
-                            <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => { this.props.navigation.navigate('ChatRoom', {
-                                uid: item&&item.idUser, name: item&&item.fullname, image: item&&item.image
-                            }) }}>
-                                <View style={styles.item}>
-                                    <Image style={styles.image} source={{ uri: `${item&&item.image}` }} />
-                                </View>
-                                <View style={styles.content}>
-                                    <Text style={styles.textName}>{item&&item.fullname}</Text>
-                                    <Text style={styles.textStatus}>{item&&item.idUser}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        )
-                    }}
-                />
-                </View>}
+                    <View>
+                        <FlatList
+                            data={data && data}
+                            keyExtractor={item => item && item.idUser}
+                            numColumns={1}
+                            renderItem={({ item }) => {
+                                return (
+                                    <TouchableOpacity style={styles.button} activeOpacity={1} onPress={() => {
+                                        this.props.navigation.navigate('ChatRoom', {
+                                            uid: item && item.idUser, name: item && item.fullname, image: item && item.image, idphone: item && item.IDponselUser
+                                        })
+                                    }}>
+                                        <View style={styles.item}>
+                                            <Image style={styles.image} source={{ uri: `${item && item.image}` }} />
+                                        </View>
+                                        <View style={styles.content}>
+                                            <Text style={styles.textName}>{item && item.fullname}</Text>
+                                            <Text style={styles.textStatus}>{item && item.idUser}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            }}
+                        />
+                    </View>}
             </>
         )
     }
