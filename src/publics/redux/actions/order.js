@@ -14,3 +14,9 @@ export const getOrderMitraPending = (idMitra) => {
         payload: axios.get(`${url}/order/mitrapending/${idMitra}`),
     }
 };
+export const patchOrder = (idOrder) => {
+    return {
+        type: 'POST_ORDER',
+        payload: axios.patch(`${url}/order/${idOrder}`),
+    }
+};
