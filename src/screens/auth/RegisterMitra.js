@@ -9,11 +9,12 @@ import {
     ScrollView,
     Dimensions,
     StatusBar,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { registerMitra } from '../../publics/redux/actions/mitra';
-
+import { getCategory } from '../../publics/redux/actions/category'
 
 class RegisterMitra extends Component {
     static navigationOptions = {
@@ -24,31 +25,63 @@ class RegisterMitra extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mitra: []
+            mitra: [],
+            fullname: '',
+            email: '',
+            nohp: '',
+            idSubCat: 0,
+            password: '',
+            lat: 0,
+            long: 0,
+            category: []
         }
+    }
+
+    componentDidMount = async () => {
+        await this.getCategory()
+    }
+
+    getCategory() {
+        this.props.dispatch(getCategory())
+            .then(() => {
+                this.setState({ category: this.props.category.categoryList })
+            })
     }
 
     render() {
         const mitraRegister = () => {
-            this.state.mitra.push({
-                fullname: this.state.fullname,
-                email: this.state.email,
-                noHp: this.state.noHp,
-                idCategory: this.state.idCategory,
-                password: this.state.password,
-                lat: 0,
-                long: 0
-            });
-            console.log(this.state.mitra);
-            add()
-            this.setState((prevState) => ({
-                modal: !prevState.modal
-            }));
-            console.log(this.state.mitra);
+            const { fullname, email, nohp, idSubCat, password, lat, long } = this.state
+            if (fullname !== '' && email !== '' && nohp !== '' && password !== '') {
+                this.state.mitra.push({
+                    fullname: fullname,
+                    email: email,
+                    nohp: nohp,
+                    idSubCat: idSubCat,
+                    password: password,
+                    lat: lat,
+                    long: long
+                });
+                console.log(this.state.mitra);
+                add()
+                this.setState((prevState) => ({
+                    modal: !prevState.modal
+                }));
+                console.log(this.state.mitra);
+                Alert.alert(
+                    'Berhasil',
+                    'Sign up berhasil!',
+                    [
+                        { text: 'Ok', onPress: () => this.props.navigation.goBack() }
+                    ]
+                )
+            } else {
+                alert('Isi data yang kosong')
+            }
         };
         let add = async () => {
             await this.props.dispatch(registerMitra(this.state.mitra[0]))
         };
+        console.warn('cate: ', this.state.category)
         return (
             <ScrollView>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -56,7 +89,7 @@ class RegisterMitra extends Component {
                     <Text style={styles.textSignUp}> SIGN UP </Text>
                     <Image
                         style={styles.image}
-                        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfQ1VAlKwxbHKlI-K2auBgRM4fYSBd-MJDyc3CnbkbpJnvdUNx' }}
+                        source={require('../../assets/images/Engineer_icon.png')}
                     />
                     <Text style={styles.textUser}> Mitra </Text>
                     <TextInput
@@ -73,26 +106,21 @@ class RegisterMitra extends Component {
                         style={styles.textInput}
 
                         value={this.state.phoneNumber}
-                        onChangeText={val => this.setState({ 'noHp': val })}
+                        onChangeText={val => this.setState({ 'nohp': val })}
                     />
                     <Picker
-                        style={styles.textInput} 
+                        style={styles.textInput}
                         mode='dropdown'
-                        selectedValue={this.state.idCategory}
-                        onValueChange={(value) => this.setState({idCategory:value})}>
-                            <Picker.Item label='Category' value='' color='white' />
-                            <Picker.Item label='Mobil' value='1' />
-                            <Picker.Item label='Sepeda Motor' value='2' />
-                            <Picker.Item label='Service TV' value='3' />
-                            <Picker.Item label='Service AC' value='4' />
-                            <Picker.Item label='Service Kulkas' value='5' />
-                            <Picker.Item label='Service Mesin Cuci' value='6' />
-                            <Picker.Item label='Jasa Cat' value='7' />
-                            <Picker.Item label='Sedot Tinja' value='8' />
-                            <Picker.Item label='Aliran Listrik' value='9' />
-                            <Picker.Item label='Tambal Ban' value='10' />
-                            <Picker.Item label='Bahan Bakar' value='11' />
-                            <Picker.Item label='Tempah Kunci' value='12' />
+                        selectedValue={this.state.idSubCat}
+                        onValueChange={(value) => this.setState({ idSubCat: value })}>
+                        {/* <Picker.Item label='Category' value='' color='white' />
+                        <Picker.Item label='Otomotif' value={1} />
+                        <Picker.Item label='Elektronik' value={2} />
+                        <Picker.Item label='Builders' value={3} />
+                        <Picker.Item label='Emergensy' value={4} /> */}
+                        {this.state.category.map((value) => {
+                            return (<Picker.Item label={value.catName} value={value.idCategory} />)
+                        })}
                     </Picker>
                     <TextInput
                         placeholderTextColor='white'
@@ -106,7 +134,7 @@ class RegisterMitra extends Component {
                         placeholderTextColor='white'
                         placeholder='Password...'
                         style={styles.textInput}
-
+                        secureTextEntry={true}
                         value={this.state.password}
                         onChangeText={val => this.setState({ 'password': val })}
 
@@ -125,7 +153,8 @@ class RegisterMitra extends Component {
 }
 const mapStateToProps = state => {
     return {
-        mitra: state.mitra
+        mitra: state.mitra,
+        category: state.category
     };
 };
 export default connect(mapStateToProps)(RegisterMitra);

@@ -15,34 +15,34 @@ import Header from '../../components/HeaderUser';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
-import { getOrderMitraPending } from '../../publics/redux/actions/order';
+import { getOrderUserPending } from '../../publics/redux/actions/orderUser';
 import Geocoder from 'react-native-geocoder';
 
-const width = Dimensions.get('screen').width;
+const width = Dimensions.get('screen').width
 
-class DetailOrderMitra extends Component {
+class DetailOrder extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            order: [],
+            orderuser: [],
             isLoading: false,
         }
     }
 
     componentDidMount = async () => {
-        const idMitra = await AsyncStorage.getItem('idmitra')
-        this.setState({ idMitra })
+        const idUser = await AsyncStorage.getItem('idUser')
+        this.setState({ idUser })
         this.setState({ isLoading: true })
-        await this.props.dispatch(getOrderMitraPending(idMitra));
+        await this.props.dispatch(getOrderUserPending(idUser));
         this.setState({
             isLoading: false
         });
     }
     render() {
-        const pending = this.props.order.orderList && this.props.order.orderList[0]
+        const data = this.props.orderuser.orderuserList && this.props.orderuser.orderuserList[0]
         var pos = {
-            lat: Number(pending && pending.lat),
-            lng: Number(pending && pending.long)
+            lat: Number(data.lat),
+            lng: Number(data.long)
         };
 
         Geocoder.geocodePosition(pos).then(res => {
@@ -50,6 +50,7 @@ class DetailOrderMitra extends Component {
                 address: res[0].formattedAddress
             })
         })
+        
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -64,33 +65,33 @@ class DetailOrderMitra extends Component {
                         <View style={style.wrapDetail}>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
-                                    Costumer
+                                    Mitra
                             </Text>
                                 <Text style={style.textValue}>
-                                    BELUM BISA
+                                   BELUM BISA
                             </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
-                                    Category :
+                                    Category
                             </Text>
                                 <Text style={style.textValue}>
-                                    {pending&&pending.subName}
+                                 {data.subName}
                             </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
-                                    Estimasi Harga :
+                                    Estimasi Harga
                             </Text>
                                 <Text style={style.textValue}>
-                                    Rp. {pending&&pending.price}
+                                    Rp. {data.price}
                             </Text>
                             </View>
                             <View style={[style.wrapText, { borderBottomColor: 'white' }]}>
                                 <Text style={style.textKey}>
-                                    Alamat:
+                                    Alamat
                                 </Text>
-                                <TouchableOpacity style={style.btnDirection} onPress={() => this.props.navigation.navigate('MapsDirection')}>
+                                <TouchableOpacity style={style.btnDirection}>
                                     <Icon name="location-arrow" style={[style.textValue, { color: '#ffffff', fontSize: 25 }]} />
                                 </TouchableOpacity>
                             </View>
@@ -111,7 +112,7 @@ class DetailOrderMitra extends Component {
                                     width: '100%',
                                     color: 'white',
                                     fontWeight: '700'
-                                }}>Chat Customer</Text>
+                                }}>Chat Mitra</Text>
                             </Button>
                         </View>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -132,11 +133,11 @@ class DetailOrderMitra extends Component {
 }
 const mapStateToProps = state => {
     return {
-        order: state.order
+        orderuser: state.orderuser
     }
 }
 
-export default connect(mapStateToProps)(DetailOrderMitra);
+export default connect(mapStateToProps)(DetailOrder);
 const style = StyleSheet.create({
     btnDirection: {
         backgroundColor: '#005B96',
