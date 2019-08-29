@@ -58,6 +58,8 @@ class Register extends Component {
                         { text: 'Ok', onPress: () => this.props.navigation.goBack() }
                     ]
                 )
+            } else {
+                alert('Isi data yang kosong')
             }
         };
         let add = async () => {
