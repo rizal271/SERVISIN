@@ -8,15 +8,19 @@ import {
     TextInput,
     StatusBar,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    ActivityIndicator,
+    Dimensions
 } from 'react-native'
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu'
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import Header from '../../components/HeaderUser';
 
 class Profile extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            isLoading:false,
             mitra: '',
             phone: '',
             email: '',
@@ -24,11 +28,14 @@ class Profile extends Component {
             lat: '',
             long: '',
             idCategory: '',
+            idmitra: ''
 
         }
     }
 
     async componentDidMount() {
+        this.setState({ isLoading:true })
+        const idmitra = await AsyncStorage.getItem('idmitra')
         const mitra = await AsyncStorage.getItem('fullname')
         const phone = await AsyncStorage.getItem('phone')
         const email = await AsyncStorage.getItem('email')
@@ -43,7 +50,9 @@ class Profile extends Component {
             image,
             lat,
             long,
-            idCategory
+            idCategory,
+            idmitra,
+            isLoading:false
         })
         console.warn('phone', phone);
 
@@ -64,11 +73,12 @@ class Profile extends Component {
     }
 
     render() {
-        const { mitra, phone, email, image, lat, long, idCategory } = this.state
+        const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
         return (
-            <>
+            <>{this.state.isLoading == true ? <ActivityIndicator size={'large'}/>:
                 <ScrollView style={{ flex: 1 }}>
                     <StatusBar translucent backgroundColor="transparent" />
+                    <Header />
                     <View style={styles.view1}>
 
 
@@ -110,14 +120,13 @@ class Profile extends Component {
                                 <Text style={styles.textCol2}> 78 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('OrderList', { idmitra })}>
                             <View style={styles.card2}>
                                 <Text style={styles.textCard2}> Orderan Beres </Text>
-                                <Text style={styles.textCard2}> 20 </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </ScrollView>}
             </>
         )
     }
@@ -183,12 +192,10 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     card2: {
-        flex: 1,
-        flexDirection: 'row',
         height: 80,
+        paddingBottom:20,
         width: '80%',
         backgroundColor: '#005B96',
-        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
