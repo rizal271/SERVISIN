@@ -138,7 +138,7 @@ class Profile extends Component {
                                 await this.props.navigation.navigate('AuthHome')
                             }}>Sign Out</MenuItem>
                         </Menu>
-                        <TouchableOpacity style={styles.image}
+                        {/* <TouchableOpacity style={styles.image}
                             onPress={() => this.handleChoosePhoto()}>
                             {
                                 imageSrc &&
@@ -157,7 +157,7 @@ class Profile extends Component {
                             <Image
                                 style={{ width: 20, height: 20, marginTop: -8, }}
                                 source={require('../../assets/images/icon_edit_image.png')} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         <Text style={styles.text}> {mitra} </Text>
                         <Text style={styles.text}>{phone} </Text>

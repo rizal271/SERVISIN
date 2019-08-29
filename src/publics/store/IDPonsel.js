@@ -1,5 +1,5 @@
 const ponsel = {
-    IDPonsel: null
+    IDPonsel: ''
 };
 
 export default ponsel;

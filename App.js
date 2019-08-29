@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {AsyncStorage} from 'react-native'
 import MainNavigation from './src/publics/navigations/MainNavigation';
 import store from './src/publics/redux/store';
 import { Provider } from 'react-redux';
@@ -50,8 +51,9 @@ export default class App extends Component {
   }
 
   onIds(device) {
-    console.log('rizal ganteng', device)
+    console.warn('rizal ganteng', device)
     IDPonsel.IDPonsel = device.userId;
+    AsyncStorage.setItem('idponsel', device.userId)
   }
 
   render() {

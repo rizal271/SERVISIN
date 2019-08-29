@@ -13,11 +13,12 @@ import {
     AsyncStorage
 
 } from 'react-native'
-import { login as loginUser, updateLongLat } from '../../publics/redux/actions/user'
-import { login as loginMitra, updateLongLatMitra } from '../../publics/redux/actions/mitra'
+import { login as loginUser, updateLongLat, upIDPhoneUser } from '../../publics/redux/actions/user'
+import { login as loginMitra, updateLongLatMitra, upIDPhoneMitra } from '../../publics/redux/actions/mitra'
 import { connect } from 'react-redux'
 import Geolocation from '@react-native-community/geolocation'
 import { Database } from '../../publics/firebase/config';
+import ponsel from '../../publics/store/IDPonsel'
 
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
@@ -29,7 +30,8 @@ class Login extends Component {
             password: '',
             isLoading: false,
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            idponsel: ''
         }
         console.warn(this.props.navigation.state.params.role);
 
@@ -40,6 +42,8 @@ class Login extends Component {
 
     async componentDidMount() {
         await this.getCurrentPositionUser()
+        const idponsel = await AsyncStorage.getItem('idponsel')
+        this.setState({ idponsel })
     }
 
     getCurrentPositionUser() {
@@ -80,6 +84,10 @@ class Login extends Component {
                                 email: '',
                                 password: '',
                             })
+                            const idponsels = {
+                                IDPhone: ponsel.IDPonsel
+                            }
+                            this.props.dispatch(upIDPhoneUser(idUser, idponsels))
                             this.props.navigation.navigate('Homeuser')
                         } else {
                             this.setState({
@@ -89,8 +97,8 @@ class Login extends Component {
                             Alert.alert('Warning', this.props.user.userList)
                         }
                     })
-                    .catch((error) => {
-                        alert('oops email atau password tidak terdaftar!', error)
+                    .catch(() => {
+                        alert('oops email atau password tidak terdaftar!')
                         this.setState({ isLoading: false })
                     })
 
@@ -105,7 +113,7 @@ class Login extends Component {
                             long: this.state.longitude.toString()
                         }
                         const idMitra = response.value.data.idMitra
-                        this.props.dispatch(updateLongLat(idMitra, data))
+                        this.props.dispatch(updateLongLatMitra(idMitra, data))
                         Database.ref('mitra/' + idMitra).set({
                             idMitra: idMitra,
                             latitude: data.lat,
@@ -118,6 +126,10 @@ class Login extends Component {
                                 email: '',
                                 password: '',
                             })
+                            const idponsels = {
+                                IDPhone: ponsel.IDPonsel
+                            }
+                            this.props.dispatch(upIDPhoneMitra(idMitra, idponsels))
                             this.props.navigation.navigate('Homemitra')
                         } else {
                             this.setState({
@@ -138,6 +150,7 @@ class Login extends Component {
 
     }
     render() {
+        console.warn(ponsel.IDPonsel)
         return (
             <ScrollView style={style.body} keyboardShouldPersistTaps={'always'}>
                 <View style={style.container}>
