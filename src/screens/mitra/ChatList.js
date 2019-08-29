@@ -51,8 +51,8 @@ class ChatList extends Component {
         const user = this.state.user;
         const chat = this.state.chat;     
         const data = []
-        chat.forEach((kocak, key) => {
-            data[key] = user.find((item) => item.idUser === kocak.id)
+        chat.forEach((items, key) => {
+            data[key] = user.find((item) => item.idUser === items.id)
         })
         console.log(data);
         
