@@ -3,6 +3,7 @@ import {
   createAppContainer,
   createStackNavigator,
   createMaterialTopTabNavigator,
+  createSwitchNavigator
 } from 'react-navigation';
 import AuthHome from '../../screens/AuthHome';
 import Login from '../../screens/auth/Login';
@@ -17,9 +18,14 @@ import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
-
-import DetailProfileMitra from '../../screens/users/DetailProfileMitra'                                      
-import {Icon} from 'native-base';
+import DetailOrderMitra from '../../screens/mitra/detailOrder';
+import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
+import { Icon } from 'native-base';
+import Profil from "../../screens/users/Profil";
+import ListPenghasilan from "../../screens/mitra/ListPenghasilan";
+import OrderList from "../../screens/mitra/OrderList";
+import MapsMitra from '../../screens/mitra/MapsMitra';
+import Maps from '../../screens/Maps';
 
 
 const UserTabNavigator = createMaterialTopTabNavigator(
@@ -27,24 +33,24 @@ const UserTabNavigator = createMaterialTopTabNavigator(
     Home: {
       screen: HomeUser,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="home" color={tintColor} size={24} />
 
         ),
       },
     },
     Maps: {
-      screen: MapsUser,
+      screen: Maps,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="map" color={tintColor} size={24} />
         ),
       },
     },
     Profile: {
-      screen: MapsUser,
+      screen: Profil,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="person" color={tintColor} size={24} />
 
         ),
@@ -78,19 +84,10 @@ const UserTabNavigator = createMaterialTopTabNavigator(
 
 const MitraTabNavigator = createMaterialTopTabNavigator(
   {
-    Home: {
-      screen: HomeMitra,
-      Category,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
-          <Icon name="home" color={tintColor} size={24} />
-        ),
-      },
-    },
     Maps: {
-      screen: MapsUser,
+      screen: MapsMitra,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="map" color={tintColor} size={24} />
         ),
       },
@@ -98,7 +95,7 @@ const MitraTabNavigator = createMaterialTopTabNavigator(
     Profile: {
       screen: ProfileMitra,
       navigationOptions: {
-        tabBarIcon: ({tintColor}) => (
+        tabBarIcon: ({ tintColor }) => (
           <Icon name="person" color={tintColor} size={24} />
         ),
       },
@@ -133,18 +130,35 @@ const AppStackNavigator = createStackNavigator(
   {
     Homeuser: UserTabNavigator,
     Homemitra: MitraTabNavigator,
-    AuthHome,
     Category,
     MapsUser,
     HistoryOrder,
     DetailProfileMitra,
     ChatRoom,
-    DetailOrder
+    DetailOrder,
+    DetailOrderMitra,
+    ListPenghasilan,
+    OrderList
   },
   {
     headerMode: 'none',
-    initialRouteName: 'AuthHome',
   },
 );
 
-export default createAppContainer(AppStackNavigator);
+const AuthStack = createStackNavigator({
+  ChooseRole,
+  Login,
+  Register
+},
+  { headerMode: 'none' })
+
+const Apps = createSwitchNavigator({
+  Welcome,
+  AuthHome,
+  AuthStack,
+  AppStackNavigator
+}, {
+    initialRouteName: 'AuthHome',
+  })
+
+export default createAppContainer(Apps);

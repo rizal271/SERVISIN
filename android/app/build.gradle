@@ -188,6 +188,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-onesignal')
     implementation project(':react-native-maps')
     implementation project(':react-native-vector-icons')
     implementation project(':@react-native-community_geolocation')
@@ -212,3 +213,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'

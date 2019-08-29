@@ -1,6 +1,4 @@
-import React, {Component, Fragment} from 'react';
-import IconMaterial from 'react-native-vector-icons/MaterialIcons';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { Component, Fragment } from 'react';
 import {
   Text,
   View,
@@ -8,39 +6,22 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  AsyncStorage,
 } from 'react-native';
+import Header from '../../components/HeaderUser';
+
 
 class HomeMitra extends Component {
   render() {
     return (
       <Fragment>
-        <View style={styles.navbar}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('PersonChat')}>
-            <IconMaterial name="arrow-back" style={styles.iconnavbar} />
-          </TouchableOpacity>
-          <Text style={styles.textnavbar}>Home Mitra</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Icon name="history" style={styles.iconnavbar} />
-          </TouchableOpacity>
-        </View>
-        {/* <View style={styles.noOrder}>
-          <Image
-            style={{height: 140, width: 140}}
-            source={require('../../assets/images/plumber-35611_960_720.png')}
-          />
-          <Text style={styles.textnoOrder}>Berdo'a dan Bersabarlah</Text>
-          <Text style={styles.textnoOrder}>Yakin ada Orderan Masuk</Text>
-        </View> */}
+        <Header />
         <View>
           <FlatList
-            data={[{key: 'a'}, {key: 'b'}]}
-            // renderItem={({item}) => <Text>{item.key}</Text>}
-            renderItem={({item}) => {
+            data={[{ key: 'a' }, { key: 'b' }]}
+            renderItem={({ item }) => {
               return (
                 <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('PersonChat')}>
+                  onPress={() => this.props.navigation.navigate('DetailOrderMitra')}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -49,29 +30,29 @@ class HomeMitra extends Component {
                     }}>
                     <View>
                       <Image
-                        style={{height: 60, width: 60, borderRadius: 50}}
+                        style={{ height: 60, width: 60, borderRadius: 50 }}
                         source={require('../../assets/images/plumber-35611_960_720.png')}
                       />
                     </View>
-                    <View style={{marginLeft: 10, width: 270}}>
+                    <View style={{ marginLeft: 10, width: 270 }}>
                       <Text
                         style={{
                           color: 'black',
                           fontSize: 17,
                           fontWeight: 'bold',
                         }}>
-                          
+
                         Servis AC di Jakal No. 52
                       </Text>
-                      <Text style={{color: 'black'}}>
+                      <Text style={{ color: 'black' }}>
                         Di Jalan
                       </Text>
-                      <Text style={{color: 'black'}}>
+                      <Text style={{ color: 'black' }}>
                         26 Agust 2019 . 13.30 WIB
                       </Text>
                     </View>
                     <View
-                      style={{borderBottomWidth: 3, borderColor: 'black'}}
+                      style={{ borderBottomWidth: 3, borderColor: 'black' }}
                     />
                   </View>
                 </TouchableOpacity>
@@ -113,14 +94,14 @@ const styles = StyleSheet.create({
     // marginLeft: '12%',
     padding: 12,
   },
-  noOrder:{
+  noOrder: {
     //   flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems:'center',
-      marginTop: '50%'
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '50%'
   },
-  textnoOrder:{
-      fontSize: 24,
+  textnoOrder: {
+    fontSize: 24,
   },
   flatlist: {
     paddingVertical: 10,
