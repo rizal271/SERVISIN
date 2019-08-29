@@ -9,11 +9,12 @@ import {
     ScrollView,
     Dimensions,
     StatusBar,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { registerMitra } from '../../publics/redux/actions/mitra';
-
+import { getCategory } from '../../publics/redux/actions/category'
 
 class RegisterMitra extends Component {
     static navigationOptions = {
@@ -24,31 +25,63 @@ class RegisterMitra extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mitra: []
+            mitra: [],
+            fullname: '',
+            email: '',
+            nohp: '',
+            idSubCat: 0,
+            password: '',
+            lat: 0,
+            long: 0,
+            category: []
         }
+    }
+
+    componentDidMount = async () => {
+        await this.getCategory()
+    }
+
+    getCategory() {
+        this.props.dispatch(getCategory())
+            .then(() => {
+                this.setState({ category: this.props.category.categoryList })
+            })
     }
 
     render() {
         const mitraRegister = () => {
-            this.state.mitra.push({
-                fullname: this.state.fullname,
-                email: this.state.email,
-                nohp: this.state.noHp,
-                idCategory: this.state.idCategory,
-                password: this.state.password,
-                lat: 0,
-                long: 0
-            });
-            console.log(this.state.mitra);
-            add()
-            this.setState((prevState) => ({
-                modal: !prevState.modal
-            }));
-            console.log(this.state.mitra);
+            const { fullname, email, nohp, idSubCat, password, lat, long } = this.state
+            if (fullname !== '' && email !== '' && nohp !== '' && password !== '') {
+                this.state.mitra.push({
+                    fullname: fullname,
+                    email: email,
+                    nohp: nohp,
+                    idSubCat: idSubCat,
+                    password: password,
+                    lat: lat,
+                    long: long
+                });
+                console.log(this.state.mitra);
+                add()
+                this.setState((prevState) => ({
+                    modal: !prevState.modal
+                }));
+                console.log(this.state.mitra);
+                Alert.alert(
+                    'Berhasil',
+                    'Sign up berhasil!',
+                    [
+                        { text: 'Ok', onPress: () => this.props.navigation.navigate('Login') }
+                    ]
+                )
+            } else {
+                alert('Isi data yang kosong')
+            }
         };
         let add = async () => {
             await this.props.dispatch(registerMitra(this.state.mitra[0]))
         };
+        console.warn('cate: ', this.state.category)
         return (
             <ScrollView>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -73,18 +106,21 @@ class RegisterMitra extends Component {
                         style={styles.textInput}
 
                         value={this.state.phoneNumber}
-                        onChangeText={val => this.setState({ 'noHp': val })}
+                        onChangeText={val => this.setState({ 'nohp': val })}
                     />
                     <Picker
                         style={styles.textInput}
                         mode='dropdown'
-                        selectedValue={this.state.idCategory}
-                        onValueChange={(value) => this.setState({ idCategory: value })}>
-                        <Picker.Item label='Category' value='' color='white' />
-                        <Picker.Item label='Otomotif' value='1' />
-                        <Picker.Item label='Elektronik' value='2' />
-                        <Picker.Item label='Builders' value='3' />
-                        <Picker.Item label='Emergensy' value='4' />
+                        selectedValue={this.state.idSubCat}
+                        onValueChange={(value) => this.setState({ idSubCat: value })}>
+                        {/* <Picker.Item label='Category' value='' color='white' />
+                        <Picker.Item label='Otomotif' value={1} />
+                        <Picker.Item label='Elektronik' value={2} />
+                        <Picker.Item label='Builders' value={3} />
+                        <Picker.Item label='Emergensy' value={4} /> */}
+                        {this.state.category.map((value) => {
+                            return (<Picker.Item label={value.catName} value={value.idCategory} />)
+                        })}
                     </Picker>
                     <TextInput
                         placeholderTextColor='white'
@@ -117,7 +153,8 @@ class RegisterMitra extends Component {
 }
 const mapStateToProps = state => {
     return {
-        mitra: state.mitra
+        mitra: state.mitra,
+        category: state.category
     };
 };
 export default connect(mapStateToProps)(RegisterMitra);
