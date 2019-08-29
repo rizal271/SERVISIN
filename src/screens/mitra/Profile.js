@@ -12,12 +12,8 @@ import {
     ActivityIndicator,
     Dimensions
 } from 'react-native'
-
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import Header from '../../components/HeaderUser';
-import ImagePicker from 'react-native-image-picker'
-import { connect } from 'react-redux'
-import { updateFoto } from '../../publics/redux/actions/mitra'
 
 class Profile extends Component {
     constructor(props) {
@@ -26,11 +22,9 @@ class Profile extends Component {
         this.state = {
             isLoading:false,
             mitra: '',
-            idMitra: '',
             phone: '',
             email: '',
-            image: null,
-            imageSrc: null,
+            image: '',
             lat: '',
             long: '',
             idCategory: '',
@@ -50,8 +44,7 @@ class Profile extends Component {
         const long = await AsyncStorage.getItem('long')
         const idCategory = await AsyncStorage.getItem('idCategory')
         await this.setState({
-            idMitra,
-            fullname,
+            mitra,
             phone,
             email,
             image,
@@ -78,41 +71,6 @@ class Profile extends Component {
     showMenu = () => {
         this._menu.show()
     }
-
-    handleChoosePhoto = async () => {
-        const options = {
-          noData: true,
-        }
-    
-        await ImagePicker.showImagePicker(options, response => {
-          if (response.uri) {
-            this.setState({ imageSrc: response })
-          }
-        })
-      }
-
-      updateImage = async () => {
-        if (this.state.imageSrc !== null) {
-    
-          const formdata = new FormData()
-          await formdata.append('image', {
-            name: this.state.imageSrc.fileName,
-            type: this.state.imageSrc.type || null,
-            uri: this.state.imageSrc.uri
-          })
-          await this.props.dispatch(updateFoto(this.state.idMitra, formdata))
-            .then(() => {
-              this.setState({
-                mitra: this.props.mitra,
-                imageSrc: formdata,
-                image: formdata
-              })
-              this.props.navigation.navigate('AuthHome')
-            })
-        } else {
-          alert('Silahkan pilih foto terlebih dahulu!')
-        }
-      }
 
     render() {
         const { mitra, phone, email, image, lat, long, idCategory, idmitra } = this.state
@@ -141,27 +99,11 @@ class Profile extends Component {
                                 await this.props.navigation.navigate('AuthHome')
                             }}>Sign Out</MenuItem>
                         </Menu>
-                        <TouchableOpacity style={styles.image}
-                            onPress={() => this.handleChoosePhoto()}>
-                            {
-                                imageSrc && 
-                                (<Image
-                                    source={{ uri: imageSrc.uri }}
-                                    style={styles.image}
-                                />) ||
-                                image &&
-                                (<Image
-                                    source={{ uri: image }}
-                                    style={styles.image}
-                                />)
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=> this.updateImage()}>
-                            <Image 
-                                style={{width:20, height:20, marginTop: -8, }}
-                                source={require('../../assets/images/icon_edit_image.png')} />
-                        </TouchableOpacity>
-                        
+
+                        <Image
+                            source={{ uri: image }}
+                            style={styles.image}
+                        />
                         <Text style={styles.text}> {mitra} </Text>
                         <Text style={styles.text}>{phone} </Text>
                         <Text style={styles.text}> {email} </Text>
@@ -205,7 +147,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 50,
-        marginBottom: 0,
+        marginBottom: 5,
         marginTop: -15
     },
     text: {
@@ -309,10 +251,4 @@ const styles = StyleSheet.create({
     },
 })
 
-const mapStateToProps = state => {
-    return {
-      mitra: state.mitra
-    }
-  }
-
-export default connect(mapStateToProps)(Profile)
+export default Profile

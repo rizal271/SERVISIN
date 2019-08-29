@@ -14,7 +14,9 @@ class MapsDirection extends Component {
             mapRegion: null,
             lastLat: null,
             lastLong: null,
-            isLoading: false
+            isLoading: false,
+            lat: this.props.navigation.state.params.lat,
+            long: this.props.navigation.state.params.long
         }
     };
 
@@ -39,9 +41,8 @@ class MapsDirection extends Component {
     }
 
     render() {
-        const destination = { latitude: -7.801357, longitude: 110.364797 };
         const GOOGLE_MAPS_APIKEY = 'AIzaSyBsPKumgKCIWwdeZSRYD-AQFZS8hihxtoM';
-       
+
         return (
             <View style={styles.con}>
                 <Header />
@@ -54,31 +55,29 @@ class MapsDirection extends Component {
                     showsCompass={true}
                     minZoomLevel={0}
                     maxZoomLevel={20}
+                    onRegionChange={this.componentDidMount}
                 >
-                     <MapViewDirections
-            origin={{ 
-                latitude: this.state.lastLat, 
-                longitude: this.state.lastLong
-            }}
-            destination={destination}
-            apikey={GOOGLE_MAPS_APIKEY}
-            strokeWidth={3}
-            strokeColor="#00b02f"
-          />
-            <Marker
-                coordinate={{ 
-                    latitude: this.state.lastLat, 
-                    longitude: this.state.lastLong
-                }}
-                description={"testing"}
-                title={"loaksi mitra"}
-            />
-
-            <Marker
-                coordinate={destination}
-                description={"testing"}
-                title={"tujuan"}
-            />
+                    <MapViewDirections
+                        origin={{
+                            latitude: this.state.lastLat,
+                            longitude: this.state.lastLong
+                        }}
+                        destination={{
+                            latitude: this.state.lat,
+                            longitude: this.state.long
+                        }}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        strokeWidth={3}
+                        strokeColor="#005b96"
+                    />
+                    <Marker
+                        coordinate={{
+                            latitude: this.state.lat,
+                            longitude: this.state.long
+                        }}
+                        description={"testing"}
+                        title={"tujuan"}
+                    />
                 </MapView>
             </View>
         );

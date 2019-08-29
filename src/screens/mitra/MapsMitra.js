@@ -53,7 +53,7 @@ class Maps extends Component {
                 >
                 </MapView>
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('DetailOrderMitra') }} style={styles.orderan}>
-                    <Text style={styles.textOrder}>"Belum Ada Orderan"</Text>
+                    <Text style={styles.textOrder}>"Your Service"</Text>
                 </TouchableOpacity >
             </View>
         );
@@ -75,18 +75,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         backgroundColor: '#005b96',
-        height: '12%',
+        height: '8%',
         width: '90%',
         margin: 20,
         elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 0,
-        opacity: 0.8
+        opacity: 0.9
 
     },
     textOrder: {
-        color: '#bdbdbd',
+        color: 'white',
         fontStyle: 'italic',
         fontSize: 14,
     },
