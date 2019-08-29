@@ -8,11 +8,10 @@ class Header extends Component {
         return (
             <TouchableOpacity activeOpacity={1} style={styles.container}>
                 <View style={styles.item}>
-                    <Image style={styles.image} source={{ uri: item.imageMitra }} />
+                    <Image style={styles.image} source={{ uri: item.image }} />
                 </View>
                 <View style={styles.content}>
-                    <Text style={styles.textName}>{item.fullname}</Text>
-                    <Text style={styles.textStatus}>{item.role}</Text>
+                    <Text style={styles.textName}>{item.name}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -25,12 +24,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#005b96',
         flexDirection: 'row',
         paddingHorizontal: 10,
-        paddingTop:10,
+        paddingTop: 10,
         borderBottomWidth: 1,
         borderColor: '#c4c4c4',
-        height:'15%'
+        height: '15%'
     },
-     item: {
+    item: {
         flex: 1,
         justifyContent: 'center',
     },

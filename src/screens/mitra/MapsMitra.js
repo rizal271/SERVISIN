@@ -71,7 +71,7 @@ class Maps extends Component {
                 >
                 </MapView>
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('DetailOrderMitra') }} style={styles.orderan}>
-                    <Text style={styles.textOrder}>"Belum Ada Orderan"</Text>
+                    <Text style={styles.textOrder}>"Your Service"</Text>
                 </TouchableOpacity >
             </View>
         );

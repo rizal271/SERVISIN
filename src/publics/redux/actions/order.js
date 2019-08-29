@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = 'http://192.168.6.189:3333'
+import url from './host'
 
 export const getOrderMitraSelesai = (idMitra) => {
     return {

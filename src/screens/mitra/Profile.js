@@ -26,11 +26,9 @@ class Profile extends Component {
         this.state = {
             isLoading: false,
             mitra: '',
-            idMitra: '',
             phone: '',
             email: '',
-            image: null,
-            imageSrc: null,
+            image: '',
             lat: '',
             long: '',
             idCategory: '',
@@ -50,8 +48,7 @@ class Profile extends Component {
         const long = await AsyncStorage.getItem('long')
         const idCategory = await AsyncStorage.getItem('idCategory')
         await this.setState({
-            idMitra,
-            fullname,
+            mitra,
             phone,
             email,
             image,
@@ -205,7 +202,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 50,
-        marginBottom: 0,
+        marginBottom: 5,
         marginTop: -15
     },
     text: {

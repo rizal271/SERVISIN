@@ -20,6 +20,7 @@ import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
 import DetailOrderMitra from '../../screens/mitra/detailOrder';
 import DetailProfileMitra from '../../screens/users/DetailProfileMitra'
+import Payment from '../../screens/users/payment'
 import { Icon } from 'native-base';
 import Profil from "../../screens/users/Profil";
 import ListPenghasilan from "../../screens/mitra/ListPenghasilan";
@@ -143,7 +144,8 @@ const AppStackNavigator = createStackNavigator(
     ListPenghasilan,
     OrderList,
     OrderPending,
-    MapsDirection
+    MapsDirection,
+    Payment
   },
   {
     headerMode: 'none',

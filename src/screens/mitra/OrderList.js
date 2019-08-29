@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
+import { ScrollView, FlatList, Image, TouchableOpacity, View, Fragment, StyleSheet, ActivityIndicator, Dimensions } from 'react-native'
 import { Text, Card, CardItem, Badge } from 'native-base'
 import { connect } from 'react-redux'
 import { getOrderMitraSelesai } from '../../publics/redux/actions/order'
@@ -58,7 +58,7 @@ class OrderList extends Component {
 
                         {item.catName + '\n' + '(' + item.subName + ')'}
                     </Text>
-                    <Badge success><Text>{item.status}</Text></Badge>
+                    <Badge success><Text>Selesai</Text></Badge>
                     <Text style={{ color: '#4dad4a' }}>
                         Rp.{item.price}
                     </Text>
@@ -74,34 +74,36 @@ class OrderList extends Component {
         return (
             <>
                 <Header />
-                {
-                    this.state.isLoading == true
-                        ?
-                        <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height * 0.5} style={{ alignSelf: 'center', width: Dimensions.get('screen').width }} />
-                        :
-                        this.state.data && this.state.data.length > 0
+                <ScrollView>
+                    {
+                        this.state.isLoading == true
                             ?
-                            <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
-                                <Card>
-                                    <CardItem>
-                                        <FlatList
-                                            data={this.state.data}
-                                            renderItem={this._renderItem}
-                                            style={styles.flatlist}
-                                        />
-                                    </CardItem>
-                                </Card>
-                            </View>
+                            <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height * 0.5} style={{ alignSelf: 'center', width: Dimensions.get('screen').width }} />
                             :
-                            <View style={{
-                                flex: 1,
-                                margin: 0,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Text>Belum ada orderan, yang sabar yah ;(</Text>
-                            </View>
-                }
+                            this.state.data && this.state.data.length > 0
+                                ?
+                                <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+                                    <Card>
+                                        <CardItem>
+                                            <FlatList
+                                                data={this.state.data}
+                                                renderItem={this._renderItem}
+                                                style={styles.flatlist}
+                                            />
+                                        </CardItem>
+                                    </Card>
+                                </View>
+                                :
+                                <View style={{
+                                    flex: 1,
+                                    margin: 0,
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <Text>Belum ada orderan, yang sabar yah ;(</Text>
+                                </View>
+                    }
+                </ScrollView>
             </>
         )
     }

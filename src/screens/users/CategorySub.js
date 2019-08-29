@@ -10,19 +10,19 @@ class SubCategory extends Component {
         super(props)
         this.state = {
             category: this.props.navigation.state.params.catName,
-            idCat:this.props.navigation.state.params.idCategory,
+            idCat: this.props.navigation.state.params.idCategory,
             subCategory: [],
-            isLoading:false
+            isLoading: false
         }
     }
 
     componentDidMount = async () => {
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         idCat = this.state.idCat
         await this.props.dispatch(getsubCategory(idCat));
         this.setState({
             subCategory: this.props.subCategory.subCategoryList,
-            isLoading:false
+            isLoading: false
         });
     }
     render() {
@@ -36,24 +36,19 @@ class SubCategory extends Component {
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>{this.state.category}</Text>
                 </View>
-                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={ Dimensions.get('screen').height} paddingTop={400}/>:
-                <FlatList
-                    style={styles.FlatList}
-                    data={this.state.subCategory}
-                    numColumns={2}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser', item) }}>
-                                <Image style={styles.image} source={{ uri: `${item.image}` }} />
-                                <Text style={styles.text}>{item.subName}</Text>
-                            </TouchableOpacity>
-                        )
-                    }} />}
-                <View>
-                    <TouchableOpacity style={styles.order} onPress={() => { this.props.navigation.navigate('HistoryOrder') }}>
-                        <Text style={styles.buttonText}>History Services</Text>
-                    </TouchableOpacity>
-                </View>
+                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={400} /> :
+                    <FlatList
+                        style={styles.FlatList}
+                        data={this.state.subCategory}
+                        numColumns={2}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <TouchableOpacity style={styles.button} onPress={() => { this.props.navigation.navigate('MapsUser', item) }}>
+                                    <Image style={styles.image} source={{ uri: `${item.image}` }} />
+                                    <Text style={styles.text}>{item.subName}</Text>
+                                </TouchableOpacity>
+                            )
+                        }} />}
             </View>
         )
     }

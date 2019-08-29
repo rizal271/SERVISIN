@@ -1,6 +1,6 @@
 import axios from 'axios';
+import url from './host'
 
-const url = 'http://192.168.6.189:3333'
 
 export const getOrderUserSelesai = (idUser) => {
     return {
@@ -14,6 +14,15 @@ export const getOrderUserPending = (idUser) => {
     return {
         type: 'GET_USER_PENDING',
         payload: axios.get(`${url}/order/userpending/${idUser}`),
+
+    }
+};
+export const postOrder = (data) => {
+    console.warn('action', data);
+
+    return {
+        type: 'POST_ORDER',
+        payload: axios.post(`${url}/order/`, data),
 
     }
 };

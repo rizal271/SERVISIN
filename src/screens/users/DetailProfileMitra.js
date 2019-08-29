@@ -36,19 +36,20 @@ class Profile extends Component {
             mitra: this.props.mitra.mitraList.result[0],
             isLoading: false
         });
-    }
-    render() {
-        const data = this.state.mitra && this.state.mitra
         var pos = {
-            lat: Number(data.lat),
-            lng: Number(data.long)
+            lat: Number(this.state.mitra.lat),
+            lng: Number(this.state.mitra.long)
         };
-
-        Geocoder.geocodePosition(pos).then(res => {
+        await Geocoder.geocodePosition(pos).then(res => {
             this.setState({
                 address: res[0].formattedAddress
             })
         })
+    }
+    render() {
+        const data = this.state.mitra && this.state.mitra
+        console.warn(data);
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.view1}>
@@ -67,7 +68,9 @@ class Profile extends Component {
                             style={styles.iconCall}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', data)}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ChatRoom', {
+                        uid: data && data.idMitra, name: data && data.fullname, image: data && data.imageMitra
+                    })}>
                         <Image
                             source={require('../../assets/images/Chat_icon.png')}
                             style={styles.iconChat}
@@ -91,7 +94,7 @@ class Profile extends Component {
                                 when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('DetailOrder')}>
+                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra })}>
                             <Text style={styles.textButtonOrder}> Order Sekarang </Text>
                         </TouchableOpacity>
                     </View>
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
 
         color: '#FFFFFF'
     },
-    textPrice:{
+    textPrice: {
         position: 'absolute',
         left: 20,
         top: 200,

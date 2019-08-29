@@ -14,9 +14,9 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: this.props.navigation.state.params.fullname,
-      uid: this.props.navigation.state.params.idMitra,
-      image: 'blabla',
+      name: this.props.navigation.state.params.name,
+      uid: this.props.navigation.state.params.uid,
+      image: this.props.navigation.state.params.image,
       text: '',
       messagesList: [],
 
@@ -24,8 +24,15 @@ class ChatRoom extends Component {
   }
 
   async componentDidMount() {
+    const role = await AsyncStorage.getItem('role')
+    let id
+    if (role === 'mitra') {
+      id = await AsyncStorage.getItem('idmitra')
+    } else {
+      id = await AsyncStorage.getItem('idUser')
+    }
     this.setState({
-      myuid: await AsyncStorage.getItem('idUser'),
+      myuid: id,
       myname: await AsyncStorage.getItem('fullname'),
       avatar: await AsyncStorage.getItem('image')
     })
@@ -61,8 +68,6 @@ class ChatRoom extends Component {
     }
   }
   render() {
-    console.log(this.state.myuid);
-    
     return (
       <>
         <StatusBar translucent backgroundColor="transparent" />
