@@ -5,6 +5,7 @@ import subCategory from './subCategory'
 import mitra from './mitra';
 import orderuser from './orderUser';
 import order from './order';
+import notif from './notif';
 
 
 const appReducer = combineReducers({
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
   subCategory,
   mitra,
   orderuser,
-  order
+  order,
+  notif
 })
 export default appReducer;
