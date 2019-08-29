@@ -45,3 +45,9 @@ export const updateFoto = (idUser, data) => {
         payload: axios.patch(`${url}/user/image/${idUser}`, data)
     }
 }
+export const logout = (idUser) => {
+    return {
+        type: 'LOGOUT_USER',
+        payload: axios.patch(`${url}/user/logout/${idUser}`)
+    }
+}

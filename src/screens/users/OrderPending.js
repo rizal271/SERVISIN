@@ -36,7 +36,7 @@ class DetailOrder extends Component {
         await this.props.dispatch(getOrderUserPending(idUser));
         this.setState({
             isLoading: false,
-            orderuser:this.props.orderuser.orderuserList[0]
+            orderuser: this.props.orderuser.orderuserList[0]
         });
         var pos = {
             lat: Number(this.state.orderuser.latUser),
@@ -56,83 +56,83 @@ class DetailOrder extends Component {
                 <StatusBar translucent backgroundColor="transparent" />
                 <Header />
                 {this.state.isLoading == true ? <ActivityIndicator size={"large"} /> :
-                <>
-                {this.props.orderuser.orderuserList[0] == undefined ?
+                    <>
+                        {this.props.orderuser.orderuserList[0] == undefined ?
                             <View style={style.orderan}>
                                 <Text style={style.textOrder}>
                                     "Kamu Belum Order"
                     </Text>
                             </View> :
-                <ScrollView>
-                    <View style={style.container}>
-                        <View style={style.wrapChat}>
-                            <Text style={style.detailOrder}>
-                                Detail Order
+                            <ScrollView>
+                                <View style={style.container}>
+                                    <View style={style.wrapChat}>
+                                        <Text style={style.detailOrder}>
+                                            Detail Order
                             </Text>
-                        </View>
-                        <View style={style.wrapDetail}>
-                            <View style={style.wrapText}>
-                                <Text style={style.textKey}>
-                                    Mitra
+                                    </View>
+                                    <View style={style.wrapDetail}>
+                                        <View style={style.wrapText}>
+                                            <Text style={style.textKey}>
+                                                Mitra
                             </Text>
-                                <Text style={style.textValue}>
-                                    {data && data.mitraName}
-                                </Text>
-                            </View>
-                            <View style={style.wrapText}>
-                                <Text style={style.textKey}>
-                                    Category
+                                            <Text style={style.textValue}>
+                                                {data && data.mitraName}
+                                            </Text>
+                                        </View>
+                                        <View style={style.wrapText}>
+                                            <Text style={style.textKey}>
+                                                Category
                             </Text>
-                                <Text style={style.textValue}>
-                                    {data && data.subName}
-                                </Text>
-                            </View>
-                            <View style={style.wrapText}>
-                                <Text style={style.textKey}>
-                                    Estimasi Harga
+                                            <Text style={style.textValue}>
+                                                {data && data.subName}
+                                            </Text>
+                                        </View>
+                                        <View style={style.wrapText}>
+                                            <Text style={style.textKey}>
+                                                Estimasi Harga
                             </Text>
-                                <Text style={style.textValue}>
-                                    Rp. {data && data.price}
+                                            <Text style={style.textValue}>
+                                                Rp. {data && data.price}
+                                            </Text>
+                                        </View>
+                                        <View style={[style.wrapText, { borderBottomColor: 'white' }]}>
+                                            <Text style={style.textKey}>
+                                                Alamat
                                 </Text>
-                            </View>
-                            <View style={[style.wrapText, { borderBottomColor: 'white' }]}>
-                                <Text style={style.textKey}>
-                                    Alamat
-                                </Text>
-                            </View>
-                            <View style={style.wrapAlamat}>
-                                <Text>
-                                    {this.state.address}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ marginVertical: 30 }}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Button onPress={() => this.props.navigation.navigate('ChatRoom', {
-                                uid: data && data.idMitra, name: data && data.mitraName, image: data && data.imageMitra
-                            })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
-                                <Text style={{
-                                    textAlign: 'center',
-                                    width: '100%',
-                                    color: 'white',
-                                    fontWeight: '700'
-                                }}>Chat Mitra</Text>
-                            </Button>
-                        </View>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Button style={{ backgroundColor: '#ffffff', borderWidth: 3, borderColor: '#005B96', marginHorizontal: 25, marginVertical: 20 }}>
-                                <Text style={{
-                                    textAlign: 'center',
-                                    width: '100%',
-                                    color: '#005B96',
-                                    fontWeight: '700'
-                                }}>Hubungi Kami!</Text>
-                            </Button>
-                        </View>
-                    </View>
-                </ScrollView>}
-                </>}
+                                        </View>
+                                        <View style={style.wrapAlamat}>
+                                            <Text>
+                                                {this.state.address}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={{ marginVertical: 30 }}>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                        <Button onPress={() => this.props.navigation.navigate('ChatRoom', {
+                                            uid: data && data.idMitra, name: data && data.mitraName, image: data && data.imageMitra, idphone: data && data.IDponselMitra
+                                        })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
+                                            <Text style={{
+                                                textAlign: 'center',
+                                                width: '100%',
+                                                color: 'white',
+                                                fontWeight: '700'
+                                            }}>Chat Mitra</Text>
+                                        </Button>
+                                    </View>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                        <Button style={{ backgroundColor: '#ffffff', borderWidth: 3, borderColor: '#005B96', marginHorizontal: 25, marginVertical: 20 }}>
+                                            <Text style={{
+                                                textAlign: 'center',
+                                                width: '100%',
+                                                color: '#005B96',
+                                                fontWeight: '700'
+                                            }}>Hubungi Kami!</Text>
+                                        </Button>
+                                    </View>
+                                </View>
+                            </ScrollView>}
+                    </>}
             </>
         )
     }

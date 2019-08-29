@@ -59,3 +59,9 @@ export const updateLongLatMitra = (idMitra, data) => {
         payload: axios.patch(`${url}/mitra/posision/${idMitra}`, data)
     }
 }
+export const logout = (idMitra) => {
+    return {
+        type: 'LOGOUT_USER',
+        payload: axios.patch(`${url}/mitra/logout/${idMitra}`)
+    }
+}

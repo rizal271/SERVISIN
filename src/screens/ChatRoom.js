@@ -10,7 +10,8 @@ import HeaderChat from '../components/HeaderChat';
 import firebase from 'firebase';
 import { Database, Auth } from '../publics/firebase/config';
 import { connect } from 'react-redux';
-import { notif } from '../publics/redux/actions/notif';
+import { postNotifMitra } from '../publics/redux/actions/notif';
+
 class ChatRoom extends Component {
   constructor(props) {
     super(props)
@@ -64,12 +65,12 @@ class ChatRoom extends Component {
           avatar: this.state.avatar
         }
       }
-      const data = {
+      const notif = {
         msg: this.state.text,
-        phoneid: 'ea532432-d9d2-4a07-8d0d-1df861f506bf',
+        phoneid: this.props.navigation.state.params.idphone,
         header: 'Pesan Baru'
       }
-      this.props.dispatch(notif(data))
+      this.props.dispatch(postNotifMitra(notif))
       updates['messages/' + this.state.myuid + '/' + this.state.uid + '/' + msgId] = message;
       updates['messages/' + this.state.uid + '/' + this.state.myuid + '/' + msgId] = message;
       Database.ref().update(updates)

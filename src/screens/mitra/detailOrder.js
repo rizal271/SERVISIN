@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { getOrderMitraPending, patchOrder } from '../../publics/redux/actions/order';
 import Geocoder from 'react-native-geocoder';
 import { Database } from '../../publics/firebase/config'
+import { postNotifMitra } from '../../publics/redux/actions/notif';
 import firebase from 'firebase';
 
 const width = Dimensions.get('screen').width;
@@ -53,11 +54,19 @@ class DetailOrderMitra extends Component {
         })
     }
     orderSelesai = async () => {
-        const idOrder = this.state.order && this.state.order.idOrder ;
+        const idOrder = this.state.order && this.state.order.idOrder;
         const idUser = this.state.order && this.state.order.idUser;
         const idMitra = this.state.order && this.state.order.idMitra;
         if (this.state.order && this.state.order.idOrder !== '') {
             await this.props.dispatch(patchOrder(idOrder))
+            const notif = {
+                msg: 'Terima Kasih',
+                phoneid: this.state.order && this.state.order.IDponselUser,
+                header: 'Order Selesai'
+            }
+            console.warn(this.state.order && this.state.order.IDponselUser);
+
+            await this.props.dispatch(postNotifMitra(notif))
             if (this.props.order.orderList === '') {
                 Alert.alert('Warning', 'Something Went Wrong')
             } else {
@@ -79,7 +88,7 @@ class DetailOrderMitra extends Component {
     }
     render() {
         const pending = this.state.order != [] && this.state.order;
-        
+
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -144,7 +153,7 @@ class DetailOrderMitra extends Component {
                                 </View>
                                 <View style={{ marginVertical: 15 }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                        <Button onPress={() => this.props.navigation.navigate('ChatRoom', { uid: pending && pending.idUser, name: pending && pending.nameUser, image: pending && pending.imageUser })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
+                                        <Button onPress={() => this.props.navigation.navigate('ChatRoom', { uid: pending && pending.idUser, name: pending && pending.nameUser, image: pending && pending.imageUser, idphone: pending && pending.IDponselUser })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
                                             <Text style={{
                                                 textAlign: 'center',
                                                 width: '100%',
