@@ -30,8 +30,8 @@ class Maps extends Component {
                 mapRegion: region
             })
         })
-        setInterval(() => this.getCurrentPositionMitra(), 15000)
-        setInterval(() => this.updateCoordsMitra(), 15000)
+        // setInterval(() => this.getCurrentPositionMitra(), 60000)
+        setInterval(() => this.updateCoordsMitra(), 60000)
     }
 
     async getCurrentPositionMitra() {
@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         backgroundColor: '#005b96',
-        height: '12%',
+        height: '8%',
         width: '90%',
         margin: 20,
         elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 0,
-        opacity: 0.8
+        opacity: 0.9
 
     },
     chats:{
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         opacity: 0.9
     },
     textOrder: {
-        color: '#bdbdbd',
+        color: 'white',
         fontStyle: 'italic',
         fontSize: 14,
     },
