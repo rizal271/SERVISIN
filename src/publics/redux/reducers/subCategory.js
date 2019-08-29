@@ -28,6 +28,26 @@ const subcategory = (state = initialState, action) => {
                 isFulfilled: true,
                 subCategoryList : action.payload.data.result
             };
+            case 'GET_ALL_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isFulfilled: false,
+                isRejected: false,
+            };
+        case 'GET_ALL_REJECTED':
+            return {
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            };
+        case 'GET_ALL_FULFILLED':
+            return {
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                subCategoryList : action.payload.data.result
+            };
         default:
             return state;
     };

@@ -9,3 +9,11 @@ export const getsubCategory = (idCat) => {
 
     }
 };
+
+export const getsubCategoryAll = () => {
+    return {
+        type: 'GET_ALL',
+        payload: axios.get(`${url}/subCategory/`),
+
+    }
+};

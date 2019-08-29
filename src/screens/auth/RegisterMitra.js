@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { registerMitra } from '../../publics/redux/actions/mitra';
-import { getCategory } from '../../publics/redux/actions/category'
+import {getsubCategoryAll } from '../../publics/redux/actions/subCategory'
 
 class RegisterMitra extends Component {
     static navigationOptions = {
@@ -33,7 +33,7 @@ class RegisterMitra extends Component {
             password: '',
             lat: 0,
             long: 0,
-            category: []
+            subcategory: []
         }
     }
 
@@ -42,13 +42,15 @@ class RegisterMitra extends Component {
     }
 
     getCategory() {
-        this.props.dispatch(getCategory())
+        this.props.dispatch(getsubCategoryAll())
             .then(() => {
-                this.setState({ category: this.props.category.categoryList })
+                this.setState({ subcategory: this.props.subcategory.subCategoryList })
             })
+
     }
 
     render() {
+        console.warn('subcat', this.state.subcategory)
         const mitraRegister = () => {
             const { fullname, email, nohp, idSubCat, password, lat, long } = this.state
             if (fullname !== '' && email !== '' && nohp !== '' && password !== '') {
@@ -56,7 +58,7 @@ class RegisterMitra extends Component {
                     fullname: fullname,
                     email: email,
                     nohp: nohp,
-                    idCategory: idSubCat,
+                    idSubCat: idSubCat,
                     password: password,
                     lat: lat,
                     long: long
@@ -81,7 +83,7 @@ class RegisterMitra extends Component {
         let add = async () => {
             await this.props.dispatch(registerMitra(this.state.mitra[0]))
         };
-        console.warn('cate: ', this.state.category)
+        // console.warn('cate: ', this.state.category)
         return (
             <ScrollView>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -114,8 +116,8 @@ class RegisterMitra extends Component {
                         selectedValue={this.state.idSubCat}
                         onValueChange={(value) => this.setState({ idSubCat: value })}>
 
-                        {this.state.category.map((value) => {
-                            return (<Picker.Item label={value.catName} value={value.idCategory} />)
+                        {this.state.subcategory.map((value) => {
+                            return (<Picker.Item label={value.subName} value={value.idSubCat} />)
                         })}
                     </Picker>
                     <TextInput
@@ -150,7 +152,7 @@ class RegisterMitra extends Component {
 const mapStateToProps = state => {
     return {
         mitra: state.mitra,
-        category: state.category
+        subcategory: state.subcategory
     };
 };
 export default connect(mapStateToProps)(RegisterMitra);

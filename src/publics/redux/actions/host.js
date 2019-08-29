@@ -1,3 +1,3 @@
 
-const url = 'http://192.168.6.102:3333'
+const url = 'https://servisin.herokuapp.com'
 export default url

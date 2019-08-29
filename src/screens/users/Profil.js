@@ -157,7 +157,7 @@ class Profil extends Component {
                 {email}
               </Text>
             </View>
-            <View style={{ marginLeft: '50%', marginBottom: 20, }}>
+            <View style={{marginLeft:100, marginBottom: 20, }}>
               <TouchableOpacity onPress={() => this.updateImage()}>
                 <Icon name="edit" style={{ fontSize: 30, color: '#fff', textAlign: 'center' }} />
                 <Text style={{ color: '#fff', fontSize: 12, textAlign: 'center' }}>Edit</Text>
