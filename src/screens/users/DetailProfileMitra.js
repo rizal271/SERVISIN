@@ -92,7 +92,7 @@ class Profile extends Component {
                                 Berpengalaman di bidang Service
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra })}>
+                        <TouchableOpacity style={styles.buttonOrder} onPress={() => this.props.navigation.navigate('Payment', { category: data.subName, price: data.price, idMitra: data.idMitra, IDponselMitra: data.IDponselMitra })}>
                             <Text style={styles.textButtonOrder}> Order Sekarang </Text>
                         </TouchableOpacity>
                     </View>

@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import { postOrder } from '../../publics/redux/actions/orderUser'
 import { connect } from 'react-redux'
+import { postNotifMitra } from '../../publics/redux/actions/notif';
 const width = Dimensions.get('screen').width
 class Payment extends Component {
     constructor(props) {
@@ -45,6 +46,12 @@ class Payment extends Component {
             if (this.props.order.orderList === '') {
                 Alert.alert('Warning', 'Something Went Wrong')
             }else{
+                const data = {
+                    msg:`${this.props.navigation.state.params.category}`,
+                    phoneid:this.props.navigation.state.params.IDponselMitra,
+                    header:'New Order'
+                }
+                await this.props.dispatch(postNotifMitra(data))
                 await Alert.alert('Info', 'Your order on process')
                 this.props.navigation.navigate('Homeuser')
             }
