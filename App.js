@@ -4,7 +4,7 @@ import store from './src/publics/redux/store';
 import { Provider } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
 import Sound from "react-native-sound";
-import IDPonsel  from './src/publics/store/IDPonsel';
+import IDPonsel from './src/publics/store/IDPonsel';
 export default class App extends Component {
   constructor(properties) {
     super(properties);
@@ -17,7 +17,7 @@ export default class App extends Component {
     OneSignal.configure();
     this.state = {
       loading: true
-    } 	
+    }
   }
 
   componentWillUnmount() {
@@ -45,7 +45,7 @@ export default class App extends Component {
   }
 
 
-  trigerr = () =>{
+  trigerr = () => {
     this.setState({ loading: false });
   }
 
@@ -53,7 +53,7 @@ export default class App extends Component {
     console.log('rizal ganteng', device)
     IDPonsel.IDPonsel = device.userId;
   }
-  
+
   render() {
     return (
       <Provider store={store}>

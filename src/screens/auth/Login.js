@@ -14,7 +14,7 @@ import {
 
 } from 'react-native'
 import { login as loginUser, updateLongLat } from '../../publics/redux/actions/user'
-import { login as loginMitra } from '../../publics/redux/actions/mitra'
+import { login as loginMitra, updateLongLatMitra } from '../../publics/redux/actions/mitra'
 import { connect } from 'react-redux'
 import Geolocation from '@react-native-community/geolocation'
 import { Database } from '../../publics/firebase/config';
@@ -68,7 +68,7 @@ class Login extends Component {
                         const idUser = response.value.data.idUser
                         console.warn('iduser: ', idUser);
                         this.props.dispatch(updateLongLat(idUser, data))
-                        Database.ref('/user' + idUser).set({
+                        Database.ref('users/' + idUser).set({
                             idUser: idUser,
                             latitude: data.lat,
                             longitude: data.long
@@ -96,9 +96,21 @@ class Login extends Component {
 
             } else {
                 await this.props.dispatch(loginMitra({ email: this.state.email, password: this.state.password }))
-                    .then(() => {
+                    .then((response) => {
                         this.setState({ isLoading: false })
                         console.warn(this.props.mitra);
+                        console.warn("response: ", response);
+                        const data = {
+                            lat: this.state.latitude.toString(),
+                            long: this.state.longitude.toString()
+                        }
+                        const idMitra = response.value.data.idMitra
+                        this.props.dispatch(updateLongLat(idMitra, data))
+                        Database.ref('mitra/' + idMitra).set({
+                            idMitra: idMitra,
+                            latitude: data.lat,
+                            longitude: data.long
+                        })
                         if (typeof (this.props.mitra.mitraList) === "object" && this.props.mitra.isFulfilled) {
                             Alert.alert('Info', 'Success Login')
                             this.setState({

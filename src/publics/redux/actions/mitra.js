@@ -44,3 +44,10 @@ export const updateFoto = (idMitra, data) => {
         payload: axios.patch(`${url}/mitra/image/${idMitra}`, data)
     }
 }
+
+export const updateLongLatMitra = (idMitra, data) => {
+    return {
+        type: 'UPDATE_LONGLAT',
+        payload: axios.patch(`${url}/mitra/posision/${idMitra}`, data)
+    }
+}
