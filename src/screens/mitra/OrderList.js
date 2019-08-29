@@ -75,34 +75,34 @@ class OrderList extends Component {
             <>
                 <Header />
                 <ScrollView>
-                {
-                    this.state.isLoading == true
-                        ?
-                        <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height * 0.5} style={{ alignSelf: 'center', width: Dimensions.get('screen').width }} />
-                        :
-                        this.state.data && this.state.data.length > 0
+                    {
+                        this.state.isLoading == true
                             ?
-                            <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
-                                <Card>
-                                    <CardItem>
-                                        <FlatList
-                                            data={this.state.data}
-                                            renderItem={this._renderItem}
-                                            style={styles.flatlist}
-                                        />
-                                    </CardItem>
-                                </Card>
-                            </View>
+                            <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height * 0.5} style={{ alignSelf: 'center', width: Dimensions.get('screen').width }} />
                             :
-                            <View style={{
-                                flex: 1,
-                                margin: 0,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Text>Belum ada orderan, yang sabar yah ;(</Text>
-                            </View>
-                }
+                            this.state.data && this.state.data.length > 0
+                                ?
+                                <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+                                    <Card>
+                                        <CardItem>
+                                            <FlatList
+                                                data={this.state.data}
+                                                renderItem={this._renderItem}
+                                                style={styles.flatlist}
+                                            />
+                                        </CardItem>
+                                    </Card>
+                                </View>
+                                :
+                                <View style={{
+                                    flex: 1,
+                                    margin: 0,
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <Text>Belum ada orderan, yang sabar yah ;(</Text>
+                                </View>
+                    }
                 </ScrollView>
             </>
         )

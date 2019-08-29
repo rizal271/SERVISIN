@@ -18,11 +18,11 @@ export const getOrderUserPending = (idUser) => {
     }
 };
 export const postOrder = (data) => {
-    console.warn('action',data);
-    
+    console.warn('action', data);
+
     return {
         type: 'POST_ORDER',
-        payload: axios.post(`${url}/order/`,data),
+        payload: axios.post(`${url}/order/`, data),
 
     }
 };

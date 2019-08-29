@@ -126,7 +126,7 @@ class DetailOrderMitra extends Component {
                                         </Button>
                                     </View>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop:10 }}>
+                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop: 10 }}>
                                             <Text style={{
                                                 textAlign: 'center',
                                                 width: '100%',
