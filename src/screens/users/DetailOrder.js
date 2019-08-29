@@ -95,14 +95,6 @@ export default class DetailOrder extends Component {
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
-                                    Kerusakan / Kebutuhan :
-                            </Text>
-                                <Text style={style.textValue}>
-                                    asndijadsk askjdnajsd sadunasoidk asduinaisd asijdbnasdnas duasbbdniasd uansdbi
-                            </Text>
-                            </View>
-                            <View style={style.wrapText}>
-                                <Text style={style.textKey}>
                                     Estimasi Harga :
                             </Text>
                                 <Text style={style.textValue}>

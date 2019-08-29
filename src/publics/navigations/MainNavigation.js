@@ -16,6 +16,7 @@ import Category from '../../screens/users/CategorySub';
 import HistoryOrder from '../../screens/users/HistoryOrder';
 import Register from '../../screens/auth/Register'
 import DetailOrder from '../../screens/users/DetailOrder'
+import Payment from '../../screens/users/Payment'
 import ChatRoom from '../../screens/ChatRoom'
 import ProfileMitra from '../../screens/mitra/Profile'
 
@@ -141,9 +142,11 @@ const AppStackNavigator = createStackNavigator(
     DetailProfileMitra,
     ChatRoom,
     DetailOrder,
+    Payment
   },
   {
     headerMode: 'none',
+    initialRouteName:'DetailProfileMitra'
   },
 );
 
@@ -160,7 +163,7 @@ const Apps = createSwitchNavigator({
   AuthStack,
   AppStackNavigator
 }, {
-    initialRouteName: 'AuthHome',
+    initialRouteName: 'AppStackNavigator',
   })
 
 export default createAppContainer(Apps);
