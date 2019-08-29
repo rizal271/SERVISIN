@@ -7,11 +7,8 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
-=======
 import com.zmxv.RNSound.RNSoundPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
->>>>>>> 4e6c0b344839bbbab56ac66f78bdfb30340e5fd3
 import com.airbnb.android.react.maps.MapsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
