@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Dimensions,
+    Alert,
     StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,26 +23,44 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: []
+            user: [],
+            fullname: '',
+            email: '',
+            noHp: '',
+            password: '',
+            lat: 0,
+            long: 0,
         }
     }
 
     render() {
         const userRegister = () => {
-            this.state.user.push({
-                fullname: this.state.fullname,
-                email: this.state.email,
-                noHp: this.state.noHp,
-                password: this.state.password,
-                lat: 0,
-                long: 0
-            });
-            console.log(this.state.user);
-            add()
-            this.setState((prevState) => ({
-                modal: !prevState.modal
-            }));
-            console.log(this.state.user);
+            if (this.state.fullname !== '' && this.state.email !== '' && this.state.noHp !== '' && this.state.password !== '') {
+
+                this.state.user.push({
+                    fullname: this.state.fullname,
+                    email: this.state.email,
+                    noHp: this.state.noHp,
+                    password: this.state.password,
+                    lat: this.state.lat,
+                    long: this.state.long
+                });
+                console.log(this.state.user);
+                add()
+                this.setState((prevState) => ({
+                    modal: !prevState.modal
+                }));
+                console.log(this.state.user);
+                Alert.alert(
+                    'Berhasil',
+                    'Horeee sign up berhasi!',
+                    [
+                        { text: 'Ok', onPress: () => this.props.navigation.goBack() }
+                    ]
+                )
+            } else {
+                alert('Isi data yang kosong')
+            }
         };
         let add = async () => {
             await this.props.dispatch(register(this.state.user[0]))
@@ -84,7 +103,7 @@ class Register extends Component {
                         placeholderTextColor='white'
                         placeholder='Password...'
                         style={styles.textInput}
-
+                        secureTextEntry={true}
                         value={this.state.password}
                         onChangeText={val => this.setState({ 'password': val })}
 
