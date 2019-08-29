@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const url = 'http://192.168.6.102:3333'
 
 export const login = (data) => {
@@ -7,14 +8,14 @@ export const login = (data) => {
         type: 'LOGIN_MITRA',
         payload: axios.post(`${url}/mitra/login`, data)
     }
-};
+}
 export const registerMitra = (data) => {
     return {
         type: 'REGISTER_MITRA',
         payload: axios.post(`${url}/mitra/register/`, data)
 
     }
-};
+}
 
 export const getMitra = () => {
     return {
@@ -28,11 +29,18 @@ export const getMitraByCategory = (idCat) => {
         type: 'GET_MITRABYCATEGORY',
         payload: axios.get(`${url}/mitra/category/${idCat}`)
     }
-};
+}
 
 export const getMitraById = (idMitra) => {
     return {
         type: 'GET_MITRABYID',
         payload: axios.get(`${url}/mitra/${idMitra}`)
     }
-};
+}
+
+export const updateFoto = (idMitra, data) => {
+    return {
+        type: 'UPDATE_FOTO',
+        payload: axios.patch(`${url}/mitra/image/${idMitra}`, data)
+    }
+}

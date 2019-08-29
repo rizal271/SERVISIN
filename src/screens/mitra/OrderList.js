@@ -11,14 +11,14 @@ class OrderList extends Component {
         super(props)
 
         this.state = {
-            isLoading:false,
+            isLoading: false,
             data: [],
             idmitra: this.props.navigation.getParam('idmitra')
         }
     }
 
     componentDidMount = async () => {
-        this.setState({ isLoading:true})
+        this.setState({ isLoading: true })
         await this.getOrderSelesai()
     }
 
@@ -26,7 +26,7 @@ class OrderList extends Component {
         this.props.dispatch(getOrderMitraSelesai(this.state.idmitra))
             .then((response) => {
                 console.warn(response)
-                this.setState({ data: this.props.order.orderList, isLoading:false })
+                this.setState({ data: this.props.order.orderList, isLoading: false })
             })
     }
 
@@ -74,18 +74,34 @@ class OrderList extends Component {
         return (
             <>
                 <Header />
-                {this.state.isLoading == true ? <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height*0.5} style={{alignSelf:'center', width:Dimensions.get('screen').width}} /> :
-                <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
-                    <Card>
-                        <CardItem>
-                            <FlatList
-                                data={this.state.data}
-                                renderItem={this._renderItem}
-                                style={styles.flatlist}
-                            />
-                        </CardItem>
-                    </Card>
-                </View>}
+                {
+                    this.state.isLoading == true
+                        ?
+                        <ActivityIndicator size={"large"} color={'#005b96'} height={Dimensions.get('screen').height} paddingTop={Dimensions.get('screen').height * 0.5} style={{ alignSelf: 'center', width: Dimensions.get('screen').width }} />
+                        :
+                        this.state.data && this.state.data.length > 0
+                            ?
+                            <View style={{ marginHorizontal: 20, marginVertical: 20 }}>
+                                <Card>
+                                    <CardItem>
+                                        <FlatList
+                                            data={this.state.data}
+                                            renderItem={this._renderItem}
+                                            style={styles.flatlist}
+                                        />
+                                    </CardItem>
+                                </Card>
+                            </View>
+                            :
+                            <View style={{
+                                flex: 1,
+                                margin: 0,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <Text>Belum ada orderan, yang sabar yah ;(</Text>
+                            </View>
+                }
             </>
         )
     }

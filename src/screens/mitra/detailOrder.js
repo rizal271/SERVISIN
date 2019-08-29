@@ -75,16 +75,16 @@ class DetailOrderMitra extends Component {
                                     Category :
                             </Text>
                                 <Text style={style.textValue}>
-                                    {pending&&pending.subName}
-                            </Text>
+                                    {pending && pending.subName}
+                                </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
                                     Estimasi Harga :
                             </Text>
                                 <Text style={style.textValue}>
-                                    Rp. {pending&&pending.price}
-                            </Text>
+                                    Rp. {pending && pending.price}
+                                </Text>
                             </View>
                             <View style={[style.wrapText, { borderBottomColor: 'white' }]}>
                                 <Text style={style.textKey}>
@@ -103,9 +103,7 @@ class DetailOrderMitra extends Component {
                     </View>
                     <View style={{ marginVertical: 30 }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Button onPress={() => this.props.navigation.navigate('ChatRoom', {
-                                fullname: 'siapa'
-                            })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
+                            <Button onPress={() => this.props.navigation.navigate('ChatRoom', {uid:pending&&pending.idUser, name:pending&&pending.fullname, image:pending&&pending.image} )} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
                                 <Text style={{
                                     textAlign: 'center',
                                     width: '100%',

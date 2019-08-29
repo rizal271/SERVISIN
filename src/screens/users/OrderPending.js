@@ -41,8 +41,8 @@ class DetailOrder extends Component {
     render() {
         const data = this.props.orderuser.orderuserList && this.props.orderuser.orderuserList[0]
         var pos = {
-            lat: Number(data.lat),
-            lng: Number(data.long)
+            lat: Number(data&&data.latUser),
+            lng: Number(data&&data.longUser)
         };
 
         Geocoder.geocodePosition(pos).then(res => {
@@ -50,6 +50,7 @@ class DetailOrder extends Component {
                 address: res[0].formattedAddress
             })
         })
+        console.log('alamat',pos);
         
         return (
             <>
@@ -68,7 +69,7 @@ class DetailOrder extends Component {
                                     Mitra
                             </Text>
                                 <Text style={style.textValue}>
-                                   BELUM BISA
+                                   {data.mitraName}
                             </Text>
                             </View>
                             <View style={style.wrapText}>
@@ -91,9 +92,6 @@ class DetailOrder extends Component {
                                 <Text style={style.textKey}>
                                     Alamat
                                 </Text>
-                                <TouchableOpacity style={style.btnDirection}>
-                                    <Icon name="location-arrow" style={[style.textValue, { color: '#ffffff', fontSize: 25 }]} />
-                                </TouchableOpacity>
                             </View>
                             <View style={style.wrapAlamat}>
                                 <Text>
@@ -105,7 +103,7 @@ class DetailOrder extends Component {
                     <View style={{ marginVertical: 30 }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Button onPress={() => this.props.navigation.navigate('ChatRoom', {
-                                fullname: 'siapa'
+                                uid:data&&data.idMitra, name:data&&data.mitraName, image:data&&data.imageMitra
                             })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
                                 <Text style={{
                                     textAlign: 'center',
