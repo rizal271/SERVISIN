@@ -68,10 +68,7 @@ class ChatRoom extends Component {
     }
   }
   render() {
-    console.log(this.state.myuid);
-    console.log(this.props);
-    
-    
+    console.log(this.props.navigation.state.params);    
     return (
       <>
         <StatusBar translucent backgroundColor="transparent" />

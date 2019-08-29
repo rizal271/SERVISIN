@@ -50,8 +50,6 @@ class DetailOrder extends Component {
                 address: res[0].formattedAddress
             })
         })
-        console.log('alamat',pos);
-        
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />

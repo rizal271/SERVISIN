@@ -41,8 +41,8 @@ class DetailOrderMitra extends Component {
     render() {
         const pending = this.props.order.orderList && this.props.order.orderList[0]
         var pos = {
-            lat: Number(pending && pending.lat),
-            lng: Number(pending && pending.long)
+            lat: Number(pending && pending.latUser),
+            lng: Number(pending && pending.longUser)
         };
 
         Geocoder.geocodePosition(pos).then(res => {
@@ -67,8 +67,8 @@ class DetailOrderMitra extends Component {
                                     Costumer
                             </Text>
                                 <Text style={style.textValue}>
-                                    BELUM BISA
-                            </Text>
+                                    {pending && pending.nameUser}
+                                </Text>
                             </View>
                             <View style={style.wrapText}>
                                 <Text style={style.textKey}>
@@ -90,7 +90,10 @@ class DetailOrderMitra extends Component {
                                 <Text style={style.textKey}>
                                     Alamat:
                                 </Text>
-                                <TouchableOpacity style={style.btnDirection} onPress={() => this.props.navigation.navigate('MapsDirection')}>
+                                <TouchableOpacity style={style.btnDirection} onPress={() => this.props.navigation.navigate('MapsDirection', {
+                                    lat: Number(pending && pending.latUser),
+                                    long: Number(pending && pending.longUser)
+                                })}>
                                     <Icon name="location-arrow" style={[style.textValue, { color: '#ffffff', fontSize: 25 }]} />
                                 </TouchableOpacity>
                             </View>
@@ -103,7 +106,7 @@ class DetailOrderMitra extends Component {
                     </View>
                     <View style={{ marginVertical: 30 }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Button onPress={() => this.props.navigation.navigate('ChatRoom', {uid:pending&&pending.idUser, name:pending&&pending.fullname, image:pending&&pending.image} )} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
+                            <Button onPress={() => this.props.navigation.navigate('ChatRoom', { uid: pending && pending.idUser, name: pending && pending.nameUser, image: pending && pending.imageUser })} style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8 }}>
                                 <Text style={{
                                     textAlign: 'center',
                                     width: '100%',
