@@ -3,15 +3,21 @@ import MainNavigation from './src/publics/navigations/MainNavigation';
 import store from './src/publics/redux/store';
 import { Provider } from 'react-redux';
 import OneSignal from 'react-native-onesignal';
+import Sound from "react-native-sound";
+import IDPonsel  from './src/publics/store/IDPonsel';
 export default class App extends Component {
   constructor(properties) {
     super(properties);
-    OneSignal.init("d92c3fc2-9bf7-42bc-ba41-8f9587d65de6");
+    OneSignal.init('d92c3fc2-9bf7-42bc-ba41-8f9587d65de6');
 
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('ids', this.onIds);
-    OneSignal.configure(); 	// triggers the ids event
+    // OneSignal.addEventListener('NotificationOpened', this.onNotificationOpened);
+    OneSignal.configure();
+    this.state = {
+      loading: true
+    } 	
   }
 
   componentWillUnmount() {
@@ -22,6 +28,13 @@ export default class App extends Component {
 
   onReceived(notification) {
     console.log("Notification received: ", notification);
+    const audio = new Sound("notif.mp3", Sound.MAIN_BUNDLE, err => {
+      if (err) {
+        return;
+      } else {
+        audio.play(() => audio.release());
+      }
+    });
   }
 
   onOpened(openResult) {
@@ -31,10 +44,16 @@ export default class App extends Component {
     console.log('openResult: ', openResult);
   }
 
-  onIds(device) {
-    console.log('Device info: ', device);
+
+  trigerr = () =>{
+    this.setState({ loading: false });
   }
 
+  onIds(device) {
+    console.log('rizal ganteng', device)
+    IDPonsel.IDPonsel = device.userId;
+  }
+  
   render() {
     return (
       <Provider store={store}>
