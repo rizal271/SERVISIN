@@ -9,14 +9,17 @@ import {
     Image,
     StatusBar,
     AsyncStorage,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import Header from '../../components/HeaderUser';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Button } from 'native-base';
 import { connect } from 'react-redux';
-import { getOrderMitraPending } from '../../publics/redux/actions/order';
+import { getOrderMitraPending, patchOrder } from '../../publics/redux/actions/order';
 import Geocoder from 'react-native-geocoder';
+import { Database } from '../../publics/firebase/config'
+import firebase from 'firebase';
 
 const width = Dimensions.get('screen').width;
 
@@ -49,9 +52,38 @@ class DetailOrderMitra extends Component {
             })
         })
     }
+    orderSelesai = async () => {
+        const idOrder = this.state.order && this.state.order.idOrder ;
+        const idUser = this.state.order && this.state.order.idUser;
+        const idMitra = this.state.order && this.state.order.idMitra;
+        if (this.state.order && this.state.order.idOrder !== '') {
+            await this.props.dispatch(patchOrder(idOrder))
+            if (this.props.order.orderList === '') {
+                Alert.alert('Warning', 'Something Went Wrong')
+            } else {
+                await Database.ref(`messages/${idMitra}/${idUser}`).remove()
+                    .catch((err) => {
+                        Alert.alert('Warning', 'Something Went Wrong')
+                    })
+                await Database.ref(`messages/${idUser}/${idMitra}`).remove()
+                    .catch((err) => {
+                        Alert.alert('Warning', 'Something Went Wrong')
+                    })
+                await Alert.alert('Info', 'Order Selesai Terima Kasih')
+                await this.props.navigation.navigate('Homemitra')
+            }
+        } else {
+            Alert.alert('Warning', 'Something Went Wrong')
+        }
+    }
     render() {
         const pending = this.state.order != [] && this.state.order;
-        console.log(this.props.order.orderList[0]);
+        const idOrder = this.state.order && this.state.order.idOrder ;
+        const idUser = this.state.order && this.state.order.idUser;
+        const idMitra = this.state.order && this.state.order.idMitra;
+        console.warn(idOrder);
+        console.warn(idUser);
+        console.warn(idMitra);
         return (
             <>
                 <StatusBar translucent backgroundColor="transparent" />
@@ -126,7 +158,7 @@ class DetailOrderMitra extends Component {
                                         </Button>
                                     </View>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop:10 }}>
+                                        <Button style={{ backgroundColor: '#005B96', marginHorizontal: 25, opacity: 0.8, marginTop: 10 }} onPress={this.orderSelesai}>
                                             <Text style={{
                                                 textAlign: 'center',
                                                 width: '100%',
@@ -231,20 +263,13 @@ const style = StyleSheet.create({
     },
     orderan: {
         alignSelf: 'center',
-        position: 'absolute',
-        backgroundColor: '#005b96',
-        height: '12%',
+        height: '90%',
         width: '90%',
-        margin: 20,
-        elevation: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        bottom: 0,
-        opacity: 0.8
 
     },
     textOrder: {
-        color: '#bdbdbd',
         fontStyle: 'italic',
         fontSize: 14,
     },
